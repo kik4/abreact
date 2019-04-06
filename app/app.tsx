@@ -1,7 +1,7 @@
 import * as React from "react";
 import { hot } from "react-hot-loader/root";
 //@ts-ignore
-import Page from "user/Page";
+const Page = React.lazy(() => import("user/Page"));
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +11,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Page />
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <Page />
+        </React.Suspense>
       </div>
     );
   }
