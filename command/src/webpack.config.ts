@@ -9,16 +9,19 @@ export const getWebpackConfig = (
   resolve: {
     modules: [
       path.resolve(__dirname, "../app"),
-      path.resolve(__dirname, "../node_modules")
+      path.resolve(__dirname, "../node_modules"),
+      path.resolve(scriptRoot, "src")
     ],
-    extensions: [".js", ".ts", ".jsx", ".tsx"]
+    extensions: [".js", ".ts", ".jsx", ".tsx"],
+    alias: {
+      user: path.join(scriptRoot, "src")
+    }
   },
   entry: {
     app: [
       "webpack-dev-server/client?http://localhost:8080",
       "webpack/hot/only-dev-server",
-      path.resolve(__dirname, "../app/index.tsx"),
-      path.join(scriptRoot, "src/Page.tsx")
+      path.resolve(__dirname, "../app/index.tsx")
     ]
   },
   output: {
@@ -29,11 +32,16 @@ export const getWebpackConfig = (
   module: {
     rules: [
       {
-        test: /\.(js|jsx|ts|tsx)$/,
-        loader: "ts-loader",
-        options: {
-          transpileOnly: true
-        }
+        test: /\.(j|t)sx?$/,
+        use: [
+          "react-hot-loader/webpack",
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true
+            }
+          }
+        ]
       },
       {
         test: /\.html$/,
@@ -48,10 +56,7 @@ export const getWebpackConfig = (
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-      "process.env.USER_SCRIPT_ROOT": JSON.stringify(
-        path.join(scriptRoot, "src")
-      )
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
     })
   ]
 });

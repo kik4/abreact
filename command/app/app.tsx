@@ -1,5 +1,7 @@
 import * as React from "react";
-const Page = require(process.env.USER_SCRIPT_ROOT + "/Page").default;
+import { hot } from "react-hot-loader/root";
+//@ts-ignore
+import Page from "user/Page";
 
 class App extends React.Component<{}, { Page: React.Component }> {
   constructor(props) {
@@ -16,4 +18,4 @@ class App extends React.Component<{}, { Page: React.Component }> {
   }
 }
 
-export default App;
+export default hot(App);
