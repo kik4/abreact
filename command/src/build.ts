@@ -3,7 +3,15 @@ import * as path from "path";
 
 export default (scriptRoot: string) => {
   const compiler = webpack({
-    entry: path.join(scriptRoot, "./src/index.ts"),
+    resolve: {
+      modules: [
+        path.join(scriptRoot, "./src"),
+        path.join(scriptRoot, "node_modules"),
+        path.resolve(__dirname, "node_modules")
+      ],
+      extensions: [".js", ".ts", ".jsx", ".tsx"]
+    },
+    entry: path.join(scriptRoot, "./src/index.tsx"),
     output: {
       path: path.join(scriptRoot, "dist"),
       filename: "bundle.js"
