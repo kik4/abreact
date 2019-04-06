@@ -1,0 +1,35 @@
+{
+  "name": "abreact",
+  "version": "0.0.1",
+  "description": "The React Framework",
+  "bin": {
+    "abreact": "lib/index.js"
+  },
+  "repository": "https://github.com/kik4/abreact.git",
+  "author": "kik4 <kik4.contact@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/react": "^16.8.12",
+    "chalk": "^2.4.2",
+    "clear": "^0.1.0",
+    "commander": "^2.20.0",
+    "figlet": "^1.2.1",
+    "path": "^0.12.7",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "typescript": "^3.4.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^11.13.0",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4",
+    "ts-node": "^8.0.3"
+  },
+  "scripts": {
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "build": "tsc -p .",
+    "refresh": "rm -rf ./node_modules ./package-lock.json && yarn"
+  }
+}

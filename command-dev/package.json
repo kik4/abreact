@@ -1,0 +1,12 @@
+{
+  "name": "abreact-dev",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "kik4 <kik4.contact@gmail.com>",
+  "devDependencies": {
+    "prettier": "^1.16.4"
+  },
+  "dependencies": {
+    "abreact": "file:../command"
+  }
+}
