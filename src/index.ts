@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const chalk = require("chalk");
-const clear = require("clear");
 const figlet = require("figlet");
 const program = require("commander");
 
@@ -10,7 +9,6 @@ import start from "./start";
 
 const version = "0.0.1";
 
-clear();
 console.log(
   chalk.blue(figlet.textSync("abreact", { horizontalLayout: "full" }))
 );
