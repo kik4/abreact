@@ -8,6 +8,7 @@
     "prettier": "^1.16.4"
   },
   "scripts": {
-    "build": "npm start --prefix ../command -- build --path $(pwd)"
+    "build": "npm start --prefix ../command -- build --path $(pwd)",
+    "start": "npm start --prefix ../command -- start --path $(pwd)"
   }
 }

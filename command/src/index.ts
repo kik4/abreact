@@ -6,6 +6,7 @@ const figlet = require("figlet");
 const program = require("commander");
 
 import build from "./build";
+import start from "./start";
 
 const version = "0.0.1";
 
@@ -31,10 +32,12 @@ program
 program
   .command("start")
   .description("start")
-  .action(function() {
+  .option("-p, --path <path>", "path")
+  .action(function(env, oprionts) {
     console.log("");
     console.log("Start");
     console.log("");
+    start(env.path || process.cwd());
   });
 
 program.parse(process.argv);
