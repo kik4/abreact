@@ -8,12 +8,11 @@ export default (scriptRoot: string) => {
 
   const server = new webpackDevServer(compiler, {
     contentBase: path.join(scriptRoot, "./dist"),
-    stats: {
-      colors: true
-    }
+    hot: true
+    // clientLogLevel: "none"
   });
 
-  server.listen(8080, "127.0.0.1", error => {
+  server.listen(8080, "localhost", error => {
     console.log("Starting server on http://localhost:8080");
   });
 };

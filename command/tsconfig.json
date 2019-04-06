@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
     "outDir": "./lib",
-    "rootDir": "./src",
     "module": "commonjs",
     "target": "es2017",
     "strict": true,
     "noImplicitAny": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "jsx": "react",
+    "allowJs": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
