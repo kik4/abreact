@@ -2,6 +2,7 @@ import * as webpack from "webpack";
 import * as path from "path";
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+console.log(path.resolve(__dirname, "../app"));
 
 export const getWebpackConfig = (
   scriptRoot: string
@@ -15,7 +16,8 @@ export const getWebpackConfig = (
     ],
     extensions: [".js", ".ts", ".jsx", ".tsx"],
     alias: {
-      user: path.join(scriptRoot, "src")
+      user: path.join(scriptRoot, "src"),
+      "@abreact": path.resolve(__dirname, "../app")
     }
   },
   entry: {
