@@ -8,7 +8,7 @@
     "prettier": "^1.16.4"
   },
   "scripts": {
-    "build": "npm start --prefix ../command -- build",
-    "start": "npm start --prefix ../command -- start"
+    "build": "node ../lib/index.js build",
+    "start": "node ../lib/index.js start"
   }
 }
