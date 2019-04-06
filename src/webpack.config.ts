@@ -57,6 +57,13 @@ export const getWebpackConfig = (
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
+    }),
+    new webpack.ProgressPlugin((percentage, message, ...args) => {
+      const stdout = process.stdout as any;
+      stdout.clearLine();
+      stdout.cursorTo(0);
+      stdout.write((percentage * 100).toFixed(2) + "%");
+      stdout.write(" " + message);
     })
   ]
 });
