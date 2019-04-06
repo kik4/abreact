@@ -10,7 +10,8 @@ export const getWebpackConfig = (
     modules: [
       path.resolve(__dirname, "../app"),
       path.resolve(__dirname, "../node_modules"),
-      path.resolve(scriptRoot, "src")
+      path.resolve(scriptRoot, "src"),
+      path.resolve(scriptRoot, "node_modules")
     ],
     extensions: [".js", ".ts", ".jsx", ".tsx"],
     alias: {
@@ -38,7 +39,8 @@ export const getWebpackConfig = (
           {
             loader: "ts-loader",
             options: {
-              transpileOnly: true
+              transpileOnly: true,
+              configFile: path.resolve(scriptRoot, "tsconfig.json")
             }
           }
         ]

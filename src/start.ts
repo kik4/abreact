@@ -15,7 +15,8 @@ export default () => {
     hot: true,
     // noInfo: true,
     open: true,
-    clientLogLevel: "none"
+    clientLogLevel: "none",
+    historyApiFallback: true
   });
 
   server.listen(8080, "localhost", error => {});

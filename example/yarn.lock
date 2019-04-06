@@ -194,6 +194,7 @@ abreact@../:
     react-hot-loader "^4.8.3"
     ts-loader "^5.3.3"
     typescript "^3.4.2"
+    universal-router "^8.1.0"
     webpack "^4.29.6"
     webpack-dev-server "^3.2.1"
 
@@ -2695,6 +2696,11 @@ path-to-regexp@0.1.7:
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
   integrity sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
 
+path-to-regexp@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-3.0.0.tgz#c981a218f3df543fa28696be2f88e0c58d2e012a"
+  integrity sha512-ZOtfhPttCrqp2M1PBBH4X13XlvnfhIwD7yCLx+GoGoXRPQyxGOTdQMpIzPSPKXAJT/JQrdfFrgdJOyAzvgpQ9A==
+
 pbkdf2@^3.0.3:
   version "3.0.17"
   resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.0.17.tgz#976c206530617b14ebb32114239f7b09336e93a6"
@@ -3675,6 +3681,13 @@ unique-slug@^2.0.0:
   integrity sha512-n9cU6+gITaVu7VGj1Z8feKMmfAjEAQGhwD9fE3zvpRRa0wEIx8ODYkVGfSc94M2OX00tUFV8wH3zYbm1I8mxFg==
   dependencies:
     imurmurhash "^0.1.4"
+
+universal-router@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/universal-router/-/universal-router-8.1.0.tgz#1fbd04b8d37633139d6814f7e29dfeeaa446cdfa"
+  integrity sha512-wU9UzCSfD4IznmXRjrqFK5hWtyrJIO9O5A+OIl1sTDvoQWgFn2KnrWbIJ8TrsjMVeDZvYi+PG0lXO9VMSvWOhg==
+  dependencies:
+    path-to-regexp "^3.0.0"
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
