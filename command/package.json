@@ -17,18 +17,20 @@
     "path": "^0.12.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "ts-loader": "^5.3.3",
     "typescript": "^3.4.2",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "webpack": "^4.29.6"
   },
   "devDependencies": {
     "@types/node": "^11.13.0",
+    "@types/webpack": "^4.4.27",
     "nodemon": "^1.18.10",
     "prettier": "^1.16.4",
     "ts-node": "^8.0.3"
   },
   "scripts": {
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "start": "ts-node src/index.ts",
+    "watch": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "build": "tsc -p .",
     "refresh": "rm -rf ./node_modules ./package-lock.json && yarn"
   }

@@ -6,6 +6,8 @@ const figlet = require("figlet");
 const path = require("path");
 const program = require("commander");
 
+import build from "./build";
+
 const version = "0.0.1";
 
 clear();
@@ -19,15 +21,21 @@ program.version(version, "-v, --version");
 program
   .command("build")
   .description("build")
-  .action(function() {
-    console.log("build");
+  .option("-p, --path <path>", "path")
+  .action(function(env, options) {
+    console.log("");
+    console.log("Build");
+    console.log("");
+    build(env.path || process.cwd());
   });
 
 program
   .command("start")
   .description("start")
   .action(function() {
-    console.log("start");
+    console.log("");
+    console.log("Start");
+    console.log("");
   });
 
 program.parse(process.argv);
