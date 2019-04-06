@@ -3,10 +3,9 @@ import { hot } from "react-hot-loader/root";
 //@ts-ignore
 import Page from "user/Page";
 
-class App extends React.Component<{}, { Page: React.Component }> {
+class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { Page: null };
   }
 
   render() {

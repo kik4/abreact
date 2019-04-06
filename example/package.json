@@ -1,0 +1,14 @@
+{
+  "name": "dev",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "abreact": "file:../",
+    "prettier": "^1.16.4"
+  },
+  "scripts": {
+    "build": "npm start --prefix ../command -- build",
+    "start": "npm start --prefix ../command -- start"
+  }
+}

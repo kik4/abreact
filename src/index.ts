@@ -21,23 +21,21 @@ program.version(version, "-v, --version");
 program
   .command("build")
   .description("build")
-  .option("-p, --path <path>", "path")
   .action(function(env, options) {
     console.log("");
     console.log("Build");
     console.log("");
-    build(env.path || process.cwd());
+    build();
   });
 
 program
   .command("start")
   .description("start")
-  .option("-p, --path <path>", "path")
   .action(function(env, oprionts) {
     console.log("");
     console.log("Start");
     console.log("");
-    start(env.path || process.cwd());
+    start();
   });
 
 program.parse(process.argv);

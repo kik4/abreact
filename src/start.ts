@@ -3,13 +3,18 @@ import * as path from "path";
 import * as webpackDevServer from "webpack-dev-server";
 import { getWebpackConfig } from "./webpack.config";
 
-export default (scriptRoot: string) => {
+const scriptRoot = process.cwd();
+
+export default () => {
   const compiler = webpack(getWebpackConfig(scriptRoot));
 
   const server = new webpackDevServer(compiler, {
     contentBase: path.join(scriptRoot, "./dist"),
-    hot: true
-    // clientLogLevel: "none"
+    hot: true,
+    noInfo: true,
+    quiet: true,
+    open: true,
+    clientLogLevel: "none"
   });
 
   server.listen(8080, "localhost", error => {
