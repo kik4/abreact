@@ -8,15 +8,15 @@ const scriptRoot = process.cwd();
 export default () => {
   const compiler = webpack(getWebpackConfig(scriptRoot));
 
+  console.log("Starting server on http://localhost:8080");
+
   const server = new webpackDevServer(compiler, {
     contentBase: path.join(scriptRoot, "./dist"),
     hot: true,
-    noInfo: true,
+    // noInfo: true,
     open: true,
     clientLogLevel: "none"
   });
 
-  server.listen(8080, "localhost", error => {
-    console.log("Starting server on http://localhost:8080");
-  });
+  server.listen(8080, "localhost", error => {});
 };
