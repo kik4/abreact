@@ -12,7 +12,6 @@ export default () => {
     contentBase: path.join(scriptRoot, "./dist"),
     hot: true,
     noInfo: true,
-    quiet: true,
     open: true,
     clientLogLevel: "none"
   });
