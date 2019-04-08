@@ -5,10 +5,16 @@
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "strict": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "jsx": "react"
+    "jsx": "react",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

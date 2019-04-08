@@ -8,8 +8,8 @@
     "prettier": "^1.16.4"
   },
   "scripts": {
-    "build": "npm abreact build",
-    "start": "npm abreact start",
+    "build": "yarn abreact build",
+    "start": "yarn abreact start",
     "_build": "node ../lib/index.js build",
     "_start": "node ../lib/index.js start"
   }

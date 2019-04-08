@@ -1,6 +1,5 @@
-import * as webpack from "webpack";
-import * as path from "path";
-import * as webpackDevServer from "webpack-dev-server";
+import webpack from "webpack";
+import webpackDevServer from "webpack-dev-server";
 import { getWebpackConfig } from "./webpack.config";
 
 const scriptRoot = process.cwd();

@@ -78,5 +78,12 @@ export const getWebpackConfig = (
     historyApiFallback: true,
     disableHostCheck: true,
     host: "0.0.0.0"
+  },
+  node: {
+    dgram: "empty",
+    fs: "empty",
+    net: "empty",
+    tls: "empty",
+    child_process: "empty"
   }
 });

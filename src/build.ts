@@ -1,4 +1,4 @@
-import * as webpack from "webpack";
+import webpack from "webpack";
 import { getWebpackConfig } from "./webpack.config";
 
 const scriptRoot = process.cwd();
