@@ -6,18 +6,12 @@ import { getWebpackConfig } from "./webpack.config";
 const scriptRoot = process.cwd();
 
 export default () => {
-  const compiler = webpack(getWebpackConfig(scriptRoot));
+  const config = getWebpackConfig(scriptRoot);
+  const compiler = webpack(config);
 
   console.log("Starting server on http://localhost:8080");
 
-  const server = new webpackDevServer(compiler, {
-    contentBase: path.join(scriptRoot, "./dist"),
-    hot: true,
-    // noInfo: true,
-    open: true,
-    clientLogLevel: "none",
-    historyApiFallback: true
-  });
+  const server = new webpackDevServer(compiler, config.devServer as any);
 
   server.listen(8080, "localhost", error => {});
 };

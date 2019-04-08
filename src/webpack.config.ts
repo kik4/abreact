@@ -22,8 +22,8 @@ export const getWebpackConfig = (
   },
   entry: {
     app: [
-      "webpack-dev-server/client?http://localhost:8080",
-      "webpack/hot/only-dev-server",
+      // "webpack-dev-server/client?http://localhost:8080",
+      // "webpack/hot/only-dev-server",
       path.resolve(__dirname, "../app/index.tsx")
     ]
   },
@@ -69,5 +69,14 @@ export const getWebpackConfig = (
       stdout.write((percentage * 100).toFixed(2) + "%");
       stdout.write(" " + message);
     })
-  ]
+  ],
+  devServer: {
+    contentBase: path.join(scriptRoot, "./dist"),
+    hot: true,
+    // noInfo: true,
+    clientLogLevel: "none",
+    historyApiFallback: true,
+    disableHostCheck: true,
+    host: "0.0.0.0"
+  }
 });
