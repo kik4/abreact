@@ -1,6 +1,5 @@
 import * as React from "react";
-//@ts-ignore
-import HistoryContext from "@abreact/HistoryContext";
+import HistoryContext from "abreact/HistoryContext";
 
 class Index extends React.Component {
   static contextType = HistoryContext;

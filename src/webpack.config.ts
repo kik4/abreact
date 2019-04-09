@@ -14,8 +14,8 @@ export const getWebpackConfig = (): webpack.Configuration => ({
     ],
     extensions: [".js", ".ts", ".jsx", ".tsx"],
     alias: {
-      user: path.join(scriptRoot, "src"),
-      "@abreact": path.resolve(__dirname, "../app")
+      __user: path.join(scriptRoot, "src"),
+      abreact: path.resolve(__dirname, "../app")
     }
   },
   entry: {
