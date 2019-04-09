@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "outDir": "./lib",
-    "rootDir": "../",
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es5",
