@@ -1,4 +1,5 @@
 import * as React from "react";
+//@ts-ignore
 import HistoryContext from "abreact/HistoryContext";
 
 class Test extends React.Component {

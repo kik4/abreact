@@ -7,7 +7,7 @@ const scriptRoot = process.cwd();
 export const getWebpackConfig = (): webpack.Configuration => ({
   resolve: {
     modules: [
-      path.resolve(__dirname, "../app"),
+      path.resolve(__dirname, "app"),
       path.resolve(__dirname, "../node_modules"),
       path.resolve(scriptRoot, "src"),
       path.resolve(scriptRoot, "node_modules")
@@ -15,14 +15,14 @@ export const getWebpackConfig = (): webpack.Configuration => ({
     extensions: [".js", ".ts", ".jsx", ".tsx"],
     alias: {
       __user: path.join(scriptRoot, "src"),
-      abreact: path.resolve(__dirname, "../app")
+      abreact: path.resolve(__dirname, "app")
     }
   },
   entry: {
     app: [
       // "webpack-dev-server/client?http://localhost:8080",
       // "webpack/hot/only-dev-server",
-      path.resolve(__dirname, "../app/index.tsx")
+      path.resolve(__dirname, "app/index.js")
     ]
   },
   output: {
@@ -40,7 +40,13 @@ export const getWebpackConfig = (): webpack.Configuration => ({
             loader: "ts-loader",
             options: {
               transpileOnly: true,
-              configFile: path.resolve(scriptRoot, "tsconfig.json")
+              configFile: path.resolve(scriptRoot, "tsconfig.json"),
+              compilerOptions: {
+                declaration: false,
+                allowJs: true,
+                resolveJsonModule: true,
+                isolatedModules: true
+              }
             }
           }
         ]

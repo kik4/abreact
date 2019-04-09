@@ -4,15 +4,14 @@
     "module": "commonjs",
     "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "declaration": true,
     "strict": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
     "jsx": "react",
-    "allowJs": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
