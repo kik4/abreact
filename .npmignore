@@ -2,3 +2,4 @@ dev/
 src/
 example/
 tsconfig.json
+.vscode/
