@@ -1,10 +1,8 @@
 import webpack from "webpack";
 import { getWebpackConfig } from "./webpack.config";
 
-const scriptRoot = process.cwd();
-
 export default () => {
-  const compiler = webpack(getWebpackConfig(scriptRoot));
+  const compiler = webpack(getWebpackConfig());
 
   compiler.run((err, stats) => {
     if (err) {

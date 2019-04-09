@@ -1,12 +1,10 @@
-import * as webpack from "webpack";
-import * as path from "path";
+import webpack from "webpack";
+import path from "path";
+import HtmlWebpackPlugin from "html-webpack-plugin";
 
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-console.log(path.resolve(__dirname, "../app"));
+const scriptRoot = process.cwd();
 
-export const getWebpackConfig = (
-  scriptRoot: string
-): webpack.Configuration => ({
+export const getWebpackConfig = (): webpack.Configuration => ({
   resolve: {
     modules: [
       path.resolve(__dirname, "../app"),

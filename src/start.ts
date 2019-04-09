@@ -2,10 +2,8 @@ import webpack from "webpack";
 import webpackDevServer from "webpack-dev-server";
 import { getWebpackConfig } from "./webpack.config";
 
-const scriptRoot = process.cwd();
-
 export default () => {
-  const config = getWebpackConfig(scriptRoot);
+  const config = getWebpackConfig();
   const compiler = webpack(config);
 
   console.log("Starting server on http://localhost:8080");

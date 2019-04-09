@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const chalk = require("chalk");
-const figlet = require("figlet");
-const program = require("commander");
+import chalk from "chalk";
+import figlet from "figlet";
+import program from "commander";
 
 import build from "./build";
 import start from "./start";
