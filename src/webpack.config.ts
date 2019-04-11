@@ -8,7 +8,7 @@ export const getWebpackConfig = (): webpack.Configuration => ({
   resolve: {
     modules: [
       path.resolve(__dirname, "app"),
-      path.resolve(__dirname, "../node_modules"),
+      path.resolve(__dirname, "../node_modules"), // for development
       path.resolve(scriptRoot, "src"),
       path.resolve(scriptRoot, "node_modules")
     ],
