@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 const HistoryContext = React.createContext({
   route: null as string | null,
