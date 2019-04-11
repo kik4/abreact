@@ -1,9 +1,8 @@
-import * as React from "react";
-//@ts-ignore
-import HistoryContext from "abreact/HistoryContext";
+import React from "react";
+import abreact from "abreact";
 
 class Test extends React.Component {
-  static contextType = HistoryContext;
+  static contextType = abreact.HistoryContext;
   render() {
     const { push } = this.context;
     return (

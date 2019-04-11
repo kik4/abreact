@@ -1,8 +1,8 @@
-import * as React from "react";
-import HistoryContext from "abreact/HistoryContext";
+import React from "react";
+import abreact from "abreact";
 
 class Index extends React.Component {
-  static contextType = HistoryContext;
+  static contextType = abreact.HistoryContext;
   render() {
     const { push } = this.context;
     return (

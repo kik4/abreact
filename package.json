@@ -5,7 +5,7 @@
   "bin": {
     "abreact": "lib/index.js"
   },
-  "main": "lib/app/index.js",
+  "main": "lib/export.js",
   "repository": "https://github.com/kik4/abreact.git",
   "author": "kik4 <kik4.contact@gmail.com>",
   "license": "MIT",
