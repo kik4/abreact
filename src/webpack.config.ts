@@ -1,6 +1,8 @@
 import webpack from "webpack";
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import ExtraWatchWebpackPlugin from "extra-watch-webpack-plugin";
+import AbreactBuildingRoutePlugin from "./AbreactBuildingRoutePlugin";
 
 const scriptRoot = process.cwd();
 
@@ -72,7 +74,11 @@ export const getWebpackConfig = (): webpack.Configuration => ({
       stdout.cursorTo(0);
       stdout.write((percentage * 100).toFixed(2) + "%");
       stdout.write(" " + message);
-    })
+    }),
+    new ExtraWatchWebpackPlugin({
+      dirs: [path.resolve(scriptRoot, "src")]
+    }),
+    new AbreactBuildingRoutePlugin()
   ],
   devServer: {
     contentBase: path.join(scriptRoot, "./dist"),

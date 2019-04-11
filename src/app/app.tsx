@@ -2,7 +2,7 @@ import React from "react";
 import { hot } from "react-hot-loader/root";
 import UniversalRouter from "universal-router";
 //@ts-ignore
-import routes from "__user/routes";
+import routes from "../tmp/routes";
 const router = new UniversalRouter(routes);
 import HistoryContext from "./HistoryContext";
 
