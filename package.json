@@ -37,7 +37,7 @@
   },
   "scripts": {
     "start": "ts-node src/index.ts",
-    "watch": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "watch": "tsc -p . -w",
     "build": "tsc -p ."
   }
 }
