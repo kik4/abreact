@@ -10,5 +10,5 @@ export default () => {
 
   const server = new webpackDevServer(compiler, config.devServer as any);
 
-  server.listen(8080, "localhost", error => {});
+  server.listen(8080, "0.0.0.0", error => {});
 };
