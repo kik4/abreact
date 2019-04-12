@@ -23,7 +23,11 @@ class AbreactBuildingroutePlugin {
           }
         });
 
-        const resultString = `export default [${result.join("")}];`;
+        const resultString = `export default [${result.join("")}];
+export const errorPage = () => import("${path.join(
+          scriptRoot,
+          "src/layouts/error"
+        )}");`;
 
         // create dir
         fs.mkdir(

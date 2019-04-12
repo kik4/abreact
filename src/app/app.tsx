@@ -2,8 +2,12 @@ import React from "react";
 import { hot } from "react-hot-loader/root";
 import UniversalRouter from "universal-router";
 //@ts-ignore
-import routes from "../tmp/routes";
-const router = new UniversalRouter(routes);
+import routes, { errorPage } from "../tmp/routes";
+const router = new UniversalRouter(routes, {
+  errorHandler(error, context) {
+    return errorPage;
+  }
+});
 import HistoryContext from "./HistoryContext";
 
 class App extends React.Component<{}, { page: any }> {
