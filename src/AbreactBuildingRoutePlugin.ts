@@ -18,7 +18,7 @@ class AbreactBuildingroutePlugin {
             const name = path.basename(file, path.extname(file));
             result.push(`{
   path: "${"/" + (name === "index" ? "" : name)}",
-  action: () => import("${path.join(pageDir, file)}")
+  action: () => () => import("${path.join(pageDir, file)}")
 },`);
           }
         });
