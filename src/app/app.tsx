@@ -5,16 +5,24 @@ import UniversalRouter from "universal-router";
 import routes, { errorPage } from "../tmp/routes";
 const router = new UniversalRouter(routes, {
   errorHandler(error, context) {
-    return errorPage;
+    return {
+      page: errorPage,
+      error,
+      context
+    };
   }
 });
-import HistoryContext from "./HistoryContext";
+import HistoryContext, { HistoryContextParams } from "./HistoryContext";
 
-class App extends React.Component<{}, { page: any }> {
+class App extends React.Component<
+  {},
+  { action?: any; historyContextParam?: HistoryContextParams }
+> {
   constructor(props) {
     super(props);
     this.state = {
-      page: null
+      action: undefined,
+      historyContextParam: undefined
     };
   }
 
@@ -32,14 +40,23 @@ class App extends React.Component<{}, { page: any }> {
 
   popstate() {
     router.resolve(document.location.pathname).then(async action => {
-      const module = await action();
-      this.setState({ page: module.default });
+      const module = await action.page;
+      this.setState({
+        action: {
+          page: module.default
+        },
+        historyContextParam: {
+          path: action.context.path,
+          error: action.error,
+          params: action.context.params
+        } as HistoryContextParams
+      });
     });
   }
 
   pushstate(pathname: string) {
     router.resolve(document.location.pathname).then(async action => {
-      await action();
+      await action.page;
       history.pushState(null, "", pathname);
       this.popstate();
     });
@@ -47,13 +64,18 @@ class App extends React.Component<{}, { page: any }> {
 
   render() {
     return (
-      <HistoryContext.Provider
-        value={{ route: location.pathname, push: this.pushstate.bind(this) }}
-      >
-        <div className="App">
-          {this.state.page && React.createElement(this.state.page)}
-        </div>
-      </HistoryContext.Provider>
+      <div className="App">
+        {this.state.action && (
+          <HistoryContext.Provider
+            value={{
+              push: this.pushstate.bind(this),
+              ...this.state.historyContextParam
+            }}
+          >
+            {React.createElement(this.state.action.page)}
+          </HistoryContext.Provider>
+        )}
+      </div>
     );
   }
 }

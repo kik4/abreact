@@ -11,6 +11,7 @@ class Index extends React.Component {
           <h1>Hello, World!</h1>
           <button onClick={() => push("/test")}>test</button>
           <button onClick={() => push("/test2")}>test2</button>
+          <button onClick={() => push("/any-where")}>error</button>
         </div>
       </div>
     );

@@ -16,18 +16,17 @@ class AbreactBuildingroutePlugin {
           const stat = fs.statSync(path.join(pageDir, file));
           if (stat.isFile) {
             const name = path.basename(file, path.extname(file));
+            const dir = path.join(pageDir, file);
             result.push(`{
   path: "${"/" + (name === "index" ? "" : name)}",
-  action: () => () => import("${path.join(pageDir, file)}")
+  action: (context) => ({page: import("${dir}"), context}),
 },`);
           }
         });
 
+        const layoutDir = path.join(scriptRoot, "src/layouts/error");
         const resultString = `export default [${result.join("")}];
-export const errorPage = () => import("${path.join(
-          scriptRoot,
-          "src/layouts/error"
-        )}");`;
+export const errorPage = import("${layoutDir}");`;
 
         // create dir
         fs.mkdir(
