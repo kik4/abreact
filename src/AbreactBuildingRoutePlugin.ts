@@ -24,9 +24,13 @@ class AbreactBuildingroutePlugin {
           }
         });
 
-        const layoutDir = path.join(scriptRoot, "src/layouts/error");
+        const layoutDir = path.join(scriptRoot, "src/layouts");
+        const defaultLayout = path.join(layoutDir, "default");
+        const errorPage = path.join(layoutDir, "error");
+
         const resultString = `export default [${result.join("")}];
-export const errorPage = import("${layoutDir}");`;
+export const defaultLayout = import("${defaultLayout}");
+export const errorPage = import("${errorPage}");`;
 
         // create dir
         fs.mkdir(

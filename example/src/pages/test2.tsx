@@ -6,11 +6,9 @@ class Test extends React.Component {
   render() {
     const { push } = this.context;
     return (
-      <div>
-        <div>
-          <h1>This is Test Page2.</h1>
-          <button onClick={() => push("/")}>index</button>
-        </div>
+      <div className="test2-page">
+        <h1>This is Test Page2.</h1>
+        <button onClick={() => push("/")}>index</button>
       </div>
     );
   }

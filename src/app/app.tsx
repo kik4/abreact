@@ -2,7 +2,7 @@ import React from "react";
 import { hot } from "react-hot-loader/root";
 import UniversalRouter from "universal-router";
 //@ts-ignore
-import routes, { errorPage } from "../tmp/routes";
+import routes, { errorPage, defaultLayout } from "../tmp/routes";
 const router = new UniversalRouter(routes, {
   errorHandler(error, context) {
     return {
@@ -16,12 +16,13 @@ import HistoryContext, { HistoryContextParams } from "./HistoryContext";
 
 class App extends React.Component<
   {},
-  { action?: any; historyContextParams: HistoryContextParams }
+  { action?: any; layout?: any; historyContextParams: HistoryContextParams }
 > {
   constructor(props) {
     super(props);
     this.state = {
       action: undefined,
+      layout: undefined,
       historyContextParams: {}
     };
   }
@@ -41,10 +42,12 @@ class App extends React.Component<
   popstate() {
     router.resolve(document.location.pathname).then(async action => {
       const module = await action.page;
+      const layout = await defaultLayout;
       this.setState({
         action: {
           page: module.default
         },
+        layout: layout.default,
         historyContextParams: {
           path: action.context.path,
           error: action.error,
@@ -72,7 +75,11 @@ class App extends React.Component<
               ...this.state.historyContextParams
             }}
           >
-            {React.createElement(this.state.action.page)}
+            {React.createElement(this.state.layout, {}, [
+              React.createElement(this.state.action.page, {
+                key: "__abreact_page"
+              })
+            ])}
           </HistoryContext.Provider>
         )}
       </div>
