@@ -16,13 +16,13 @@ import HistoryContext, { HistoryContextParams } from "./HistoryContext";
 
 class App extends React.Component<
   {},
-  { action?: any; historyContextParam?: HistoryContextParams }
+  { action?: any; historyContextParams: HistoryContextParams }
 > {
   constructor(props) {
     super(props);
     this.state = {
       action: undefined,
-      historyContextParam: undefined
+      historyContextParams: {}
     };
   }
 
@@ -45,7 +45,7 @@ class App extends React.Component<
         action: {
           page: module.default
         },
-        historyContextParam: {
+        historyContextParams: {
           path: action.context.path,
           error: action.error,
           params: action.context.params
@@ -69,7 +69,7 @@ class App extends React.Component<
           <HistoryContext.Provider
             value={{
               push: this.pushstate.bind(this),
-              ...this.state.historyContextParam
+              ...this.state.historyContextParams
             }}
           >
             {React.createElement(this.state.action.page)}
