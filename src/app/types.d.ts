@@ -2,7 +2,7 @@ import React from "react";
 import { Module } from "webpack";
 import { Options } from "universal-router";
 
-export type ReactComponent = FunctionComponent<P> | ComponentClass<P> | string;
+export type ReactComponent = React.ComponentType;
 
 export type AbreactRouteAction = {
   page: Promise<AbreactPage>;
@@ -12,11 +12,11 @@ export type AbreactRouteAction = {
 
 export type AbreactPage = {
   default: ReactComponent;
-  pageConfig: AbreactPageConfig;
+  pageConfig?: AbreactPageConfig;
 };
 
 export type AbreactPageConfig = {
-  layout: string;
+  layout?: string;
 };
 
 export type AbreactUserConfig = {
