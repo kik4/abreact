@@ -2,6 +2,7 @@ import path from "path";
 import fs from "fs";
 import util from "util";
 import { oc } from "ts-optchain";
+import { AbreactUserConfig } from "./app/types";
 
 const readdirAsync = util.promisify(fs.readdir);
 const userRoot = process.cwd();
@@ -67,7 +68,10 @@ const readLyoutsRecursive = async (
 class AbreactBuildingroutePlugin {
   apply(compiler) {
     compiler.hooks.compilation.tap("AbreactBuildingroutePlugin", async () => {
-      const userConfig = require(path.join(userRoot, "src/abreact.config"));
+      const userConfig = require(path.join(
+        userRoot,
+        "src/abreact.config"
+      )) as AbreactUserConfig;
 
       // pages
       const pageDir = path.join(userRoot, "src/pages/");
@@ -79,12 +83,11 @@ class AbreactBuildingroutePlugin {
 
       // plugins
       const pluginsResult = [] as any;
-      if ((oc(userConfig) as any).plugins) {
-        userConfig.plugins.forEach(pluginPath => {
-          const name = path.basename(pluginPath, path.extname(pluginPath));
-          pluginsResult.push(`"${name}": require("${pluginPath}"),`);
-        });
-      }
+      const plugins = oc(userConfig).plugins([]);
+      plugins.forEach(pluginPath => {
+        const name = path.basename(pluginPath, path.extname(pluginPath));
+        pluginsResult.push(`"${name}": require("${pluginPath}"),`);
+      });
 
       const resultString = `export default [${pageResult.join("")}];
 export const layouts = {${layoutResult.join("\n")}};

@@ -17,10 +17,15 @@ const router = new UniversalRouter(routes, {
   }
 });
 import HistoryContext, { HistoryContextParams } from "./HistoryContext";
+import { AbreactRouteAction } from "./types";
 
 class App extends React.Component<
   {},
-  { page?: any; layout?: any; historyContextParams: HistoryContextParams }
+  {
+    page?: any;
+    layout?: any;
+    historyContextParams: HistoryContextParams;
+  }
 > {
   constructor(props) {
     super(props);
@@ -44,24 +49,26 @@ class App extends React.Component<
   }
 
   popstate() {
-    router.resolve(document.location.pathname).then(async action => {
-      const page = await action.page;
-      const layoutName = (oc(page) as any).pageConfig.layout("default");
-      const layout = await layouts[layoutName]();
-      if (!layout) {
-        console.warn(`Abreact: layout '${layoutName}' is not found.`);
-      }
+    router
+      .resolve(document.location.pathname)
+      .then(async (action: AbreactRouteAction) => {
+        const page = await action.page;
+        const layoutName = oc(page).pageConfig.layout("default");
+        const layout = await layouts[layoutName]();
+        if (!layout) {
+          console.warn(`Abreact: layout '${layoutName}' is not found.`);
+        }
 
-      this.setState({
-        page: page ? page.default : undefined,
-        layout: layout ? layout.default : undefined,
-        historyContextParams: {
-          path: action.context.path,
-          error: action.error,
-          params: action.context.params
-        } as HistoryContextParams
+        this.setState({
+          page: page ? page.default : undefined,
+          layout: layout ? layout.default : undefined,
+          historyContextParams: {
+            path: action.context.path,
+            error: action.error,
+            params: action.context.params
+          } as HistoryContextParams
+        });
       });
-    });
   }
 
   pushstate(pathname: string) {
