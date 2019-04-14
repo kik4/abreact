@@ -36,7 +36,7 @@ class AbreactBuildingroutePlugin {
         if (stat.isFile) {
           const name = path.basename(file, path.extname(file));
           const dir = path.join("@/layouts", file);
-          layoutResult.push(`"${name}": import("${dir}"),`);
+          layoutResult.push(`"${name}": () => import("${dir}"),`);
         }
       });
 

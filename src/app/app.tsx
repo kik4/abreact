@@ -47,7 +47,7 @@ class App extends React.Component<
     router.resolve(document.location.pathname).then(async action => {
       const page = await action.page;
       const layoutName = (oc(page) as any).pageConfig.layout("default");
-      const layout = await layouts[layoutName];
+      const layout = await layouts[layoutName]();
       if (!layout) {
         console.warn(`Abreact: layout '${layoutName}' is not found.`);
       }
