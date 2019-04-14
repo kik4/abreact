@@ -17,6 +17,7 @@ export const getWebpackConfig = (): webpack.Configuration => ({
     extensions: [".js", ".ts", ".jsx", ".tsx"],
     alias: {
       __user: path.join(scriptRoot, "src"),
+      "@": path.join(scriptRoot, "src"),
       abreact: path.resolve(__dirname, "export") // for development
     }
   },
@@ -46,8 +47,7 @@ export const getWebpackConfig = (): webpack.Configuration => ({
               compilerOptions: {
                 declaration: false,
                 allowJs: true,
-                resolveJsonModule: true,
-                isolatedModules: true
+                resolveJsonModule: true
               }
             }
           }
@@ -56,6 +56,10 @@ export const getWebpackConfig = (): webpack.Configuration => ({
       {
         test: /\.html$/,
         loader: "html-loader"
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "postcss-loader"]
       }
     ]
   },

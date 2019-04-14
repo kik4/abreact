@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs";
 import util from "util";
+import { oc } from "ts-optchain";
 
 const readdirAsync = util.promisify(fs.readdir);
 const userRoot = process.cwd();
@@ -8,6 +9,8 @@ const userRoot = process.cwd();
 class AbreactBuildingroutePlugin {
   apply(compiler) {
     compiler.hooks.compilation.tap("AbreactBuildingroutePlugin", async () => {
+      const userConfig = require(path.join(userRoot, "src/abreact.config"));
+
       // pages
       const pageDir = path.join(userRoot, "src/pages/");
       const pageFiles = await readdirAsync(pageDir);
@@ -37,8 +40,19 @@ class AbreactBuildingroutePlugin {
         }
       });
 
+      // plugins
+      const pluginsResult = [] as any;
+      if ((oc(userConfig) as any).plugins) {
+        userConfig.plugins.forEach(pluginPath => {
+          const name = path.basename(pluginPath, path.extname(pluginPath));
+          pluginsResult.push(`"${name}": import("${pluginPath}"),`);
+        });
+      }
+
       const resultString = `export default [${pageResult.join("")}];
-export const layouts = {${layoutResult.join("")}};`;
+export const layouts = {${layoutResult.join("")}};
+export const plugins = {${pluginsResult.join("")}};
+`;
 
       // create dir
       fs.mkdir(path.resolve(__dirname, "tmp"), { recursive: true }, err => {});
