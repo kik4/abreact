@@ -4,20 +4,19 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import ExtraWatchWebpackPlugin from "extra-watch-webpack-plugin";
 import AbreactBuildingRoutePlugin from "./AbreactBuildingRoutePlugin";
 
-const scriptRoot = process.cwd();
+const userRoot = process.cwd();
 
 export const getWebpackConfig = (): webpack.Configuration => ({
   resolve: {
     modules: [
       path.resolve(__dirname, "app"),
       path.resolve(__dirname, "../node_modules"), // for development
-      path.resolve(scriptRoot, "src"),
-      path.resolve(scriptRoot, "node_modules")
+      path.resolve(userRoot, "src"),
+      path.resolve(userRoot, "node_modules")
     ],
     extensions: [".js", ".ts", ".jsx", ".tsx"],
     alias: {
-      __user: path.join(scriptRoot, "src"),
-      "@": path.join(scriptRoot, "src"),
+      "@": path.join(userRoot, "src"),
       abreact: path.resolve(__dirname, "export") // for development
     }
   },
@@ -29,7 +28,7 @@ export const getWebpackConfig = (): webpack.Configuration => ({
     ]
   },
   output: {
-    path: path.join(scriptRoot, "dist"),
+    path: path.join(userRoot, "dist"),
     filename: "bundle.js"
   },
   mode: "development",
@@ -43,12 +42,7 @@ export const getWebpackConfig = (): webpack.Configuration => ({
             loader: "ts-loader",
             options: {
               transpileOnly: true,
-              configFile: path.resolve(scriptRoot, "tsconfig.json"),
-              compilerOptions: {
-                declaration: false,
-                allowJs: true,
-                resolveJsonModule: true
-              }
+              configFile: path.resolve(userRoot, "tsconfig.json")
             }
           }
         ]
@@ -65,7 +59,7 @@ export const getWebpackConfig = (): webpack.Configuration => ({
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(scriptRoot, "./src/static/index.html"),
+      template: path.join(userRoot, "./src/static/index.html"),
       hash: true
     }),
     new webpack.HotModuleReplacementPlugin(),
@@ -80,12 +74,12 @@ export const getWebpackConfig = (): webpack.Configuration => ({
       stdout.write(" " + message);
     }),
     new ExtraWatchWebpackPlugin({
-      dirs: [path.resolve(scriptRoot, "src")]
+      dirs: [path.resolve(userRoot, "src")]
     }),
     new AbreactBuildingRoutePlugin()
   ],
   devServer: {
-    contentBase: path.join(scriptRoot, "./dist"),
+    contentBase: path.join(userRoot, "./dist"),
     hot: true,
     // noInfo: true,
     clientLogLevel: "none",
