@@ -1,14 +1,17 @@
 import React from "react";
 import { Module } from "webpack";
+import { Options } from "universal-router";
+
+export type ReactComponent = FunctionComponent<P> | ComponentClass<P> | string;
 
 export type AbreactRouteAction = {
   page: Promise<AbreactPage>;
-  context: any;
-  error?: Error & { status?: number };
+  error?: Parameters<Options["errorHandler"]>[0];
+  context: Parameters<Options["errorHandler"]>[1];
 };
 
 export type AbreactPage = {
-  default: Module;
+  default: ReactComponent;
   pageConfig: AbreactPageConfig;
 };
 

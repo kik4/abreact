@@ -68,10 +68,9 @@ const readLyoutsRecursive = async (
 class AbreactBuildingroutePlugin {
   apply(compiler) {
     compiler.hooks.compilation.tap("AbreactBuildingroutePlugin", async () => {
-      const userConfig = require(path.join(
-        userRoot,
-        "src/abreact.config"
-      )) as AbreactUserConfig;
+      const userConfig = require(path.join(userRoot, "src/abreact.config")) as
+        | AbreactUserConfig
+        | undefined;
 
       // pages
       const pageDir = path.join(userRoot, "src/pages/");

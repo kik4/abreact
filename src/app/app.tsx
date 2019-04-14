@@ -17,13 +17,13 @@ const router = new UniversalRouter(routes, {
   }
 });
 import HistoryContext, { HistoryContextParams } from "./HistoryContext";
-import { AbreactRouteAction } from "./types";
+import { AbreactRouteAction, ReactComponent } from "./types";
 
 class App extends React.Component<
   {},
   {
-    page?: any;
-    layout?: any;
+    page?: ReactComponent;
+    layout?: ReactComponent;
     historyContextParams: HistoryContextParams;
   }
 > {
