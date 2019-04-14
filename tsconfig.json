@@ -11,7 +11,8 @@
     "jsx": "react",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "plugins": [{ "transform": "ts-optchain/transform" }]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

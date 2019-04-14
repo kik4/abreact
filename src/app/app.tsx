@@ -1,12 +1,16 @@
 import React from "react";
+import { oc } from "ts-optchain";
 import { hot } from "react-hot-loader/root";
 import UniversalRouter from "universal-router";
 //@ts-ignore
-import routes, { errorPage, defaultLayout } from "../tmp/routes";
+import routes, { layouts } from "../tmp/routes";
 const router = new UniversalRouter(routes, {
   errorHandler(error, context) {
+    if (!layouts.error) {
+      console.error(`Abreact: error component is not found.`);
+    }
     return {
-      page: errorPage,
+      page: layouts.error,
       error,
       context
     };
@@ -16,12 +20,12 @@ import HistoryContext, { HistoryContextParams } from "./HistoryContext";
 
 class App extends React.Component<
   {},
-  { action?: any; layout?: any; historyContextParams: HistoryContextParams }
+  { page?: any; layout?: any; historyContextParams: HistoryContextParams }
 > {
   constructor(props) {
     super(props);
     this.state = {
-      action: undefined,
+      page: undefined,
       layout: undefined,
       historyContextParams: {}
     };
@@ -41,13 +45,16 @@ class App extends React.Component<
 
   popstate() {
     router.resolve(document.location.pathname).then(async action => {
-      const module = await action.page;
-      const layout = await defaultLayout;
+      const page = await action.page;
+      const layoutName = (oc(page) as any).pageConfig.layout("default");
+      const layout = await layouts[layoutName];
+      if (!layout) {
+        console.warn(`Abreact: layout '${layoutName}' is not found.`);
+      }
+
       this.setState({
-        action: {
-          page: module.default
-        },
-        layout: layout.default,
+        page: page ? page.default : undefined,
+        layout: layout ? layout.default : undefined,
         historyContextParams: {
           path: action.context.path,
           error: action.error,
@@ -66,20 +73,25 @@ class App extends React.Component<
   }
 
   render() {
+    const page = React.createElement(
+      this.state.page ? this.state.page : "div",
+      {
+        key: "__abreact_page"
+      }
+    );
+    const layoutPage = this.state.layout
+      ? React.createElement(this.state.layout, {}, [page])
+      : page;
     return (
       <div className="App">
-        {this.state.action && (
+        {this.state.page && (
           <HistoryContext.Provider
             value={{
               push: this.pushstate.bind(this),
               ...this.state.historyContextParams
             }}
           >
-            {React.createElement(this.state.layout, {}, [
-              React.createElement(this.state.action.page, {
-                key: "__abreact_page"
-              })
-            ])}
+            {layoutPage}
           </HistoryContext.Provider>
         )}
       </div>

@@ -3999,6 +3999,11 @@ ts-node@^8.0.3:
     source-map-support "^0.5.6"
     yn "^3.0.0"
 
+ts-optchain@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/ts-optchain/-/ts-optchain-0.1.5.tgz#fc9fe8d6f72957a04a5791cf19a141a6f6eb52b5"
+  integrity sha512-3Qq8eFG9t15E0YvsVWh99kOWZ2hpea8KqxALEoEjoqCHzYYv9S81MM9Hb3yHfNlVTmM67ZhAv0bJ3cB7OhVIAA==
+
 tslib@^1.9.0:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"

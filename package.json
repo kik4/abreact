@@ -23,6 +23,7 @@
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.3",
     "ts-loader": "^5.3.3",
+    "ts-optchain": "^0.1.5",
     "typescript": "^3.4.2",
     "universal-router": "^8.1.0",
     "webpack": "^4.29.6",
