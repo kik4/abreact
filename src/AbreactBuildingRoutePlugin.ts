@@ -45,7 +45,7 @@ class AbreactBuildingroutePlugin {
       if ((oc(userConfig) as any).plugins) {
         userConfig.plugins.forEach(pluginPath => {
           const name = path.basename(pluginPath, path.extname(pluginPath));
-          pluginsResult.push(`"${name}": import("${pluginPath}"),`);
+          pluginsResult.push(`"${name}": require("${pluginPath}"),`);
         });
       }
 
