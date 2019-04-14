@@ -19,7 +19,7 @@ class AbreactBuildingroutePlugin {
         const stat = fs.statSync(path.join(pageDir, file));
         if (stat.isFile) {
           const name = path.basename(file, path.extname(file));
-          const dir = path.join("@/pages/", file);
+          const dir = path.join("@/pages", file);
           pageResult.push(`{
   path: "${"/" + (name === "index" ? "" : name)}",
   action: (context) => ({page: import("${dir}"), context}),
@@ -27,7 +27,7 @@ class AbreactBuildingroutePlugin {
         }
       });
 
-      // layourts
+      // layouts
       const layoutDir = path.join(userRoot, "src/layouts");
       const layoutFiles = await readdirAsync(layoutDir);
       const layoutResult = [] as any;
