@@ -10,7 +10,7 @@ const router = new UniversalRouter(routes, {
       console.error(`Abreact: error component is not found.`);
     }
     return {
-      page: layouts.error,
+      page: layouts.error(),
       error,
       context
     };

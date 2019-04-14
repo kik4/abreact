@@ -29,6 +29,7 @@ export const getWebpackConfig = (): webpack.Configuration => ({
   },
   output: {
     path: path.join(userRoot, "dist"),
+    publicPath: "/",
     filename: "bundle.js"
   },
   mode: "development",
