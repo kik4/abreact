@@ -8,3 +8,11 @@ This project is under development. See `/example` directory for usage.
 - HMR
 - Routing
 - Code Splitting
+
+## Contributing
+
+[Contributing](https://github.com/kik4/abreact/blob/master/CONTRIBUTING.md)
+
+## License
+
+[MIT](https://github.com/kik4/abreact/blob/master/LICENSE)
