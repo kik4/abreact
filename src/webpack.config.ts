@@ -14,12 +14,14 @@ export const getWebpackConfig = (
     resolve: {
       modules: [
         path.resolve(__dirname, "app"),
+        path.resolve(__dirname, "../node_modules"),
         path.resolve(userRoot, "src"),
         path.resolve(userRoot, "node_modules")
       ],
       extensions: [".js", ".ts", ".jsx", ".tsx"],
       alias: {
-        "@": path.join(userRoot, "src")
+        "@": path.join(userRoot, "src"),
+        abreact: path.resolve(__dirname, "export")
       }
     },
     entry: {
