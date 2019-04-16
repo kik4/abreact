@@ -48,34 +48,35 @@ class App extends React.Component<
     window.removeEventListener("popstate", this.eventHandler);
   }
 
-  popstate() {
-    router
-      .resolve(document.location.pathname)
-      .then(async (action: AbreactRouteAction) => {
-        const page = await action.page;
-        const layoutName = oc(page).pageConfig.layout("default");
-        const layout = await layouts[layoutName]();
-        if (!layout) {
-          console.warn(`Abreact: layout '${layoutName}' is not found.`);
-        }
+  async updateRoute(action: AbreactRouteAction) {
+    const page = await action.page;
+    const layoutName = oc(page).pageConfig.layout("default");
+    const layout = await layouts[layoutName]();
+    if (!layout) {
+      console.warn(`Abreact: layout '${layoutName}' is not found.`);
+    }
 
-        this.setState({
-          page: page ? page.default : undefined,
-          layout: layout ? layout.default : undefined,
-          historyContextParams: {
-            path: action.context.path,
-            error: action.error,
-            params: action.context.params
-          } as HistoryContextParams
-        });
-      });
+    this.setState({
+      page: page ? page.default : undefined,
+      layout: layout ? layout.default : undefined,
+      historyContextParams: {
+        path: action.context.path,
+        error: action.error,
+        params: action.context.params
+      } as HistoryContextParams
+    });
+  }
+
+  popstate() {
+    const pathname = document.location.pathname;
+    router.resolve(pathname).then(this.updateRoute.bind(this));
   }
 
   pushstate(pathname: string) {
-    router.resolve(document.location.pathname).then(async action => {
-      await action.page;
+    router.resolve(pathname).then(async (action: AbreactRouteAction) => {
+      const update = this.updateRoute.bind(this);
+      await update(action);
       history.pushState(null, "", pathname);
-      this.popstate();
     });
   }
 
