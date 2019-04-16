@@ -10,22 +10,16 @@ export const getWebpackConfig = (): webpack.Configuration => ({
   resolve: {
     modules: [
       path.resolve(__dirname, "app"),
-      path.resolve(__dirname, "../node_modules"), // for development
       path.resolve(userRoot, "src"),
       path.resolve(userRoot, "node_modules")
     ],
     extensions: [".js", ".ts", ".jsx", ".tsx"],
     alias: {
-      "@": path.join(userRoot, "src"),
-      abreact: path.resolve(__dirname, "export") // for development
+      "@": path.join(userRoot, "src")
     }
   },
   entry: {
-    app: [
-      // "webpack-dev-server/client?http://localhost:8080",
-      // "webpack/hot/only-dev-server",
-      path.resolve(__dirname, "app/index.js")
-    ]
+    app: [path.resolve(__dirname, "app/index.js")]
   },
   output: {
     path: path.join(userRoot, "dist"),
