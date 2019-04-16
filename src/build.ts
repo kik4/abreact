@@ -1,8 +1,13 @@
 import webpack from "webpack";
 import { getWebpackConfig } from "./webpack.config";
+import rimraf from "rimraf";
 
 export default () => {
-  const compiler = webpack(getWebpackConfig());
+  const config = getWebpackConfig(false);
+
+  rimraf.sync(config.output!.path!);
+
+  const compiler = webpack(config);
 
   compiler.run((err, stats) => {
     if (err) {
