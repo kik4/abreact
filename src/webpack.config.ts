@@ -69,7 +69,7 @@ export const getWebpackConfig = (
         stdout.write((percentage * 100).toFixed(2) + "%");
         stdout.write(" " + message);
       }),
-      isDevelopment && new webpack.HotModuleReplacementPlugin(),
+      isDevelopment && new webpack.NamedModulesPlugin(),
       isDevelopment &&
         new ExtraWatchWebpackPlugin({
           dirs: [path.resolve(userRoot, "src")]
