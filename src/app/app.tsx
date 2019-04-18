@@ -10,7 +10,7 @@ const router = new UniversalRouter(routes, {
       console.error(`Abreact: error component is not found.`);
     }
     return {
-      page: layouts.error(),
+      page: layouts.error,
       error,
       context
     };
@@ -22,8 +22,8 @@ import { AbreactRouteAction, ReactComponent } from "./types";
 class App extends React.Component<
   {},
   {
-    page?: ReactComponent;
-    layout?: ReactComponent;
+    page?: any;
+    layout?: any;
     historyContextParams: HistoryContextParams;
   }
 > {
@@ -49,7 +49,7 @@ class App extends React.Component<
   }
 
   async updateRoute(action: AbreactRouteAction) {
-    const page = await action.page;
+    const page = await action.page();
     const layoutName = oc(page).pageConfig.layout("default");
     const layout = await layouts[layoutName]();
     if (!layout) {
@@ -57,8 +57,9 @@ class App extends React.Component<
     }
 
     this.setState({
-      page: page ? page.default : undefined,
-      layout: layout ? layout.default : undefined,
+      //@ts-ignore
+      page: action.page,
+      layout: layouts[layoutName],
       historyContextParams: {
         path: action.context.path,
         error: action.error,
@@ -81,15 +82,12 @@ class App extends React.Component<
   }
 
   render() {
-    const page = React.createElement(
-      this.state.page ? this.state.page : "div",
-      {
-        key: "__abreact_page"
-      }
-    );
-    const layoutPage = this.state.layout
-      ? React.createElement(this.state.layout, {}, [page])
-      : page;
+    const Page = React.lazy(this.state.page);
+    const Layout = this.state.layout
+      ? React.lazy(this.state.layout)
+      : undefined;
+
+    // const Test = React.lazy(() => import("@/pages/index.tsx"));
     return (
       <div className="App">
         {this.state.page && (
@@ -99,7 +97,16 @@ class App extends React.Component<
               ...this.state.historyContextParams
             }}
           >
-            {layoutPage}
+            <React.Suspense fallback={<div>Loading...</div>}>
+              {Layout ? (
+                <Layout>
+                  <Page />
+                </Layout>
+              ) : (
+                <Page />
+              )}
+              {/* <Test /> */}
+            </React.Suspense>
           </HistoryContext.Provider>
         )}
       </div>

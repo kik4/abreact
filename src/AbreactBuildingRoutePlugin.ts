@@ -26,7 +26,7 @@ const readPagesRecursive = async (
       const importDir = path.join("@/pages", additionalPath, file);
       result.push(`{
 path: "${routePath}",
-action: (context) => ({page: import("${importDir}"), context}),
+action: (context) => ({page: () => import("${importDir}"), context}),
 },`);
     } else if (stat.isDirectory()) {
       const children = await readPagesRecursive(
