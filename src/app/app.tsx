@@ -1,29 +1,43 @@
 import React from "react";
 import { oc } from "ts-optchain";
 import { hot } from "react-hot-loader/root";
-import UniversalRouter from "universal-router";
+import UniversalRouter, { Route, Options } from "universal-router";
 //@ts-ignore
-import * as routeData from "../tmp/routes";
-const router = new UniversalRouter(routeData.routes, {
+import * as IntermediateData from "../tmp";
+import HistoryContext, { HistoryContextParams } from "./HistoryContext";
+import { AbreactPage } from "./types";
+
+type RouteAction = {
+  page: string;
+  context: any;
+  error?: Parameters<NonNullable<Options["errorHandler"]>>[0];
+};
+type Routes = Route<any, RouteAction>[];
+interface IntermediateData {
+  modules: { [key: string]: () => Promise<AbreactPage> };
+  routes: Routes;
+  layouts: { [key: string]: string };
+  plugins: { [key: string]: () => any };
+}
+
+const router = new UniversalRouter(IntermediateData.routes, {
   errorHandler(error, context) {
-    if (!routeData.layouts.error) {
+    if (!IntermediateData.layouts.error) {
       console.error(`Abreact: error component is not found.`);
     }
     return {
-      page: routeData.layouts["error"],
+      page: IntermediateData.layouts["error"],
       error,
       context
     };
   }
 });
-import HistoryContext, { HistoryContextParams } from "./HistoryContext";
-import { AbreactRouteAction, ReactComponent } from "./types";
 
 class App extends React.Component<
   {},
   {
-    page?: any;
-    layout?: any;
+    page?: string;
+    layout?: string;
     historyContextParams: HistoryContextParams;
   }
 > {
@@ -48,10 +62,11 @@ class App extends React.Component<
     window.removeEventListener("popstate", this.eventHandler);
   }
 
-  async updateRoute(action: AbreactRouteAction) {
-    const page = await routeData.modules[action.page]();
-    const layoutName = routeData.layouts[oc(page).pageConfig.layout("default")];
-    const layout = await routeData.modules[layoutName]();
+  async updateRoute(action: RouteAction) {
+    const page = await IntermediateData.modules[action.page]();
+    const layoutName =
+      IntermediateData.layouts[oc(page).pageConfig.layout("default")];
+    const layout = await IntermediateData.modules[layoutName]();
     if (!layout) {
       console.warn(`Abreact: layout '${layoutName}' is not found.`);
     }
@@ -73,7 +88,7 @@ class App extends React.Component<
   }
 
   pushstate(pathname: string) {
-    router.resolve(pathname).then(async (action: AbreactRouteAction) => {
+    router.resolve(pathname).then(async (action: RouteAction) => {
       const update = this.updateRoute.bind(this);
       await update(action);
       history.pushState(null, "", pathname);
@@ -81,10 +96,9 @@ class App extends React.Component<
   }
 
   render() {
-    const Page =
-      this.state.page && React.lazy(routeData.modules[this.state.page]);
+    const Page = React.lazy(IntermediateData.modules[this.state.page!]);
     const Layout = this.state.layout
-      ? React.lazy(routeData.modules[this.state.layout])
+      ? React.lazy(IntermediateData.modules[this.state.layout])
       : undefined;
 
     return (

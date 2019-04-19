@@ -107,7 +107,7 @@ export const plugins = {${pluginsResult.join("")}};
       fs.mkdir(path.resolve(__dirname, "tmp"), { recursive: true }, err => {});
 
       // no loop
-      const outputPath = path.join(__dirname, "tmp/routes.js");
+      const outputPath = path.join(__dirname, "tmp/index.js");
       try {
         const content = fs.readFileSync(outputPath, "utf8");
         if (content !== resultString) {
