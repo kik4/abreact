@@ -10,8 +10,8 @@ const userRoot = process.cwd();
 const readPagesRecursive = async (
   originPath: string,
   additionalPath: string = "/"
-): Promise<string[]> => {
-  const result = [] as string[];
+): Promise<[string[], string[]]> => {
+  const result = [[], []] as [string[], string[]];
   const baseDir = path.join(originPath, additionalPath);
   const files = await readdirAsync(baseDir);
   for (let i = 0; i < files.length; i++) {
@@ -24,16 +24,19 @@ const readPagesRecursive = async (
         filename === "index" ? "" : filename
       );
       const importDir = path.join("@/pages", additionalPath, file);
-      result.push(`{
+      const moduleName = "page" + routePath.replace(/\//g, "_");
+      result[0].push(`"${moduleName}": () => import("${importDir}"),`);
+      result[1].push(`{
 path: "${routePath}",
-action: (context) => ({page: () => import("${importDir}"), context}),
+action: (context) => ({page: "${moduleName}", context}),
 },`);
     } else if (stat.isDirectory()) {
       const children = await readPagesRecursive(
         originPath,
         path.join(additionalPath, file)
       );
-      result.push(...children);
+      result[0].push(...children[0]);
+      result[1].push(...children[1]);
     }
   }
   return result;
@@ -42,8 +45,8 @@ action: (context) => ({page: () => import("${importDir}"), context}),
 const readLyoutsRecursive = async (
   originPath: string,
   additionalPath: string = "/"
-): Promise<string[]> => {
-  const result = [] as string[];
+): Promise<[string[], string[]]> => {
+  const result = [[], []] as [string[], string[]];
   const baseDir = path.join(originPath, additionalPath);
   const files = await readdirAsync(baseDir);
   for (let i = 0; i < files.length; i++) {
@@ -53,13 +56,16 @@ const readLyoutsRecursive = async (
       const filename = path.basename(file, path.extname(file));
       const routePath = path.join(additionalPath, filename);
       const importDir = path.join("@/layouts", additionalPath, file);
-      result.push(`"${routePath.slice(1)}": () => import("${importDir}"),`);
+      const moduleName = "layout" + routePath.replace(/\//g, "_");
+      result[0].push(`"${moduleName}": () => import("${importDir}"),`);
+      result[1].push(`"${routePath.slice(1)}": "${moduleName}",`);
     } else if (stat.isDirectory()) {
       const children = await readLyoutsRecursive(
         originPath,
         path.join(additionalPath, file)
       );
-      result.push(...children);
+      result[0].push(...children[0]);
+      result[1].push(...children[1]);
     }
   }
   return result;
@@ -88,8 +94,12 @@ class AbreactBuildingroutePlugin {
         pluginsResult.push(`"${name}": require("${pluginPath}"),`);
       });
 
-      const resultString = `export default [${pageResult.join("")}];
-export const layouts = {${layoutResult.join("\n")}};
+      const resultString = `export const modules = {${[
+        ...pageResult[0],
+        ...layoutResult[0]
+      ].join("\n")}}
+export const routes = [${pageResult[1].join("\n")}];
+export const layouts = {${layoutResult[1].join("\n")}};
 export const plugins = {${pluginsResult.join("")}};
 `;
 
@@ -99,15 +109,13 @@ export const plugins = {${pluginsResult.join("")}};
       // no loop
       const outputPath = path.join(__dirname, "tmp/routes.js");
       try {
-        fs.statSync(outputPath);
         const content = fs.readFileSync(outputPath, "utf8");
-        if (content === resultString) {
-          return;
+        if (content !== resultString) {
+          fs.writeFileSync(outputPath, resultString);
         }
-      } catch (e) {}
-
-      // output
-      fs.writeFileSync(outputPath, resultString);
+      } catch (e) {
+        fs.writeFileSync(outputPath, resultString);
+      }
     });
   }
 }

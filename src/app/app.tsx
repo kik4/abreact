@@ -3,14 +3,14 @@ import { oc } from "ts-optchain";
 import { hot } from "react-hot-loader/root";
 import UniversalRouter from "universal-router";
 //@ts-ignore
-import routes, { layouts } from "../tmp/routes";
-const router = new UniversalRouter(routes, {
+import * as routeData from "../tmp/routes";
+const router = new UniversalRouter(routeData.routes, {
   errorHandler(error, context) {
-    if (!layouts.error) {
+    if (!routeData.layouts.error) {
       console.error(`Abreact: error component is not found.`);
     }
     return {
-      page: layouts.error,
+      page: routeData.layouts["error"],
       error,
       context
     };
@@ -49,17 +49,16 @@ class App extends React.Component<
   }
 
   async updateRoute(action: AbreactRouteAction) {
-    const page = await action.page();
-    const layoutName = oc(page).pageConfig.layout("default");
-    const layout = await layouts[layoutName]();
+    const page = await routeData.modules[action.page]();
+    const layoutName = routeData.layouts[oc(page).pageConfig.layout("default")];
+    const layout = await routeData.modules[layoutName]();
     if (!layout) {
       console.warn(`Abreact: layout '${layoutName}' is not found.`);
     }
 
     this.setState({
-      //@ts-ignore
       page: action.page,
-      layout: layouts[layoutName],
+      layout: layoutName,
       historyContextParams: {
         path: action.context.path,
         error: action.error,
@@ -82,12 +81,12 @@ class App extends React.Component<
   }
 
   render() {
-    const Page = React.lazy(this.state.page);
+    const Page =
+      this.state.page && React.lazy(routeData.modules[this.state.page]);
     const Layout = this.state.layout
-      ? React.lazy(this.state.layout)
+      ? React.lazy(routeData.modules[this.state.layout])
       : undefined;
 
-    // const Test = React.lazy(() => import("@/pages/index.tsx"));
     return (
       <div className="App">
         {this.state.page && (
@@ -105,7 +104,6 @@ class App extends React.Component<
               ) : (
                 <Page />
               )}
-              {/* <Test /> */}
             </React.Suspense>
           </HistoryContext.Provider>
         )}
