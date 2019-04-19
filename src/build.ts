@@ -1,9 +1,12 @@
 import webpack from "webpack";
 import { getWebpackConfig } from "./webpack.config";
+import clear from "./clear";
 
 export default () => {
   const config = getWebpackConfig(false);
   const compiler = webpack(config);
+
+  clear();
 
   compiler.run((err, stats) => {
     if (err) {
