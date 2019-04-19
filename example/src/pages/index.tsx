@@ -11,6 +11,7 @@ class Index extends React.Component {
         <button onClick={() => push("/test")}>test</button>
         <button onClick={() => push("/test2")}>test2</button>
         <button onClick={() => push("/nest/page")}>Nested Page</button>
+        <button onClick={() => push("/user/1")}>Dynamic Page</button>
         <button onClick={() => push("/any-where")}>error</button>
       </div>
     );

@@ -19,10 +19,9 @@ const readPagesRecursive = async (
     const stat = fs.statSync(path.join(baseDir, file));
     if (stat.isFile()) {
       const filename = path.basename(file, path.extname(file));
-      const routePath = path.join(
-        additionalPath,
-        filename === "index" ? "" : filename
-      );
+      const routePath = path
+        .join(additionalPath, filename === "index" ? "" : filename)
+        .replace(/\/_/g, "/:");
       const importDir = path.join("@/pages", additionalPath, file);
       const moduleName = "page" + routePath.replace(/\//g, "_");
       result[0].push(`"${moduleName}": () => import("${importDir}"),`);
