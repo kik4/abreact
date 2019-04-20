@@ -1,8 +1,7 @@
 import rimraf from "rimraf";
 import path from "path";
+import { CommonParams } from "./type";
 
-const userRoot = process.cwd();
-
-export default () => {
-  rimraf(path.join(userRoot, "dist"), err => console.error(err));
+export default (commonParams: CommonParams) => {
+  rimraf(path.join(commonParams.userRoot, "dist"), err => console.error(err));
 };

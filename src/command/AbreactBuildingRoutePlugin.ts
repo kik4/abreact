@@ -4,9 +4,9 @@ import util from "util";
 import { oc } from "ts-optchain";
 import { AbreactUserConfig } from "../types";
 import webpack from "webpack";
+import { CommonParams } from "./type";
 
 const readdirAsync = util.promisify(fs.readdir);
-const userRoot = process.cwd();
 
 const readPagesRecursive = async (
   originPath: string,
@@ -72,18 +72,24 @@ const readLyoutsRecursive = async (
 };
 
 class AbreactBuildingroutePlugin {
+  commonParams: CommonParams;
+  constructor(commonParams: CommonParams) {
+    this.commonParams = commonParams;
+  }
+
   apply(compiler: webpack.Compiler) {
     compiler.hooks.compilation.tap("AbreactBuildingroutePlugin", async () => {
-      const userConfig = require(path.join(userRoot, "src/abreact.config")) as
-        | AbreactUserConfig
-        | undefined;
+      const userConfig = require(path.join(
+        this.commonParams.userRoot,
+        "src/abreact.config"
+      )) as AbreactUserConfig | undefined;
 
       // pages
-      const pageDir = path.join(userRoot, "src/pages/");
+      const pageDir = path.join(this.commonParams.userRoot, "src/pages/");
       const pageResult = await readPagesRecursive(pageDir);
 
       // layouts
-      const layoutDir = path.join(userRoot, "src/layouts");
+      const layoutDir = path.join(this.commonParams.userRoot, "src/layouts");
       const layoutResult = await readLyoutsRecursive(layoutDir);
 
       // plugins
@@ -105,13 +111,16 @@ export const plugins = {${pluginsResult.join("")}};
 
       // create dir
       fs.mkdir(
-        path.resolve(__dirname, "../tmp"),
+        path.resolve(this.commonParams.abreactRoot, "src/tmp"),
         { recursive: true },
         err => {}
       );
 
       // no loop
-      const outputPath = path.join(__dirname, "../tmp/index.js");
+      const outputPath = path.join(
+        this.commonParams.abreactRoot,
+        "src/tmp/index.js"
+      );
       try {
         const content = fs.readFileSync(outputPath, "utf8");
         if (content !== resultString) {

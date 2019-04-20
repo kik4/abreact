@@ -1,12 +1,13 @@
 import webpack from "webpack";
 import { getWebpackConfig } from "./webpack.config";
 import clear from "./clear";
+import { CommonParams } from "./type";
 
-export default () => {
-  const config = getWebpackConfig(false);
+export default (commonParams: CommonParams) => {
+  const config = getWebpackConfig(commonParams, false);
   const compiler = webpack(config);
 
-  clear();
+  clear(commonParams);
 
   compiler.run((err, stats) => {
     if (err) {

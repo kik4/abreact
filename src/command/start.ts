@@ -4,9 +4,10 @@ import devMiddleware from "webpack-dev-middleware";
 import hotMiddleware from "webpack-hot-middleware";
 import express from "express";
 import path from "path";
+import { CommonParams } from "./type";
 
-export default () => {
-  const config = getWebpackConfig();
+export default (commonParams: CommonParams) => {
+  const config = getWebpackConfig(commonParams);
 
   (config.entry as any).client.push(
     "webpack-hot-middleware/client?noInfo=true"
@@ -39,7 +40,10 @@ export default () => {
   );
 
   // spa fallback
-  const templatePath = path.resolve(__dirname, "../../src/templates/index.ejs");
+  const templatePath = path.resolve(
+    commonParams.abreactRoot,
+    "./src/templates/index.ejs"
+  );
   app.use("/*", (req, res) => {
     res.render(templatePath, { publicPath, hash });
   });

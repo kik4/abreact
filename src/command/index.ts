@@ -7,7 +7,13 @@ import program from "commander";
 import build from "./build";
 import start from "./start";
 
+import path from "path";
+
 const version = "0.0.1";
+
+const abreactRoot = path.join(__dirname, "../../");
+const userRoot = process.cwd();
+const commonParams = { abreactRoot, userRoot };
 
 console.log(
   chalk.blue(figlet.textSync("abreact", { horizontalLayout: "full" }))
@@ -23,7 +29,7 @@ program
     console.log("");
     console.log("Build");
     console.log("");
-    build();
+    build(commonParams);
   });
 
 program
@@ -33,7 +39,7 @@ program
     console.log("");
     console.log("Start");
     console.log("");
-    start();
+    start(commonParams);
   });
 
 program.parse(process.argv);
