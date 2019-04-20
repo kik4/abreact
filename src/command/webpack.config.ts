@@ -24,12 +24,13 @@ export const getWebpackConfig = (
       }
     },
     entry: {
-      client: [path.resolve(__dirname, "../client/index.js")]
+      client: [path.resolve(__dirname, "../client/index.js")],
+      server: [path.resolve(__dirname, "../server/index.js")]
     },
     output: {
       path: path.join(userRoot, "dist"),
       publicPath: "/",
-      filename: "bundle.js"
+      filename: "[name].bundle.js"
     },
     module: {
       rules: [
