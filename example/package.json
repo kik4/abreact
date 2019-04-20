@@ -10,8 +10,8 @@
   "scripts": {
     "build": "yarn abreact build",
     "start": "yarn abreact start",
-    "_build": "node ../lib/index.js build",
-    "_start": "node ../lib/index.js start"
+    "_build": "node ../lib/command/index.js build",
+    "_start": "node ../lib/command/index.js start"
   },
   "devDependencies": {
     "autoprefixer": "^9.5.1"

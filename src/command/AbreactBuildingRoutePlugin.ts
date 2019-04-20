@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs";
 import util from "util";
 import { oc } from "ts-optchain";
-import { AbreactUserConfig } from "./app/types";
+import { AbreactUserConfig } from "../types";
 
 const readdirAsync = util.promisify(fs.readdir);
 const userRoot = process.cwd();
@@ -103,10 +103,14 @@ export const plugins = {${pluginsResult.join("")}};
 `;
 
       // create dir
-      fs.mkdir(path.resolve(__dirname, "tmp"), { recursive: true }, err => {});
+      fs.mkdir(
+        path.resolve(__dirname, "../tmp"),
+        { recursive: true },
+        err => {}
+      );
 
       // no loop
-      const outputPath = path.join(__dirname, "tmp/index.js");
+      const outputPath = path.join(__dirname, "../tmp/index.js");
       try {
         const content = fs.readFileSync(outputPath, "utf8");
         if (content !== resultString) {

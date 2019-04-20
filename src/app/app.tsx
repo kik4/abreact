@@ -5,7 +5,7 @@ import UniversalRouter, { Route, Options } from "universal-router";
 //@ts-ignore
 import * as IntermediateData from "../tmp";
 import HistoryContext, { HistoryContextParams } from "./HistoryContext";
-import { AbreactPage } from "./types";
+import { AbreactPage } from "../types";
 
 type RouteAction = {
   page: string;

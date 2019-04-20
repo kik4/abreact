@@ -12,7 +12,7 @@ export const getWebpackConfig = (
     mode: isDevelopment ? "development" : "production",
     resolve: {
       modules: [
-        path.resolve(__dirname, "app"),
+        path.resolve(__dirname, "../app"),
         path.resolve(__dirname, "../node_modules"),
         path.resolve(userRoot, "src"),
         path.resolve(userRoot, "node_modules")
@@ -20,11 +20,11 @@ export const getWebpackConfig = (
       extensions: [".js", ".ts", ".jsx", ".tsx"],
       alias: {
         "@": path.join(userRoot, "src"),
-        abreact: path.resolve(__dirname, "export")
+        abreact: path.resolve(__dirname, "../export")
       }
     },
     entry: {
-      app: [path.resolve(__dirname, "app/index.js")]
+      app: [path.resolve(__dirname, "../app/index.js")]
     },
     output: {
       path: path.join(userRoot, "dist"),

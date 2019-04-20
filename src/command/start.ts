@@ -37,7 +37,7 @@ export default () => {
   );
 
   // spa fallback
-  const templatePath = path.resolve(__dirname, "../src/template/index.ejs");
+  const templatePath = path.resolve(__dirname, "../../src/templates/index.ejs");
   app.use("/*", (req, res) => {
     res.render(templatePath, { publicPath, hash });
   });
