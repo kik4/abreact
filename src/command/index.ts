@@ -1,13 +1,10 @@
 #!/usr/bin/env node
-
 import chalk from "chalk";
 import figlet from "figlet";
 import program from "commander";
-
+import path from "path";
 import build from "./build";
 import start from "./start";
-
-import path from "path";
 
 const version = "0.0.1";
 
