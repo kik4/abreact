@@ -3,6 +3,7 @@ import fs from "fs";
 import util from "util";
 import { oc } from "ts-optchain";
 import { AbreactUserConfig } from "../types";
+import webpack from "webpack";
 
 const readdirAsync = util.promisify(fs.readdir);
 const userRoot = process.cwd();
@@ -71,7 +72,7 @@ const readLyoutsRecursive = async (
 };
 
 class AbreactBuildingroutePlugin {
-  apply(compiler) {
+  apply(compiler: webpack.Compiler) {
     compiler.hooks.compilation.tap("AbreactBuildingroutePlugin", async () => {
       const userConfig = require(path.join(userRoot, "src/abreact.config")) as
         | AbreactUserConfig
