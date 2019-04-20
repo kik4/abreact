@@ -8,7 +8,9 @@ import path from "path";
 export default () => {
   const config = getWebpackConfig();
 
-  (config.entry as any).app.push("webpack-hot-middleware/client");
+  (config.entry as any).client.push(
+    "webpack-hot-middleware/client?noInfo=true"
+  );
 
   const compiler = webpack(config);
 

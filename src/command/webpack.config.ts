@@ -12,7 +12,7 @@ export const getWebpackConfig = (
     mode: isDevelopment ? "development" : "production",
     resolve: {
       modules: [
-        path.resolve(__dirname, "../app"),
+        path.resolve(__dirname, "../client"),
         path.resolve(__dirname, "../node_modules"),
         path.resolve(userRoot, "src"),
         path.resolve(userRoot, "node_modules")
@@ -24,7 +24,7 @@ export const getWebpackConfig = (
       }
     },
     entry: {
-      app: [path.resolve(__dirname, "../app/index.js")]
+      client: [path.resolve(__dirname, "../client/index.js")]
     },
     output: {
       path: path.join(userRoot, "dist"),

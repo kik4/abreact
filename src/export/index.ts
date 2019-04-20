@@ -1,5 +1,5 @@
 import * as types from "../types";
-import HistoryContext from "../app/HistoryContext";
+import HistoryContext from "../client/HistoryContext";
 
 export default {
   ...types,
