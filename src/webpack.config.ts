@@ -1,6 +1,5 @@
 import webpack from "webpack";
 import path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
 import ExtraWatchWebpackPlugin from "extra-watch-webpack-plugin";
 import AbreactBuildingRoutePlugin from "./AbreactBuildingRoutePlugin";
 
@@ -58,10 +57,6 @@ export const getWebpackConfig = (
       ]
     },
     plugins: [
-      new HtmlWebpackPlugin({
-        template: path.join(userRoot, "./src/static/index.html"),
-        hash: true
-      }),
       new webpack.ProgressPlugin((percentage, message, ...args) => {
         const stdout = process.stdout as any;
         stdout.clearLine();
@@ -74,17 +69,9 @@ export const getWebpackConfig = (
         new ExtraWatchWebpackPlugin({
           dirs: [path.resolve(userRoot, "src")]
         }),
+      isDevelopment && new webpack.HotModuleReplacementPlugin(),
       new AbreactBuildingRoutePlugin()
     ].filter(v => v),
-    devServer: {
-      contentBase: path.join(userRoot, "./dist"),
-      hot: true,
-      // noInfo: true,
-      clientLogLevel: "none",
-      historyApiFallback: true,
-      disableHostCheck: true,
-      host: "0.0.0.0"
-    },
     node: {
       dgram: "empty",
       fs: "empty",
