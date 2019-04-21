@@ -20,13 +20,13 @@ class App extends React.Component<
     this.state = {
       historyContextParams: {}
     };
-    this.popstate();
   }
 
   eventHandler: any;
 
   componentDidMount() {
     window.addEventListener("popstate", this.popstate);
+    this.popstate();
   }
 
   componentWillUnmount() {
