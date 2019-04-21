@@ -78,9 +78,11 @@ class App extends React.Component<
           }}
         >
           {this.state.layoutComponent
-            ? React.createElement(this.state.layoutComponent, {}, [
-                React.createElement(this.state.pageComponent, { key: "page" })
-              ])
+            ? React.createElement(
+                this.state.layoutComponent,
+                {},
+                React.createElement(this.state.pageComponent)
+              )
             : React.createElement(this.state.pageComponent)}
         </HistoryContext.Provider>
       </div>
