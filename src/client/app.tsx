@@ -1,37 +1,8 @@
 import React from "react";
-import { oc } from "ts-optchain";
 import { hot } from "react-hot-loader/root";
-import UniversalRouter, { Route, Options } from "universal-router";
-//@ts-ignore
-import * as IntermediateData from "../tmp/client";
 import HistoryContext, { HistoryContextParams } from "./HistoryContext";
-import { AbreactPage } from "../common/types";
-
-type RouteAction = {
-  page: string;
-  context: any;
-  error?: Parameters<NonNullable<Options["errorHandler"]>>[0];
-};
-type Routes = Route<any, RouteAction>[];
-interface IntermediateData {
-  modules: { [key: string]: () => Promise<AbreactPage> };
-  routes: Routes;
-  layouts: { [key: string]: string };
-  plugins: { [key: string]: () => any };
-}
-
-const router = new UniversalRouter(IntermediateData.routes, {
-  errorHandler(error, context) {
-    if (!IntermediateData.layouts.error) {
-      console.error(`Abreact: error component is not found.`);
-    }
-    return {
-      page: IntermediateData.layouts["error"],
-      error,
-      context
-    };
-  }
-});
+import router from "../common/app/router";
+import * as TmpData from "../tmp/client";
 
 class App extends React.Component<
   {},
@@ -43,62 +14,58 @@ class App extends React.Component<
 > {
   constructor(props) {
     super(props);
+    this.popstate = this.popstate.bind(this);
+    this.pushstate = this.pushstate.bind(this);
     this.state = {
-      page: undefined,
-      layout: undefined,
       historyContextParams: {}
     };
+    this.popstate();
   }
 
   eventHandler: any;
 
   componentDidMount() {
-    this.eventHandler = this.popstate.bind(this);
-    window.addEventListener("popstate", this.eventHandler);
-    this.eventHandler();
+    window.addEventListener("popstate", this.popstate);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("popstate", this.eventHandler);
-  }
-
-  async updateRoute(action: RouteAction) {
-    const page = await IntermediateData.modules[action.page]();
-    const layoutName =
-      IntermediateData.layouts[oc(page).pageConfig.layout("default")];
-    const layout = await IntermediateData.modules[layoutName]();
-    if (!layout) {
-      console.warn(`Abreact: layout '${layoutName}' is not found.`);
-    }
-
-    this.setState({
-      page: action.page,
-      layout: layoutName,
-      historyContextParams: {
-        path: action.context.path,
-        error: action.error,
-        params: action.context.params
-      } as HistoryContextParams
-    });
+    window.removeEventListener("popstate", this.popstate);
   }
 
   popstate() {
     const pathname = document.location.pathname;
-    router.resolve(pathname).then(this.updateRoute.bind(this));
+    router.resolve(pathname).then(data => {
+      this.setState({
+        page: data.page,
+        layout: data.layout,
+        historyContextParams: {
+          path: pathname,
+          error: data.error,
+          params: data.params
+        }
+      });
+    });
   }
 
   pushstate(pathname: string) {
-    router.resolve(pathname).then(async (action: RouteAction) => {
-      const update = this.updateRoute.bind(this);
-      await update(action);
+    router.resolve(pathname).then(data => {
+      this.setState({
+        page: data.page,
+        layout: data.layout,
+        historyContextParams: {
+          path: pathname,
+          error: data.error,
+          params: data.params
+        }
+      });
       history.pushState(null, "", pathname);
     });
   }
 
   render() {
-    const Page = React.lazy(IntermediateData.modules[this.state.page!]);
+    const Page = React.lazy(TmpData.modules[this.state.page!] as any);
     const Layout = this.state.layout
-      ? React.lazy(IntermediateData.modules[this.state.layout])
+      ? React.lazy(TmpData.modules[this.state.layout] as any)
       : undefined;
 
     return (
@@ -106,11 +73,11 @@ class App extends React.Component<
         {this.state.page && (
           <HistoryContext.Provider
             value={{
-              push: this.pushstate.bind(this),
+              push: this.pushstate,
               ...this.state.historyContextParams
             }}
           >
-            <React.Suspense fallback={<div>Loading...</div>}>
+            <React.Suspense fallback={<div />}>
               {Layout ? (
                 <Layout>
                   <Page />
