@@ -8,7 +8,7 @@ import * as IntermediateData from "../tmp/server";
 import Abreact from "abreact";
 const HistoryContext = Abreact.HistoryContext;
 type HistoryContextParams = Abreact.HistoryContext.HistoryContextParams;
-import { AbreactPage } from "../types";
+import { AbreactPage } from "../common/types";
 
 type RouteAction = {
   page: string;

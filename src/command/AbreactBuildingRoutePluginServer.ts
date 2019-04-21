@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs";
 import { oc } from "ts-optchain";
 import webpack from "webpack";
-import { AbreactUserConfig } from "../types";
+import { AbreactUserConfig } from "../common/types";
 import { CommonParams } from "./type";
 import {
   readPagesRecursive,
