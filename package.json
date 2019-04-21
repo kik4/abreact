@@ -14,7 +14,6 @@
     "@types/react-dom": "^16.8.3",
     "chalk": "^2.4.2",
     "commander": "^2.20.0",
-    "ejs": "^2.6.1",
     "es6-promise": "^4.2.6",
     "express": "^4.16.4",
     "extra-watch-webpack-plugin": "^1.0.3",
@@ -32,7 +31,9 @@
     "universal-router": "^8.1.0",
     "webpack": "^4.29.6",
     "webpack-dev-middleware": "^3.6.2",
-    "webpack-hot-middleware": "^2.24.3"
+    "webpack-hot-middleware": "^2.24.3",
+    "webpack-hot-server-middleware": "^0.6.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "@types/express": "^4.16.1",

@@ -1,19 +1,22 @@
-import webpack from "webpack";
+import webpack, { Compiler } from "webpack";
 import { getWebpackConfig } from "./webpack.config";
+import { getWebpackConfig as getWebpackConfigServer } from "./webpack.server.config";
 import devMiddleware from "webpack-dev-middleware";
 import hotMiddleware from "webpack-hot-middleware";
+import hotServerMiddleware from "webpack-hot-server-middleware";
 import express from "express";
 import path from "path";
 import { CommonParams } from "./type";
 
 export default (commonParams: CommonParams) => {
   const config = getWebpackConfig(commonParams);
+  const configServer = getWebpackConfigServer(commonParams);
 
   (config.entry as any).client.push(
     "webpack-hot-middleware/client?noInfo=true"
   );
 
-  const compiler = webpack(config);
+  const compiler = webpack([config, configServer]);
 
   console.log("Starting server on http://localhost:8080");
 
@@ -26,27 +29,24 @@ export default (commonParams: CommonParams) => {
   // dev-server
   app.use(
     devMiddleware(compiler, {
-      publicPath
+      publicPath,
+      serverSideRender: true
     })
   );
-  app.use(hotMiddleware(compiler));
+  app.use(
+    hotMiddleware(compiler.compilers.find(
+      compiler => compiler.name === "client"
+    ) as Compiler)
+  );
+  app.use(hotServerMiddleware(compiler));
 
   let hash = "";
-  compiler.hooks.afterCompile.tap(
+  compiler.compilers[0].hooks.afterCompile.tap(
     "AbreactGetHook",
     (compilation: webpack.compilation.Compilation) => {
       hash = compilation.hash!;
     }
   );
-
-  // spa fallback
-  const templatePath = path.resolve(
-    commonParams.abreactRoot,
-    "./src/templates/index.ejs"
-  );
-  app.use("/*", (req, res) => {
-    res.render(templatePath, { publicPath, hash });
-  });
 
   app.listen(8080);
 };
