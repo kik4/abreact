@@ -1,7 +1,7 @@
 import React from "react";
 
 export type HistoryContextParams = {
-  path?: string;
+  pathname?: string;
   error?: Error & { status?: number };
   params?: any;
 };
@@ -11,7 +11,7 @@ export type HistoryContextAction = {
 };
 
 const HistoryContext = React.createContext({
-  path: undefined as string | undefined,
+  pathname: undefined as string | undefined,
   error: undefined as any | undefined,
   params: undefined as any | undefined,
   push: (pathname: string) => {}

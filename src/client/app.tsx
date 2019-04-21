@@ -1,7 +1,7 @@
 import React from "react";
 import { hot } from "react-hot-loader/root";
 import HistoryContext, { HistoryContextParams } from "./HistoryContext";
-import router from "../common/app/router";
+import router, { ResolvedData } from "../common/app/router";
 import * as TmpData from "../tmp/client";
 
 class App extends React.Component<
@@ -16,6 +16,7 @@ class App extends React.Component<
     super(props);
     this.popstate = this.popstate.bind(this);
     this.pushstate = this.pushstate.bind(this);
+
     this.state = {
       historyContextParams: {}
     };
@@ -39,7 +40,7 @@ class App extends React.Component<
         page: data.page,
         layout: data.layout,
         historyContextParams: {
-          path: pathname,
+          pathname,
           error: data.error,
           params: data.params
         }
@@ -53,7 +54,7 @@ class App extends React.Component<
         page: data.page,
         layout: data.layout,
         historyContextParams: {
-          path: pathname,
+          pathname,
           error: data.error,
           params: data.params
         }
