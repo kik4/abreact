@@ -4,7 +4,7 @@ import merge from "webpack-merge";
 import nodeExternals from "webpack-node-externals";
 import { getWebpackConfig as getBase } from "./webpack.config.base";
 import { CommonParams } from "./type";
-import AbreactBuildingRoutePluginServer from "./AbreactBuildingRoutePluginServer";
+import AbreactBuildingRoutePlugin from "./AbreactBuildingRoutePlugin";
 
 export const getWebpackConfig = (
   commonParams: CommonParams,
@@ -40,6 +40,8 @@ export const getWebpackConfig = (
         }
       ]
     },
-    plugins: [new AbreactBuildingRoutePluginServer(commonParams)].filter(v => v)
+    plugins: [new AbreactBuildingRoutePlugin(commonParams, false)].filter(
+      v => v
+    )
   });
 };

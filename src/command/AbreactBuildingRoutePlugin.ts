@@ -10,7 +10,7 @@ import {
 } from "../common/utils/readPagesLayoutsRecursive";
 import { writeFileOnce } from "../common/utils/writeFileOnce";
 
-const writeData = async (commonParams: CommonParams) => {
+const writeData = async (commonParams: CommonParams, isClient: boolean) => {
   const userConfig = require(path.join(
     commonParams.userRoot,
     "src/abreact.config"
@@ -32,13 +32,15 @@ const writeData = async (commonParams: CommonParams) => {
     pluginsResult.push(`"${name}": require("${pluginPath}"),`);
   });
 
+  const importString = isClient ? "import" : "require";
+
   // create test
   const modules = [
     ...pageResult.map(
-      v => `"${v.moduleName}": () => import("${v.importDir}"),`
+      v => `"${v.moduleName}": () => ${importString}("${v.importDir}"),`
     ),
     ...layoutResult.map(
-      v => `"${v.moduleName}": () => import("${v.importDir}"),`
+      v => `"${v.moduleName}": () => ${importString}("${v.importDir}"),`
     )
   ].join("\n");
   const routes = pageResult
@@ -66,22 +68,24 @@ export const plugins = {${pluginsResult.join("")}};
     err => {}
   );
 
-  // no loop
+  // output
+  const filename = isClient ? "client" : "server";
   writeFileOnce(
-    path.join(commonParams.abreactRoot, "src/tmp/client.js"),
+    path.join(commonParams.abreactRoot, `src/tmp/${filename}.js`),
     resultString
   );
 };
 
 class AbreactBuildingRoutePlugin {
   commonParams: CommonParams;
-  constructor(commonParams: CommonParams) {
+  isClient: boolean;
+  constructor(commonParams: CommonParams, isClient: boolean) {
     this.commonParams = commonParams;
+    this.isClient = isClient;
   }
   apply(compiler: webpack.Compiler) {
-    compiler.hooks.compilation.tap(
-      "AbreactBuildingRoutePluginClient",
-      async () => writeData(this.commonParams)
+    compiler.hooks.compilation.tap("AbreactBuildingRoutePlugin", async () =>
+      writeData(this.commonParams, this.isClient)
     );
   }
 }
