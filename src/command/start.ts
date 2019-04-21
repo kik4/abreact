@@ -1,6 +1,6 @@
 import webpack, { Compiler } from "webpack";
-import { getWebpackConfig } from "./webpack.config";
-import { getWebpackConfig as getWebpackConfigServer } from "./webpack.server.config";
+import { getWebpackConfig } from "./webpack.config.client";
+import { getWebpackConfig as getWebpackConfigServer } from "./webpack.config.server";
 import devMiddleware from "webpack-dev-middleware";
 import hotMiddleware from "webpack-hot-middleware";
 import hotServerMiddleware from "webpack-hot-server-middleware";

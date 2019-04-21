@@ -1,18 +1,14 @@
 import webpack from "webpack";
 import path from "path";
 import ExtraWatchWebpackPlugin from "extra-watch-webpack-plugin";
-import AbreactBuildingRoutePluginServer from "./AbreactBuildingRoutePluginServer";
+import AbreactBuildingRoutePlugin from "./AbreactBuildingRoutePlugin";
 import { CommonParams } from "./type";
-import nodeExternals from "webpack-node-externals";
 
 export const getWebpackConfig = (
   commonParams: CommonParams,
   isDevelopment = true
 ): webpack.Configuration => {
   return {
-    name: "server",
-    target: "node",
-    externals: [nodeExternals()],
     mode: isDevelopment ? "development" : "production",
     resolve: {
       modules: [
@@ -27,18 +23,12 @@ export const getWebpackConfig = (
         abreact: path.resolve(commonParams.abreactRoot, "src/export")
       }
     },
-    entry: path.resolve(commonParams.abreactRoot, "src/server/index.ts"),
-    output: {
-      path: path.join(commonParams.userRoot, "dist"),
-      publicPath: "/",
-      filename: "server.bundle.js",
-      libraryTarget: "commonjs2"
-    },
     module: {
       rules: [
         {
           test: /\.(j|t)sx?$/,
           use: [
+            isDevelopment ? "react-hot-loader/webpack" : "",
             {
               loader: "ts-loader",
               options: {
@@ -47,6 +37,14 @@ export const getWebpackConfig = (
               }
             }
           ].filter(v => v)
+        },
+        {
+          test: /\.html$/,
+          loader: "html-loader"
+        },
+        {
+          test: /\.css$/,
+          use: ["style-loader", "postcss-loader"]
         }
       ]
     },
@@ -58,11 +56,11 @@ export const getWebpackConfig = (
         stdout.write((percentage * 100).toFixed(2) + "%");
         stdout.write(" " + message);
       }),
+      isDevelopment && new webpack.NamedModulesPlugin(),
       isDevelopment &&
         new ExtraWatchWebpackPlugin({
           dirs: [path.resolve(commonParams.userRoot, "src")]
-        }),
-      new AbreactBuildingRoutePluginServer(commonParams)
+        })
     ].filter(v => v)
   };
 };

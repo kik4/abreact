@@ -1,5 +1,5 @@
 import webpack from "webpack";
-import { getWebpackConfig } from "./webpack.config";
+import { getWebpackConfig } from "./webpack.config.client";
 import clear from "./clear";
 import { CommonParams } from "./type";
 
