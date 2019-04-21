@@ -3,7 +3,7 @@ import path from "path";
 import merge from "webpack-merge";
 import { getWebpackConfig as getBase } from "./webpack.config.base";
 import { CommonParams } from "./type";
-import AbreactBuildingRoutePlugin from "./AbreactBuildingRoutePlugin";
+import AbreactBuildingRoutePluginClient from "./AbreactBuildingRoutePluginClient";
 
 export const getWebpackConfig = (
   commonParams: CommonParams,
@@ -23,7 +23,7 @@ export const getWebpackConfig = (
     },
     plugins: [
       isDevelopment && new webpack.HotModuleReplacementPlugin(),
-      new AbreactBuildingRoutePlugin(commonParams)
+      new AbreactBuildingRoutePluginClient(commonParams)
     ].filter(v => v) as webpack.Plugin[],
     node: {
       dgram: "empty",

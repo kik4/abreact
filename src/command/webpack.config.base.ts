@@ -1,7 +1,6 @@
 import webpack from "webpack";
 import path from "path";
 import ExtraWatchWebpackPlugin from "extra-watch-webpack-plugin";
-import AbreactBuildingRoutePlugin from "./AbreactBuildingRoutePlugin";
 import { CommonParams } from "./type";
 
 export const getWebpackConfig = (

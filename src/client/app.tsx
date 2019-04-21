@@ -3,7 +3,7 @@ import { oc } from "ts-optchain";
 import { hot } from "react-hot-loader/root";
 import UniversalRouter, { Route, Options } from "universal-router";
 //@ts-ignore
-import * as IntermediateData from "../tmp";
+import * as IntermediateData from "../tmp/client";
 import HistoryContext, { HistoryContextParams } from "./HistoryContext";
 import { AbreactPage } from "../types";
 

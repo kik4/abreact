@@ -35,10 +35,10 @@ const writeData = async (commonParams: CommonParams) => {
   // create test
   const modules = [
     ...pageResult.map(
-      v => `"${v.moduleName}": () => require("${v.importDir}"),`
+      v => `"${v.moduleName}": () => import("${v.importDir}"),`
     ),
     ...layoutResult.map(
-      v => `"${v.moduleName}": () => require("${v.importDir}"),`
+      v => `"${v.moduleName}": () => import("${v.importDir}"),`
     )
   ].join("\n");
   const routes = pageResult
@@ -68,7 +68,7 @@ export const plugins = {${pluginsResult.join("")}};
 
   // no loop
   writeFileOnce(
-    path.join(commonParams.abreactRoot, "src/tmp/server.js"),
+    path.join(commonParams.abreactRoot, "src/tmp/client.js"),
     resultString
   );
 };
@@ -80,7 +80,7 @@ class AbreactBuildingRoutePlugin {
   }
   apply(compiler: webpack.Compiler) {
     compiler.hooks.compilation.tap(
-      "AbreactBuildingRoutePluginServer",
+      "AbreactBuildingRoutePluginClient",
       async () => writeData(this.commonParams)
     );
   }
