@@ -10,6 +10,7 @@ This project is not production ready. See `/example` directory for usage.
 - HMR
 - Routing
 - Code Splitting
+- SSR
 
 ## Contributing
 
