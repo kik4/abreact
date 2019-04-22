@@ -15,6 +15,7 @@ router.resolve(pathname).then((action: ResolvedData) => {
   );
 });
 
+// because this file depends on route depends on pages will hmr
 if ((module as any).hot) {
   (module as any).hot.accept(function(err) {
     if (err) {
