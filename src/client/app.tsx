@@ -1,14 +1,17 @@
 import React from "react";
 import { hot } from "react-hot-loader/root";
+import loadable from "@loadable/component";
 import HistoryContext, { HistoryContextParams } from "./HistoryContext";
 import router, { ResolvedData } from "../common/app/router";
 import * as TmpData from "../tmp/client";
 
 class App extends React.Component<
-  {},
   {
-    page?: string;
-    layout?: string;
+    initialState: ResolvedData;
+  },
+  {
+    page: string;
+    layout: string;
     historyContextParams: HistoryContextParams;
   }
 > {
@@ -18,11 +21,15 @@ class App extends React.Component<
     this.pushstate = this.pushstate.bind(this);
 
     this.state = {
-      historyContextParams: {}
+      page: this.props.initialState.page,
+      layout: this.props.initialState.layout,
+      historyContextParams: {
+        error: this.props.initialState.error,
+        params: this.props.initialState.params,
+        pathname: this.props.initialState.pathname
+      }
     };
   }
-
-  eventHandler: any;
 
   componentDidMount() {
     window.addEventListener("popstate", this.popstate);
@@ -64,13 +71,13 @@ class App extends React.Component<
   }
 
   render() {
-    const Page = React.lazy(TmpData.modules[this.state.page!] as any);
+    const Page = loadable(TmpData.modules[this.state.page] as any);
     const Layout = this.state.layout
-      ? React.lazy(TmpData.modules[this.state.layout] as any)
+      ? loadable(TmpData.modules[this.state.layout] as any)
       : undefined;
 
     return (
-      <div className="App">
+      <div className="App" suppressHydrationWarning={true}>
         {this.state.page && (
           <HistoryContext.Provider
             value={{
@@ -78,15 +85,13 @@ class App extends React.Component<
               ...this.state.historyContextParams
             }}
           >
-            <React.Suspense fallback={<div />}>
-              {Layout ? (
-                <Layout>
-                  <Page />
-                </Layout>
-              ) : (
+            {Layout ? (
+              <Layout>
                 <Page />
-              )}
-            </React.Suspense>
+              </Layout>
+            ) : (
+              <Page />
+            )}
           </HistoryContext.Provider>
         )}
       </div>
