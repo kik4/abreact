@@ -34,14 +34,6 @@ export default (commonParams: CommonParams) => {
   );
   app.use(hotServerMiddleware(compiler));
 
-  let hash = "";
-  compiler.compilers[0].hooks.afterCompile.tap(
-    "AbreactGetHook",
-    (compilation: webpack.compilation.Compilation) => {
-      hash = compilation.hash!;
-    }
-  );
-
   const port = oc(commonParams.userConfig).server.port(3000);
   app.listen(port);
   console.log(`Starting server on http://localhost:${port}`);
