@@ -45,10 +45,10 @@ if (typeof cmdValue !== "string") {
 Usage: index [options] [command]
 Options:
   -v, --version  output the version number
-  -s, --spa      run as SPA mode
 
 Commands:
   (default)      start development server
   build          build production code
+  start          start production server (after running build).
 `);
 }
