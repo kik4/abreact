@@ -1,93 +1,64 @@
 import React from "react";
 import { oc } from "ts-optchain";
-import { hot } from "react-hot-loader/root";
-import UniversalRouter, { Route, Options } from "universal-router/sync";
-//@ts-ignore
 import * as IntermediateData from "../tmp/server";
-//@ts-ignore
-import Abreact from "abreact";
-const HistoryContext = Abreact.HistoryContext;
-type HistoryContextParams = Abreact.HistoryContext.HistoryContextParams;
+import { ResolvedData } from "../common/app/router";
 import { AbreactPage } from "../common/types";
-
-type RouteAction = {
-  page: string;
-  context: any;
-  error?: Parameters<NonNullable<Options["errorHandler"]>>[0];
-};
-type Routes = Route<any, RouteAction>[];
-interface IntermediateData {
-  modules: { [key: string]: () => Promise<AbreactPage> };
-  routes: Routes;
-  layouts: { [key: string]: string };
-  plugins: { [key: string]: () => any };
-}
-
-const router = new UniversalRouter(IntermediateData.routes, {
-  errorHandler(error, context) {
-    if (!IntermediateData.layouts.error) {
-      console.error(`Abreact: error component is not found.`);
-    }
-    return {
-      page: IntermediateData.layouts["error"],
-      error,
-      context
-    };
-  }
-});
+//@ts-ignore
+import Abreact from "abreact"; // this is important because using same object both client and server
 
 class App extends React.Component<
-  { pathname: string },
   {
-    pageComponent?: any;
-    layoutComponent?: any;
-    historyContextParams: HistoryContextParams;
+    initialState: ResolvedData;
+  },
+  {
+    page: string;
+    layout: string;
+    historyContextParams: Abreact.HistoryContextParams;
   }
 > {
   constructor(props) {
     super(props);
 
-    const action = router.resolve({
-      pathname: this.props.pathname
-    }) as RouteAction;
-    const page = IntermediateData.modules[action.page]() as AbreactPage;
-    const layoutName =
-      IntermediateData.layouts[oc(page).pageConfig.layout("default")];
-    const layout = IntermediateData.modules[layoutName]();
-    if (!layout) {
-      console.warn(`Abreact: layout '${layoutName}' is not found.`);
-    }
     this.state = {
-      pageComponent: page.default,
-      layoutComponent: layout ? layout.default : undefined,
+      page: this.props.initialState.page,
+      layout: this.props.initialState.layout,
       historyContextParams: {
-        path: action.context.path,
-        error: action.error,
-        params: action.context.params
-      } as HistoryContextParams
+        error: this.props.initialState.error,
+        params: this.props.initialState.params,
+        pathname: this.props.initialState.pathname
+      }
     };
   }
 
   render() {
+    const action = this.props.initialState;
+    const page = IntermediateData.modules[action.page]() as AbreactPage;
+    const layoutName =
+      IntermediateData.layouts[oc(page).pageConfig.layout("default")];
+    const layout = IntermediateData.modules[layoutName]();
+    const pageComponent = page.default;
+    const layoutComponent = layout ? layout.default : undefined;
+    const ssrElement = layoutComponent
+      ? React.createElement(
+          layoutComponent,
+          {},
+          React.createElement(pageComponent)
+        )
+      : React.createElement(pageComponent);
+
     return (
       <div className="App">
-        <HistoryContext.Provider
+        <Abreact.HistoryContext.Provider
           value={{
             push: () => {},
             ...this.state.historyContextParams
           }}
         >
-          {this.state.layoutComponent
-            ? React.createElement(
-                this.state.layoutComponent,
-                {},
-                React.createElement(this.state.pageComponent)
-              )
-            : React.createElement(this.state.pageComponent)}
-        </HistoryContext.Provider>
+          {ssrElement}
+        </Abreact.HistoryContext.Provider>
       </div>
     );
   }
 }
 
-export default hot(App);
+export default App;
