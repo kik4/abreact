@@ -1,10 +1,9 @@
 import express from "express";
 import path from "path";
-import { CommonParams } from "./type";
+import { CommonParams } from "./types";
+import { oc } from "ts-optchain";
 
 export default (commonParams: CommonParams) => {
-  console.log("Starting server on http://localhost:8080");
-
   const app = express();
 
   const CLIENT_ASSETS_DIR = path.join(commonParams.userRoot, "dist/client");
@@ -21,5 +20,7 @@ export default (commonParams: CommonParams) => {
   app.use(express.static(CLIENT_ASSETS_DIR));
   app.use(serverRenderer(stats));
 
-  app.listen(8080);
+  const port = oc(commonParams.userConfig).server.port(3000);
+  app.listen(port);
+  console.log(`Starting server on http://localhost:${port}`);
 };

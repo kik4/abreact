@@ -6,12 +6,16 @@ import path from "path";
 import build from "./build";
 import dev from "./dev";
 import start from "./start";
+import { AbreactUserConfig } from "../common/types";
 
 const version = "0.0.1";
 
 const abreactRoot = path.join(__dirname, "../../");
 const userRoot = process.cwd();
-const commonParams = { abreactRoot, userRoot };
+const userConfig = require(path.join(userRoot, "src/abreact.config")) as
+  | AbreactUserConfig
+  | undefined;
+const commonParams = { abreactRoot, userRoot, userConfig };
 
 console.log(
   chalk.blue(figlet.textSync("abreact", { horizontalLayout: "full" }))

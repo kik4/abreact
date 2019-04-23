@@ -1,6 +1,6 @@
 import rimraf from "rimraf";
 import path from "path";
-import { CommonParams } from "./type";
+import { CommonParams } from "./types";
 
 export default (commonParams: CommonParams) => {
   rimraf(path.join(commonParams.userRoot, "dist"), err => {

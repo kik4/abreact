@@ -5,8 +5,8 @@ import devMiddleware from "webpack-dev-middleware";
 import hotMiddleware from "webpack-hot-middleware";
 import hotServerMiddleware from "webpack-hot-server-middleware";
 import express from "express";
-import path from "path";
-import { CommonParams } from "./type";
+import { CommonParams } from "./types";
+import { oc } from "ts-optchain";
 
 export default (commonParams: CommonParams) => {
   const config = getWebpackConfig(commonParams);
@@ -18,16 +18,12 @@ export default (commonParams: CommonParams) => {
 
   const compiler = webpack([config, configServer]);
 
-  console.log("Starting server on http://localhost:8080");
-
   const app = express();
-
-  const publicPath = config.output!.publicPath!;
 
   // dev-server
   app.use(
     devMiddleware(compiler, {
-      publicPath,
+      publicPath: config.output!.publicPath!,
       serverSideRender: true
     })
   );
@@ -46,5 +42,7 @@ export default (commonParams: CommonParams) => {
     }
   );
 
-  app.listen(8080);
+  const port = oc(commonParams.userConfig).server.port(3000);
+  app.listen(port);
+  console.log(`Starting server on http://localhost:${port}`);
 };

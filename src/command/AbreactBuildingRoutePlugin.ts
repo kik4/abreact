@@ -2,8 +2,7 @@ import path from "path";
 import fs from "fs";
 import { oc } from "ts-optchain";
 import webpack from "webpack";
-import { AbreactUserConfig } from "../common/types";
-import { CommonParams } from "./type";
+import { CommonParams } from "./types";
 import {
   readPagesRecursive,
   readLayoutsRecursive
@@ -11,11 +10,6 @@ import {
 import { writeFileOnce } from "../common/utils/writeFileOnce";
 
 const writeData = async (commonParams: CommonParams, isClient: boolean) => {
-  const userConfig = require(path.join(
-    commonParams.userRoot,
-    "src/abreact.config"
-  )) as AbreactUserConfig | undefined;
-
   // pages
   const pageDir = path.join(commonParams.userRoot, "src/pages/");
   const pageResult = await readPagesRecursive(pageDir);
@@ -26,7 +20,7 @@ const writeData = async (commonParams: CommonParams, isClient: boolean) => {
 
   // plugins
   const pluginsResult = [] as any;
-  const plugins = oc(userConfig).plugins([]);
+  const plugins = oc(commonParams.userConfig).plugins([]);
   plugins.forEach(pluginPath => {
     const name = path.basename(pluginPath, path.extname(pluginPath));
     pluginsResult.push(`"${name}": require("${pluginPath}"),`);

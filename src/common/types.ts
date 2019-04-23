@@ -11,6 +11,9 @@ export type AbreactPageConfig = {
 };
 
 export type AbreactUserConfig = {
+  server?: {
+    port?: number;
+  };
   plugins?: string[];
 };
 

@@ -1,7 +1,7 @@
 import webpack from "webpack";
 import path from "path";
 import ExtraWatchWebpackPlugin from "extra-watch-webpack-plugin";
-import { CommonParams } from "./type";
+import { CommonParams } from "./types";
 
 export const getWebpackConfig = (
   commonParams: CommonParams,

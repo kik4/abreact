@@ -3,7 +3,7 @@ import path from "path";
 import merge from "webpack-merge";
 import nodeExternals from "webpack-node-externals";
 import { getWebpackConfig as getBase } from "./webpack.config.base";
-import { CommonParams } from "./type";
+import { CommonParams } from "./types";
 import AbreactBuildingRoutePlugin from "./AbreactBuildingRoutePlugin";
 
 export const getWebpackConfig = (
