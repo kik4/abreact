@@ -4,6 +4,7 @@ import figlet from "figlet";
 import program from "commander";
 import path from "path";
 import build from "./build";
+import dev from "./dev";
 import start from "./start";
 
 const version = "0.0.1";
@@ -30,9 +31,11 @@ program
 program.parse(process.argv);
 
 if (typeof cmdValue !== "string") {
-  start(commonParams);
+  dev(commonParams);
 } else if (cmdValue === "build") {
   build(commonParams);
+} else if (cmdValue === "start") {
+  start(commonParams);
 } else {
   console.log(`
 Usage: index [options] [command]

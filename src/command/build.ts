@@ -1,11 +1,15 @@
 import webpack from "webpack";
 import { getWebpackConfig } from "./webpack.config.client";
+import { getWebpackConfig as getWebpackConfigServer } from "./webpack.config.server";
 import clear from "./clear";
 import { CommonParams } from "./type";
+import fs from "fs";
+import path from "path";
 
 export default (commonParams: CommonParams) => {
   const config = getWebpackConfig(commonParams, false);
-  const compiler = webpack(config);
+  const configServer = getWebpackConfigServer(commonParams);
+  const compiler = webpack([config, configServer]);
 
   clear(commonParams);
 
@@ -20,6 +24,16 @@ export default (commonParams: CommonParams) => {
         chunks: false, // Makes the build much quieter
         colors: true // Shows colors in the console
       })
+    );
+
+    const statsData = {
+      clientStats: {
+        hash: ((stats as any).stats as webpack.Stats[])[0].hash
+      }
+    };
+    fs.writeFileSync(
+      path.join(commonParams.userRoot, "dist/server/stats.json"),
+      JSON.stringify(statsData)
     );
   });
 };

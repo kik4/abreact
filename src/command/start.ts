@@ -1,52 +1,25 @@
-import webpack, { Compiler } from "webpack";
-import { getWebpackConfig } from "./webpack.config.client";
-import { getWebpackConfig as getWebpackConfigServer } from "./webpack.config.server";
-import devMiddleware from "webpack-dev-middleware";
-import hotMiddleware from "webpack-hot-middleware";
-import hotServerMiddleware from "webpack-hot-server-middleware";
 import express from "express";
 import path from "path";
 import { CommonParams } from "./type";
 
 export default (commonParams: CommonParams) => {
-  const config = getWebpackConfig(commonParams);
-  const configServer = getWebpackConfigServer(commonParams);
-
-  (config.entry as any).client.push(
-    "webpack-hot-middleware/client?noInfo=true"
-  );
-
-  const compiler = webpack([config, configServer]);
-
   console.log("Starting server on http://localhost:8080");
 
   const app = express();
 
-  app.set("view engine", "ejs");
-
-  const publicPath = config.output!.publicPath!;
-
-  // dev-server
-  app.use(
-    devMiddleware(compiler, {
-      publicPath,
-      serverSideRender: true
-    })
+  const CLIENT_ASSETS_DIR = path.join(commonParams.userRoot, "dist/client");
+  const CLIENT_STATS_PATH = path.join(
+    commonParams.userRoot,
+    "dist/server/stats.json"
   );
-  app.use(
-    hotMiddleware(compiler.compilers.find(
-      compiler => compiler.name === "client"
-    ) as Compiler)
+  const SERVER_RENDERER_PATH = path.join(
+    commonParams.userRoot,
+    "dist/server/server.bundle.js"
   );
-  app.use(hotServerMiddleware(compiler));
-
-  let hash = "";
-  compiler.compilers[0].hooks.afterCompile.tap(
-    "AbreactGetHook",
-    (compilation: webpack.compilation.Compilation) => {
-      hash = compilation.hash!;
-    }
-  );
+  const serverRenderer = require(SERVER_RENDERER_PATH).default;
+  const stats = require(CLIENT_STATS_PATH);
+  app.use(express.static(CLIENT_ASSETS_DIR));
+  app.use(serverRenderer(stats));
 
   app.listen(8080);
 };
