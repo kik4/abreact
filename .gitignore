@@ -1,3 +1,4 @@
 node_modules/
 lib/
-src/tmp/*.js
+src/tmp/*
+!src/tmp/*.d.ts
