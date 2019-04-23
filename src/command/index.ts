@@ -15,32 +15,33 @@ const commonParams = { abreactRoot, userRoot };
 console.log(
   chalk.blue(figlet.textSync("abreact", { horizontalLayout: "full" }))
 );
-console.log(`Version: ${version}`);
 
-program.version(version, "-v, --version");
-
+let cmdValue, isSpa;
 program
-  .command("build")
-  .description("build")
-  .action(function(env, options) {
-    console.log("");
-    console.log("Build");
-    console.log("");
-    build(commonParams);
-  });
-
-program
-  .command("start")
-  .description("start")
-  .action(function(env, oprionts) {
-    console.log("");
-    console.log("Start");
-    console.log("");
-    start(commonParams);
+  .version("Version: " + version, "-v, --version")
+  .option("-s, --spa")
+  .action(function(cmd, options) {
+    cmdValue = cmd;
+    if (options) {
+      isSpa = options.spa;
+    }
   });
 
 program.parse(process.argv);
 
-if (!process.argv.slice(2).length) {
-  program.outputHelp();
+if (typeof cmdValue !== "string") {
+  start(commonParams);
+} else if (cmdValue === "build") {
+  build(commonParams);
+} else {
+  console.log(`
+Usage: index [options] [command]
+Options:
+  -v, --version  output the version number
+  -s, --spa      run as SPA mode
+
+Commands:
+  (default)      start development server
+  build          build production code
+`);
 }
