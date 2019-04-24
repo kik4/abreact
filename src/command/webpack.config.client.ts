@@ -14,7 +14,7 @@ export const getWebpackConfig = (
   return merge(base, {
     name: "client",
     entry: {
-      client: [path.resolve(commonParams.abreactRoot, "src/client/index.ts")]
+      client: [path.resolve(commonParams.abreactRoot, "src/client/index.tsx")]
     },
     output: {
       path: path.join(commonParams.userRoot, "dist", "client"),

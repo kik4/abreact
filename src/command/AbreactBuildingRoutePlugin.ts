@@ -26,9 +26,14 @@ const writeData = async (commonParams: CommonParams, isClient: boolean) => {
     pluginsResult.push(`"${name}": require("${pluginPath}"),`);
   });
 
-  const importString = isClient ? "import" : "require";
+  const cssResult = [] as any;
+  const csses = oc(commonParams.userConfig).css([]);
+  csses.forEach(pluginPath => {
+    cssResult.push(`require("${pluginPath}"),`);
+  });
 
   // create test
+  const importString = isClient ? "import" : "require";
   const modules = [
     ...pageResult.map(
       v => `"${v.moduleName}": () => ${importString}("${v.importDir}"),`
@@ -53,6 +58,7 @@ action: (context) => ({page: "${v.moduleName}", context}),
 export const routes = [${routes}];
 export const layouts = {${layouts}};
 export const plugins = {${pluginsResult.join("")}};
+export const csses = [${cssResult.join("")}];
 `;
 
   // create dir

@@ -17,7 +17,7 @@ export const getWebpackConfig = (
     target: "node",
     externals: [nodeExternals()],
     mode: isDevelopment ? "development" : "production",
-    entry: path.resolve(commonParams.abreactRoot, "src/server/index.ts"),
+    entry: path.resolve(commonParams.abreactRoot, "src/server/index.tsx"),
     output: {
       path: path.join(commonParams.userRoot, "dist", "server"),
       publicPath: "/",

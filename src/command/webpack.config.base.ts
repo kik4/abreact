@@ -38,12 +38,17 @@ export const getWebpackConfig = (
           ].filter(v => v)
         },
         {
-          test: /\.html$/,
-          loader: "html-loader"
-        },
-        {
           test: /\.css$/,
-          use: ["style-loader", "postcss-loader"]
+          use: [
+            "isomorphic-style-loader",
+            {
+              loader: "css-loader",
+              options: {
+                importLoaders: 1
+              }
+            },
+            "postcss-loader"
+          ]
         }
       ]
     },

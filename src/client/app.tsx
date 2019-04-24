@@ -1,6 +1,7 @@
 import React from "react";
 import { hot } from "react-hot-loader/root";
 import loadable from "@loadable/component";
+import withStyles from "isomorphic-style-loader/withStyles";
 import HistoryContext, { HistoryContextParams } from "./HistoryContext";
 import router, { ResolvedData } from "../common/app/router";
 import * as TmpData from "../tmp/client";
@@ -99,4 +100,4 @@ class App extends React.Component<
   }
 }
 
-export default hot(App);
+export default withStyles(...TmpData.csses)(App);

@@ -1,8 +1,10 @@
 import React from "react";
 import { oc } from "ts-optchain";
+import withStyles from "isomorphic-style-loader/withStyles";
 import * as IntermediateData from "../tmp/server";
 import { ResolvedData } from "../common/app/router";
 import { AbreactPage } from "../common/types";
+import * as TmpData from "../tmp/server";
 //@ts-ignore
 import Abreact from "abreact"; // this is important because using same object both client and server
 
@@ -61,4 +63,4 @@ class App extends React.Component<
   }
 }
 
-export default App;
+export default withStyles(...TmpData.csses)(App);
