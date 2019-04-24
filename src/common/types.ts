@@ -14,6 +14,10 @@ export type AbreactUserConfig = {
   server?: {
     port?: number;
   };
+  head?: {
+    titleTemplate?: string;
+    defaultTitle?: string;
+  };
   css?: string[];
   plugins?: string[];
 };

@@ -59,6 +59,7 @@ export const routes = [${routes}];
 export const layouts = {${layouts}};
 export const plugins = {${pluginsResult.join("")}};
 export const csses = [${cssResult.join("")}];
+export const config = require("@/abreact.config");
 `;
 
   // create dir

@@ -1,9 +1,12 @@
 import React from "react";
 import { renderToString } from "react-dom/server";
 import webpack = require("webpack");
+import { Helmet } from "react-helmet";
 import StyleContext from "isomorphic-style-loader/StyleContext";
 import App from "./app";
 import router, { ResolvedData } from "../common/app/router";
+import * as TmpData from "../tmp/server";
+import { oc } from "ts-optchain";
 
 const serverRenderer = ({
   clientStats,
@@ -21,18 +24,25 @@ const serverRenderer = ({
     const action = (await router.resolve(pathname)) as ResolvedData;
     const body = renderToString(
       <StyleContext.Provider value={{ insertCss }}>
+        <Helmet
+          titleTemplate={oc(TmpData).config.head.titleTemplate("%s")}
+          defaultTitle={oc(TmpData).config.head.defaultTitle("")}
+        />
         <App initialState={action} />
       </StyleContext.Provider>
     );
+    const helmet = Helmet.renderStatic();
 
     res.status(200).send(`
 <!doctype html>
-<html>
+<html ${helmet.htmlAttributes.toString()}>
 <head>
-    <title>Abreact</title>
+    ${helmet.title.toString()}
+    ${helmet.meta.toString()}
+    ${helmet.link.toString()}
     <style>${[...Array.from(css)].join("")}</style>
 </head>
-<body>
+<body ${helmet.bodyAttributes.toString()}>
     <div id="root">${body}</div>
     <script src="/client.bundle.js?${clientStats.hash}"></script>
 </body>
