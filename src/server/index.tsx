@@ -29,7 +29,7 @@ const serverRenderer = ({
 <!doctype html>
 <html>
 <head>
-    <title>App</title>
+    <title>Abreact</title>
     <style>${[...Array.from(css)].join("")}</style>
 </head>
 <body>
