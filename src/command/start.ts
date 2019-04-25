@@ -2,9 +2,11 @@ import express from "express";
 import path from "path";
 import { CommonParams } from "./types";
 import { oc } from "ts-optchain";
+import compression from "compression";
 
 export default (commonParams: CommonParams) => {
   const app = express();
+  app.use(compression());
 
   const CLIENT_ASSETS_DIR = path.join(commonParams.userRoot, "dist/client");
   const CLIENT_STATS_PATH = path.join(
