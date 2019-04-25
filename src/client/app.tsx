@@ -2,7 +2,9 @@ import React from "react";
 import { hot } from "react-hot-loader/root";
 import loadable from "@loadable/component";
 import withStyles from "isomorphic-style-loader/withStyles";
-import HistoryContext, { HistoryContextParams } from "./HistoryContext";
+import HistoryContext, {
+  HistoryContextParams
+} from "../common/app/HistoryContext";
 import router, { ResolvedData } from "../common/app/router";
 import * as TmpData from "../tmp/client";
 
