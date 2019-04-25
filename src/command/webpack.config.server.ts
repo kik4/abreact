@@ -7,8 +7,7 @@ import { CommonParams } from "./types";
 import AbreactBuildingRoutePlugin from "./AbreactBuildingRoutePlugin";
 
 export const getWebpackConfig = (
-  commonParams: CommonParams,
-  isDevelopment = true
+  commonParams: CommonParams
 ): webpack.Configuration => {
   const base = getBase(commonParams);
 
@@ -16,7 +15,7 @@ export const getWebpackConfig = (
     name: "server",
     target: "node",
     externals: [nodeExternals()],
-    mode: isDevelopment ? "development" : "production",
+    mode: commonParams.isDevelopment ? "development" : "production",
     entry: path.resolve(commonParams.abreactRoot, "src/server/index.tsx"),
     output: {
       path: path.join(commonParams.userRoot, "dist", "server"),

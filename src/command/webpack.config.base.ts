@@ -4,11 +4,11 @@ import ExtraWatchWebpackPlugin from "extra-watch-webpack-plugin";
 import { CommonParams } from "./types";
 
 export const getWebpackConfig = (
-  commonParams: CommonParams,
-  isDevelopment = true
+  commonParams: CommonParams
 ): webpack.Configuration => {
+  const mode = commonParams.isDevelopment ? "development" : "production";
   return {
-    mode: isDevelopment ? "development" : "production",
+    mode,
     resolve: {
       modules: [
         path.resolve(commonParams.abreactRoot, "src/client"),
@@ -27,7 +27,7 @@ export const getWebpackConfig = (
         {
           test: /\.(j|t)sx?$/,
           use: [
-            isDevelopment ? "react-hot-loader/webpack" : "",
+            commonParams.isDevelopment ? "react-hot-loader/webpack" : "",
             {
               loader: "ts-loader",
               options: {
@@ -53,6 +53,7 @@ export const getWebpackConfig = (
       ]
     },
     plugins: [
+      new webpack.DefinePlugin({ "process.env.NODE_ENV": `"${mode}"` }),
       new webpack.ProgressPlugin((percentage, message, ...args) => {
         const stdout = process.stdout as any;
         stdout.clearLine();
@@ -60,8 +61,8 @@ export const getWebpackConfig = (
         stdout.write((percentage * 100).toFixed(2) + "%");
         stdout.write(" " + message);
       }),
-      isDevelopment && new webpack.NamedModulesPlugin(),
-      isDevelopment &&
+      commonParams.isDevelopment && new webpack.NamedModulesPlugin(),
+      commonParams.isDevelopment &&
         new ExtraWatchWebpackPlugin({
           dirs: [path.resolve(commonParams.userRoot, "src")]
         })

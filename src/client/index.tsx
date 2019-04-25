@@ -3,7 +3,7 @@ polyfill.set();
 require("es6-promise").polyfill();
 
 import React from "react";
-import ReactDOM from "react-dom";
+import { hydrate } from "react-dom";
 import App from "./app";
 import { Helmet } from "react-helmet";
 import StyleContext from "isomorphic-style-loader/StyleContext";
@@ -18,7 +18,7 @@ const insertCss = (...styles) => {
 
 const pathname = document.location.pathname;
 router.resolve(pathname).then((action: ResolvedData) => {
-  ReactDOM.hydrate(
+  hydrate(
     <StyleContext.Provider value={{ insertCss }}>
       <Helmet
         titleTemplate={oc(TmpData).config.head.titleTemplate("%s")}

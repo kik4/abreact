@@ -7,7 +7,7 @@ import fs from "fs";
 import path from "path";
 
 export default (commonParams: CommonParams) => {
-  const config = getWebpackConfig(commonParams, false);
+  const config = getWebpackConfig(commonParams);
   const configServer = getWebpackConfigServer(commonParams);
   const compiler = webpack([config, configServer]);
 

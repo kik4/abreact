@@ -4,4 +4,5 @@ export type CommonParams = {
   abreactRoot: string;
   userRoot: string;
   userConfig?: AbreactUserConfig;
+  isDevelopment: boolean;
 };

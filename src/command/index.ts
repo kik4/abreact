@@ -7,6 +7,7 @@ import build from "./build";
 import dev from "./dev";
 import start from "./start";
 import { AbreactUserConfig } from "../common/types";
+import { CommonParams } from "./types";
 
 const version = "0.0.1";
 
@@ -15,7 +16,12 @@ const userRoot = process.cwd();
 const userConfig = require(path.join(userRoot, "src/abreact.config")) as
   | AbreactUserConfig
   | undefined;
-const commonParams = { abreactRoot, userRoot, userConfig };
+const commonParams: CommonParams = {
+  abreactRoot,
+  userRoot,
+  userConfig,
+  isDevelopment: true
+};
 
 console.log(
   chalk.blue(figlet.textSync("abreact", { horizontalLayout: "full" }))
@@ -37,8 +43,10 @@ program.parse(process.argv);
 if (typeof cmdValue !== "string") {
   dev(commonParams);
 } else if (cmdValue === "build") {
+  commonParams.isDevelopment = false;
   build(commonParams);
 } else if (cmdValue === "start") {
+  commonParams.isDevelopment = false;
   start(commonParams);
 } else {
   console.log(`

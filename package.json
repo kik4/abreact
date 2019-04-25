@@ -48,7 +48,8 @@
     "@types/webpack-hot-middleware": "^2.16.5",
     "@types/webpack-merge": "^4.1.4",
     "prettier": "^1.16.4",
-    "ttypescript": "^1.5.6"
+    "ttypescript": "^1.5.6",
+    "webpack-bundle-analyzer": "^3.3.2"
   },
   "scripts": {
     "watch": "ttsc -p . -w",

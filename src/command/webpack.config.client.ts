@@ -4,10 +4,11 @@ import merge from "webpack-merge";
 import { getWebpackConfig as getBase } from "./webpack.config.base";
 import { CommonParams } from "./types";
 import AbreactBuildingRoutePlugin from "./AbreactBuildingRoutePlugin";
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 export const getWebpackConfig = (
-  commonParams: CommonParams,
-  isDevelopment = true
+  commonParams: CommonParams
 ): webpack.Configuration => {
   const base = getBase(commonParams);
 
@@ -22,8 +23,9 @@ export const getWebpackConfig = (
       filename: "[name].bundle.js"
     },
     plugins: [
-      isDevelopment && new webpack.HotModuleReplacementPlugin(),
+      commonParams.isDevelopment && new webpack.HotModuleReplacementPlugin(),
       new AbreactBuildingRoutePlugin(commonParams, true)
+      // new BundleAnalyzerPlugin()
     ].filter(v => v) as webpack.Plugin[],
     node: {
       dgram: "empty",
