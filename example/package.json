@@ -8,8 +8,10 @@
     "prettier": "^1.16.4"
   },
   "scripts": {
-    "build": "yarn abreact build",
-    "start": "yarn abreact",
+    "dev": "abreact",
+    "build": "abreact build",
+    "start": "abreact start",
+    "generate": "abreact generate",
     "_abreact": "node ../lib/command/index.js"
   },
   "devDependencies": {
