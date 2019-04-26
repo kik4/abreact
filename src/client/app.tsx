@@ -102,4 +102,4 @@ class App extends React.Component<
   }
 }
 
-export default withStyles(...TmpData.csses)(App);
+export default hot(withStyles(...TmpData.csses)(App));
