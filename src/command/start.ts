@@ -8,14 +8,17 @@ export default (commonParams: CommonParams) => {
   const app = express();
   app.use(compression());
 
-  const CLIENT_ASSETS_DIR = path.join(commonParams.userRoot, "dist/client");
+  const CLIENT_ASSETS_DIR = path.join(
+    commonParams.userRoot,
+    ".abreact/_client"
+  );
   const CLIENT_STATS_PATH = path.join(
     commonParams.userRoot,
-    "dist/server/stats.json"
+    ".abreact/_server/stats.json"
   );
   const SERVER_RENDERER_PATH = path.join(
     commonParams.userRoot,
-    "dist/server/server.bundle.js"
+    ".abreact/_server/server.bundle.js"
   );
   const serverRenderer = require(SERVER_RENDERER_PATH).default;
   const stats = require(CLIENT_STATS_PATH);

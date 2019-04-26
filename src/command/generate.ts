@@ -1,5 +1,6 @@
 import webpack from "webpack";
 import path from "path";
+import fs from "fs-extra";
 import { getWebpackConfig } from "./webpack.config.client";
 import { getWebpackConfig as getWebpackConfigGenerate } from "./webpack.config.generate";
 import { CommonParams } from "./types";
@@ -24,9 +25,14 @@ export default (commonParams: CommonParams) => {
 
     const SERVER_RENDERER_PATH = path.join(
       commonParams.userRoot,
-      "dist/generate/generate.bundle.js"
+      ".abreact/_generate/generate.bundle.js"
     );
     const serverRenderer = require(SERVER_RENDERER_PATH).default;
     serverRenderer(commonParams, clientStats);
+
+    fs.copySync(
+      path.join(commonParams.userRoot, ".abreact/_client"),
+      path.join(commonParams.userRoot, "dist/_client")
+    );
   });
 };

@@ -14,7 +14,7 @@ export default async (commonParams: CommonParams, statsData: webpack.Stats) => {
     const pathname = pathnames[i];
     const result = await renderToString(pathname, statsData as webpack.Stats);
     const name = pathname.slice(1) || "index";
-    const file = path.join(commonParams.userRoot, "abreact", `${name}.html`);
+    const file = path.join(commonParams.userRoot, "dist", `${name}.html`);
     const dir = path.dirname(file);
     fs.mkdirpSync(dir);
     fs.writeFileSync(file, result);

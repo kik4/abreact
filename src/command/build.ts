@@ -32,7 +32,7 @@ export default (commonParams: CommonParams) => {
       }
     };
     fs.writeFileSync(
-      path.join(commonParams.userRoot, "dist/server/stats.json"),
+      path.join(commonParams.userRoot, ".abreact/_server/stats.json"),
       JSON.stringify(statsData)
     );
   });

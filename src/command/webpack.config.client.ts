@@ -18,7 +18,7 @@ export const getWebpackConfig = (
       client: [path.resolve(commonParams.abreactRoot, "src/client/index.tsx")]
     },
     output: {
-      path: path.join(commonParams.userRoot, "dist", "client"),
+      path: path.join(commonParams.userRoot, ".abreact", "_client"),
       publicPath: "/",
       filename: "[name].bundle.js"
     },

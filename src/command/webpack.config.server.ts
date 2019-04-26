@@ -20,7 +20,7 @@ export const getWebpackConfig = (
     mode: commonParams.isDevelopment ? "development" : "production",
     entry: path.resolve(commonParams.abreactRoot, "src/server/index.tsx"),
     output: {
-      path: path.join(commonParams.userRoot, "dist", "server"),
+      path: path.join(commonParams.userRoot, ".abreact", "_server"),
       publicPath: "/",
       filename: "server.bundle.js",
       libraryTarget: "commonjs2"

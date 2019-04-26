@@ -12,7 +12,7 @@ export const getWebpackConfig = (
   return merge(base, {
     entry: path.resolve(commonParams.abreactRoot, "src/generate/index.ts"),
     output: {
-      path: path.join(commonParams.userRoot, "dist", "generate"),
+      path: path.join(commonParams.userRoot, ".abreact", "_generate"),
       publicPath: "/",
       filename: "generate.bundle.js",
       libraryTarget: "commonjs2"
