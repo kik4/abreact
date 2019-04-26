@@ -6,6 +6,7 @@ import path from "path";
 import build from "./build";
 import dev from "./dev";
 import start from "./start";
+import generate from "./generate";
 import { AbreactUserConfig } from "../common/types";
 import { CommonParams } from "./types";
 
@@ -48,6 +49,9 @@ if (typeof cmdValue !== "string") {
 } else if (cmdValue === "start") {
   commonParams.isDevelopment = false;
   start(commonParams);
+} else if (cmdValue === "generate") {
+  commonParams.isDevelopment = false;
+  generate(commonParams);
 } else {
   console.log(`
 Usage: index [options] [command]
