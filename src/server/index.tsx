@@ -9,7 +9,7 @@ const serverRenderer = ({
   serverStats: webpack.Stats;
 }) => {
   return async (req: Request, res, next) => {
-    const result = renderToString(req.url, clientStats);
+    const result = await renderToString(req.url, clientStats);
     res.status(200).send(result);
   };
 };
