@@ -10,7 +10,7 @@ const universalRouter = new UniversalRouter(TmpData.routes, {
       console.error(`Abreact: error component is not found.`);
     }
     return {
-      page: TmpData.layouts["error"],
+      page: "__error",
       error,
       context
     };
@@ -28,9 +28,8 @@ export type ResolvedData = {
 const resolve = async (pathname: string): Promise<ResolvedData> => {
   const action = (await universalRouter.resolve(pathname)) as RouteAction;
   const page = await TmpData.modules[action.page]();
-  const layoutName = TmpData.layouts[oc(page).pageConfig.layout("default")];
-  const layout = await TmpData.modules[layoutName]();
-  if (!layout) {
+  const layoutName = oc(page).pageConfig.layout("default");
+  if (!TmpData.layouts[layoutName]) {
     console.warn(`Abreact: layout '${layoutName}' is not found.`);
   }
 

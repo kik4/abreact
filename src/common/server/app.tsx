@@ -35,11 +35,10 @@ class App extends React.Component<
   render() {
     const action = this.props.initialState;
     const page = IntermediateData.modules[action.page]() as AbreactPage;
-    const layoutName =
-      IntermediateData.layouts[oc(page).pageConfig.layout("default")];
-    const layout = IntermediateData.modules[layoutName]();
+    const layoutName = oc(page).pageConfig.layout("default");
     const pageComponent = page.default;
-    const layoutComponent = layout ? layout.default : undefined;
+    const layoutComponent = (IntermediateData.layouts[layoutName] as any)
+      .default;
     const ssrElement = layoutComponent
       ? React.createElement(
           layoutComponent,

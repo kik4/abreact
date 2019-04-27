@@ -7,6 +7,7 @@ import HistoryContext, {
 } from "../common/app/HistoryContext";
 import router, { ResolvedData } from "../common/app/router";
 import * as TmpData from "../tmp/client";
+import { AbreactPage } from "../common/types";
 
 class App extends React.Component<
   {
@@ -75,9 +76,7 @@ class App extends React.Component<
 
   render() {
     const Page = loadable(TmpData.modules[this.state.page] as any);
-    const Layout = this.state.layout
-      ? loadable(TmpData.modules[this.state.layout] as any)
-      : undefined;
+    const Layout = TmpData.layouts[this.state.layout].default;
 
     return (
       <div className="App" suppressHydrationWarning={true}>

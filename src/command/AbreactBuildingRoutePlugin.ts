@@ -38,9 +38,9 @@ const writeData = async (commonParams: CommonParams, isClient: boolean) => {
     ...pageResult.map(
       v => `"${v.moduleName}": () => ${importString}("${v.importDir}"),`
     ),
-    ...layoutResult.map(
-      v => `"${v.moduleName}": () => ${importString}("${v.importDir}"),`
-    )
+    `"__error": () => ${
+      isClient ? `Promise.resolve(layouts["error"])` : `layouts["error"]`
+    }`
   ].join("\n");
   const routes = pageResult
     .map(
@@ -51,8 +51,8 @@ action: (context) => ({page: "${v.moduleName}", context}),
     )
     .join("\n");
   const layouts = layoutResult
-    .map(v => `"${v.routePath.slice(1)}": "${v.moduleName}",`)
-    .join("\n");
+    .map(v => `"${v.routePath.slice(1)}": require("${v.importDir}"),`)
+    .join("");
 
   const resultString = `export const modules = {${modules}}
 export const routes = [${routes}];
