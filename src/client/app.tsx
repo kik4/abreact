@@ -76,7 +76,9 @@ class App extends React.Component<
 
   render() {
     const Page = loadable(TmpData.modules[this.state.page] as any);
-    const Layout = TmpData.layouts[this.state.layout].default;
+    const Layout = TmpData.layouts[this.state.layout]
+      ? TmpData.layouts[this.state.layout].default
+      : undefined;
 
     return (
       <div className="App" suppressHydrationWarning={true}>

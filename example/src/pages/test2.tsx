@@ -15,3 +15,7 @@ class Test extends React.Component {
 }
 
 export default Test;
+
+export const pageConfig = {
+  layout: "layout-not-found"
+};
