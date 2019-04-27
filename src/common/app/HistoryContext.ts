@@ -1,8 +1,9 @@
 import React from "react";
+import { Options } from "universal-router";
 
 export type HistoryContextParams = {
   pathname?: string;
-  error?: Error & { status?: number };
+  error?: Parameters<NonNullable<Options["errorHandler"]>>[0];
   params?: any;
 };
 

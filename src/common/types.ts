@@ -1,5 +1,5 @@
 import React from "react";
-import UniversalRouter, { Route, Options } from "universal-router";
+import { Options } from "universal-router";
 
 export type AbreactPage = {
   default: React.ComponentType;

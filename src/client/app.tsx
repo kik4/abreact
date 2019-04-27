@@ -7,7 +7,6 @@ import HistoryContext, {
 } from "../common/app/HistoryContext";
 import router, { ResolvedData } from "../common/app/router";
 import * as TmpData from "../tmp/client";
-import { AbreactPage } from "../common/types";
 
 class App extends React.Component<
   {
@@ -81,23 +80,21 @@ class App extends React.Component<
       : undefined;
 
     return (
-      <div className="App" suppressHydrationWarning={true}>
-        {this.state.page && (
-          <HistoryContext.Provider
-            value={{
-              push: this.pushstate,
-              ...this.state.historyContextParams
-            }}
-          >
-            {Layout ? (
-              <Layout>
-                <Page />
-              </Layout>
-            ) : (
+      <div className="App">
+        <HistoryContext.Provider
+          value={{
+            push: this.pushstate,
+            ...this.state.historyContextParams
+          }}
+        >
+          {Layout ? (
+            <Layout>
               <Page />
-            )}
-          </HistoryContext.Provider>
-        )}
+            </Layout>
+          ) : (
+            <Page />
+          )}
+        </HistoryContext.Provider>
       </div>
     );
   }

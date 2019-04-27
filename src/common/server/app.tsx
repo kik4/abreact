@@ -36,17 +36,10 @@ class App extends React.Component<
     const action = this.props.initialState;
     const page = IntermediateData.modules[action.page]() as AbreactPage;
     const layoutName = oc(page).pageConfig.layout("default");
-    const pageComponent = page.default;
-    const layoutComponent = IntermediateData.layouts[layoutName]
+    const Page = page.default;
+    const Layout = IntermediateData.layouts[layoutName]
       ? IntermediateData.layouts[layoutName].default
       : undefined;
-    const ssrElement = layoutComponent
-      ? React.createElement(
-          layoutComponent,
-          {},
-          React.createElement(pageComponent)
-        )
-      : React.createElement(pageComponent);
 
     return (
       <div className="App">
@@ -56,7 +49,13 @@ class App extends React.Component<
             ...this.state.historyContextParams
           }}
         >
-          {ssrElement}
+          {Layout ? (
+            <Layout>
+              <Page />
+            </Layout>
+          ) : (
+            <Page />
+          )}
         </Abreact.HistoryContext.Provider>
       </div>
     );
