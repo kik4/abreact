@@ -9,8 +9,9 @@ import start from "./start";
 import generate from "./generate";
 import { AbreactUserConfig } from "../common/types";
 import { CommonParams } from "./types";
+import packageJson from "../../package.json";
 
-const version = "0.0.1";
+const version = packageJson.version;
 
 const abreactRoot = path.join(__dirname, "../../");
 const userRoot = process.cwd();
