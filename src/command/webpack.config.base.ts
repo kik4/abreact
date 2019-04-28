@@ -46,18 +46,6 @@ export const getWebpackConfig = (
               options: {
                 importLoaders: 1
               }
-            },
-            {
-              loader: "postcss-loader",
-              options: {
-                ident: "postcss",
-                plugins: loader => [
-                  require(path.resolve(
-                    commonParams.userRoot,
-                    "node_modules/autoprefixer"
-                  ))()
-                ]
-              }
             }
           ]
         }
