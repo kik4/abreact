@@ -30,9 +30,14 @@ export default async (commonParams: CommonParams) => {
     })
   );
   app.use(
-    hotMiddleware(compiler.compilers.find(
-      compiler => compiler.name === "client"
-    ) as Compiler)
+    hotMiddleware(
+      compiler.compilers.find(
+        compiler => compiler.name === "client"
+      ) as Compiler,
+      {
+        log: false
+      }
+    )
   );
   app.use(hotServerMiddleware(compiler));
 
