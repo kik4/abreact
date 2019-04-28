@@ -1,5 +1,5 @@
 {
-  "name": "abreact",
+  "name": "@kik4/abreact",
   "version": "0.1.0",
   "description": "The React Framework",
   "bin": {
@@ -53,6 +53,7 @@
     "webpack-bundle-analyzer": "^3.3.2"
   },
   "scripts": {
+    "prepare": "yarn build",
     "watch": "ttsc -p . -w",
     "build": "ttsc -p ."
   }
