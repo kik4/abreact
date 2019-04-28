@@ -7,8 +7,11 @@ import hotServerMiddleware from "webpack-hot-server-middleware";
 import express from "express";
 import { CommonParams } from "./types";
 import { oc } from "ts-optchain";
+import prepare from "./prepare";
 
-export default (commonParams: CommonParams) => {
+export default async (commonParams: CommonParams) => {
+  await prepare(commonParams);
+
   const config = getWebpackConfig(commonParams);
   const configServer = getWebpackConfigServer(commonParams);
 

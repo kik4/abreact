@@ -1,15 +1,13 @@
 import path from "path";
 import fs from "fs-extra";
 import { oc } from "ts-optchain";
-import webpack from "webpack";
 import { CommonParams } from "./types";
 import {
   readPagesRecursive,
   readLayoutsRecursive
 } from "../common/utils/readPagesLayoutsRecursive";
-import { writeFileOnce } from "../common/utils/writeFileOnce";
 
-const writeData = async (commonParams: CommonParams, isClient: boolean) => {
+const write = async (commonParams: CommonParams, isClient: boolean) => {
   // pages
   const pageDir = path.join(commonParams.userRoot, "src/pages/");
   const pageResult = await readPagesRecursive(pageDir);
@@ -62,29 +60,24 @@ export const csses = [${cssResult.join("")}];
 export const config = require("@/abreact.config");
 `;
 
-  // create dir
-  fs.ensureDirSync(path.resolve(commonParams.abreactRoot, "src/tmp"));
-
   // output
+  await fs.ensureDir(path.resolve(commonParams.abreactRoot, "src/tmp"));
   const filename = isClient ? "client" : "server";
-  writeFileOnce(
-    path.join(commonParams.abreactRoot, `src/tmp/${filename}.js`),
-    resultString
+  const outputPath = path.join(
+    commonParams.abreactRoot,
+    `src/tmp/${filename}.js`
   );
+  try {
+    const content = await fs.readFile(outputPath, "utf8");
+    if (content !== resultString) {
+      await fs.writeFile(outputPath, resultString);
+    }
+  } catch (e) {
+    await fs.writeFile(outputPath, resultString);
+  }
 };
 
-class AbreactBuildingRoutePlugin {
-  commonParams: CommonParams;
-  isClient: boolean;
-  constructor(commonParams: CommonParams, isClient: boolean) {
-    this.commonParams = commonParams;
-    this.isClient = isClient;
-  }
-  apply(compiler: webpack.Compiler) {
-    compiler.hooks.compilation.tap("AbreactBuildingRoutePlugin", async () =>
-      writeData(this.commonParams, this.isClient)
-    );
-  }
-}
-
-export default AbreactBuildingRoutePlugin;
+export default async (commonParams: CommonParams) => {
+  await Promise.all([write(commonParams, true), write(commonParams, false)]);
+  console.log("Abreact prepared intermediate data.");
+};

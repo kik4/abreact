@@ -4,7 +4,6 @@ import merge from "webpack-merge";
 import nodeExternals from "webpack-node-externals";
 import { getWebpackConfig as getBase } from "./webpack.config.base";
 import { CommonParams } from "./types";
-import AbreactBuildingRoutePlugin from "./AbreactBuildingRoutePlugin";
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
@@ -42,7 +41,6 @@ export const getWebpackConfig = (
       ]
     },
     plugins: [
-      new AbreactBuildingRoutePlugin(commonParams, false)
       // new BundleAnalyzerPlugin()
     ].filter(v => v)
   });

@@ -5,8 +5,11 @@ import { getWebpackConfig } from "./webpack.config.client";
 import { getWebpackConfig as getWebpackConfigGenerate } from "./webpack.config.generate";
 import { CommonParams } from "./types";
 import clear from "./clear";
+import prepare from "./prepare";
 
-export default (commonParams: CommonParams) => {
+export default async (commonParams: CommonParams) => {
+  await prepare(commonParams);
+
   const config = getWebpackConfig(commonParams);
   const configGenerate = getWebpackConfigGenerate(commonParams);
   const compiler = webpack([config, configGenerate]);

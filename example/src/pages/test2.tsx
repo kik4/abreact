@@ -1,5 +1,5 @@
 import React from "react";
-import Abreact from "abreact";
+import Abreact from "@kik4/abreact";
 
 class Test extends React.Component {
   static contextType = Abreact.HistoryContext;

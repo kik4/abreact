@@ -1,6 +1,7 @@
 import webpack from "webpack";
 import path from "path";
 import ExtraWatchWebpackPlugin from "extra-watch-webpack-plugin";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import { CommonParams } from "./types";
 
 export const getWebpackConfig = (
@@ -19,7 +20,7 @@ export const getWebpackConfig = (
       extensions: [".js", ".ts", ".jsx", ".tsx"],
       alias: {
         "@": path.join(commonParams.userRoot, "src"),
-        abreact: path.resolve(commonParams.abreactRoot, "src/export")
+        "@kik4/abreact": path.resolve(commonParams.abreactRoot, "src/export")
       }
     },
     module: {
@@ -60,6 +61,7 @@ export const getWebpackConfig = (
         stdout.write((percentage * 100).toFixed(2) + "%");
         stdout.write(" " + message);
       }),
+      new ForkTsCheckerWebpackPlugin(),
       commonParams.isDevelopment && new webpack.NamedModulesPlugin(),
       commonParams.isDevelopment &&
         new ExtraWatchWebpackPlugin({

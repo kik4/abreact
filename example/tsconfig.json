@@ -11,7 +11,8 @@
     "allowJs": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "outDir": "./tmp"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
