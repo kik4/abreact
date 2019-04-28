@@ -1,5 +1,6 @@
 import React from "react";
-import Abreact from "abreact";
+import Abreact from "@kik4/abreact";
+import Text from "@/components/Text";
 
 class Index extends React.Component {
   static contextType = Abreact.HistoryContext;
@@ -13,6 +14,7 @@ class Index extends React.Component {
         <button onClick={() => push("/nest/page")}>Nested Page</button>
         <button onClick={() => push("/user/1")}>Dynamic Page</button>
         <button onClick={() => push("/any-where")}>error</button>
+        <Text text="hogehoge" />
       </div>
     );
   }

@@ -5,8 +5,11 @@ import clear from "./clear";
 import { CommonParams } from "./types";
 import fs from "fs";
 import path from "path";
+import prepare from "./prepare";
 
-export default (commonParams: CommonParams) => {
+export default async (commonParams: CommonParams) => {
+  await prepare(commonParams);
+
   const config = getWebpackConfig(commonParams);
   const configServer = getWebpackConfigServer(commonParams);
   const compiler = webpack([config, configServer]);

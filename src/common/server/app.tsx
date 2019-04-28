@@ -4,7 +4,7 @@ import { ResolvedData } from "../app/router";
 import { AbreactPage } from "../types";
 import * as TmpData from "../../tmp/server";
 //@ts-ignore
-import Abreact from "abreact"; // this is important because using same object both client and server
+import Abreact from "@kik4/abreact"; // this is important because using same object both client and server
 
 class App extends React.Component<
   {
