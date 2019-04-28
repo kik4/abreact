@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "The React Framework",
   "bin": {
-    "abreact": "lib/command/index.js"
+    "abreact": "lib/src/command/index.js"
   },
-  "main": "lib/export/index.js",
+  "main": "lib/src/export/index.js",
   "repository": "https://github.com/kik4/abreact.git",
   "author": "kik4 <kik4.contact@gmail.com>",
   "license": "MIT",
