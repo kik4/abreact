@@ -3,7 +3,7 @@ import { Route } from "universal-router";
 type Routes = Route<any, RouteAction>[];
 
 export declare const modules: {
-  [key: string]: () => Promise<AbreactPage | undefined>;
+  [key: string]: () => Promise<AbreactPage>;
 };
 export declare const routes: Routes;
 export declare const layouts: { [key: string]: AbreactPage };

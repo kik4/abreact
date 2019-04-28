@@ -12,7 +12,7 @@ class App extends React.Component<
   },
   {
     Page: AbreactPage;
-    Layout: AbreactPage;
+    Layout?: AbreactPage;
     historyContextParams: Abreact.HistoryContextParams;
   }
 > {
