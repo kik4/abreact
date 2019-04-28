@@ -13,8 +13,8 @@ class App extends React.Component<
     initialState: ResolvedData;
   },
   {
-    page: string;
-    layout: string;
+    Page: AbreactPage;
+    Layout: AbreactPage;
     historyContextParams: Abreact.HistoryContextParams;
   }
 > {
@@ -22,8 +22,8 @@ class App extends React.Component<
     super(props);
 
     this.state = {
-      page: this.props.initialState.page,
-      layout: this.props.initialState.layout,
+      Page: this.props.initialState.Page,
+      Layout: this.props.initialState.Layout,
       historyContextParams: {
         error: this.props.initialState.error,
         params: this.props.initialState.params,
@@ -33,13 +33,8 @@ class App extends React.Component<
   }
 
   render() {
-    const action = this.props.initialState;
-    const page = IntermediateData.modules[action.page]() as AbreactPage;
-    const layoutName = oc(page).pageConfig.layout("default");
-    const Page = page.default;
-    const Layout = IntermediateData.layouts[layoutName]
-      ? IntermediateData.layouts[layoutName].default
-      : undefined;
+    const Page = this.state.Page.default as any;
+    const Layout = this.state.Layout && (this.state.Layout.default as any);
 
     return (
       <div className="App">

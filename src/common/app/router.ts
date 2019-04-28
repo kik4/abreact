@@ -1,7 +1,7 @@
 import UniversalRouter from "universal-router";
 import { oc } from "ts-optchain";
 import * as TmpData from "../../tmp/client";
-import { RouteAction } from "../types";
+import { RouteAction, AbreactPage } from "../types";
 import { string } from "prop-types";
 
 const universalRouter = new UniversalRouter(TmpData.routes, {
@@ -18,8 +18,8 @@ const universalRouter = new UniversalRouter(TmpData.routes, {
 });
 
 export type ResolvedData = {
-  page: string;
-  layout: string;
+  Page: AbreactPage;
+  Layout?: AbreactPage;
   pathname: string;
   error?: RouteAction["error"];
   params?: any;
@@ -27,15 +27,16 @@ export type ResolvedData = {
 
 const resolve = async (pathname: string): Promise<ResolvedData> => {
   const action = (await universalRouter.resolve(pathname)) as RouteAction;
-  const page = await TmpData.modules[action.page]();
-  const layoutName = oc(page).pageConfig.layout("default");
+  const Page = await TmpData.modules[action.page]();
+  const layoutName = oc(Page).pageConfig.layout("default");
   if (!TmpData.layouts[layoutName]) {
     console.warn(`Abreact: layout '${layoutName}' is not found.`);
   }
+  const Layout = TmpData.layouts[layoutName];
 
   return {
-    page: action.page,
-    layout: layoutName,
+    Page,
+    Layout,
     pathname,
     error: action.error,
     params: action.context.params
