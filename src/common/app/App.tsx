@@ -1,12 +1,12 @@
 import React from "react";
 import { hot } from "react-hot-loader/root";
 import withStyles from "isomorphic-style-loader/withStyles";
-import HistoryContext, {
-  HistoryContextParams
-} from "../common/app/HistoryContext";
-import router, { ResolvedData } from "../common/app/router";
-import * as TmpData from "../tmp/client";
-import { AbreactPage } from "../common/types";
+import { HistoryContextParams, HistoryContextValue } from "./HistoryContext";
+import router, { ResolvedData } from "./router";
+import * as TmpData from "../../tmp/client";
+import { AbreactPage } from "../types";
+//@ts-ignore
+import Abreact from "@kik4/abreact";
 
 class App extends React.Component<
   {
@@ -76,14 +76,13 @@ class App extends React.Component<
   render() {
     const Page = this.state.Page.default as any;
     const Layout = this.state.Layout && (this.state.Layout.default as any);
+    const tcValue: HistoryContextValue = {
+      push: this.pushstate,
+      ...this.state.historyContextParams
+    };
     return (
       <div className="App">
-        <HistoryContext.Provider
-          value={{
-            push: this.pushstate,
-            ...this.state.historyContextParams
-          }}
-        >
+        <Abreact.HistoryContext.Provider value={tcValue}>
           {Layout ? (
             <Layout>
               <Page />
@@ -91,7 +90,7 @@ class App extends React.Component<
           ) : (
             <Page />
           )}
-        </HistoryContext.Provider>
+        </Abreact.HistoryContext.Provider>
       </div>
     );
   }

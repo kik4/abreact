@@ -4,7 +4,7 @@ require("es6-promise").polyfill();
 
 import React from "react";
 import { hydrate } from "react-dom";
-import App from "./app";
+import App from "../common/app/App";
 import { Helmet } from "react-helmet";
 import StyleContext from "isomorphic-style-loader/StyleContext";
 import router, { ResolvedData } from "../common/app/router";

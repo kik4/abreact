@@ -11,11 +11,13 @@ export type HistoryContextAction = {
   push: (string) => void;
 };
 
-const HistoryContext = React.createContext({
+export type HistoryContextValue = HistoryContextParams & HistoryContextAction;
+
+const HistoryContext = React.createContext<HistoryContextValue>({
   pathname: undefined as string | undefined,
   error: undefined as any | undefined,
   params: undefined as any | undefined,
   push: (pathname: string) => {}
-} as HistoryContextParams & HistoryContextAction);
+});
 
 export default HistoryContext;
