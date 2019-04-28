@@ -13,7 +13,7 @@ import packageJson from "../../package.json";
 
 const version = packageJson.version;
 
-const abreactRoot = path.join(__dirname, "../../");
+const abreactRoot = path.join(__dirname, "../../../");
 const userRoot = process.cwd();
 const userConfig = require(path.join(userRoot, "src/abreact.config")) as
   | AbreactUserConfig
