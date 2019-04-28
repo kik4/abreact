@@ -5,13 +5,13 @@
 
 The React Framework to create web applications quickly and easily.
 
-# Installation
+## Installation
 
 ```
 yarn add @kik4/abreact
 ```
 
-# Usage
+## Usage
 
 This project is not production ready. See `/example` directory for usage.
 
