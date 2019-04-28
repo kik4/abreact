@@ -3,7 +3,7 @@ import { hot } from "react-hot-loader/root";
 import withStyles from "isomorphic-style-loader/withStyles";
 import { HistoryContextParams, HistoryContextValue } from "./HistoryContext";
 import router, { ResolvedData } from "./router";
-import * as TmpData from "../../tmp/client";
+import * as TmpData from "../../tmp";
 import { AbreactPage } from "../types";
 //@ts-ignore
 import Abreact from "@kik4/abreact";

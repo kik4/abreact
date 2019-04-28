@@ -5,7 +5,7 @@ import { oc } from "ts-optchain";
 import StyleContext from "isomorphic-style-loader/StyleContext";
 import { Helmet } from "react-helmet";
 import router, { ResolvedData } from "../app/router";
-import * as TmpData from "../../tmp/server";
+import * as TmpData from "../../tmp";
 import App from "../app/App";
 
 export default async (pathname: string, clientStats: webpack.Stats) => {

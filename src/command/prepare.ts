@@ -7,7 +7,7 @@ import {
   readLayoutsRecursive
 } from "../common/utils/readPagesLayoutsRecursive";
 
-const write = async (commonParams: CommonParams, isClient: boolean) => {
+const write = async (commonParams: CommonParams) => {
   // pages
   const pageDir = path.join(commonParams.userRoot, "src/pages/");
   const pageResult = await readPagesRecursive(pageDir);
@@ -31,14 +31,11 @@ const write = async (commonParams: CommonParams, isClient: boolean) => {
   });
 
   // create test
-  const importString = isClient ? "import" : "require";
   const modules = [
     ...pageResult.map(
-      v => `"${v.moduleName}": () => ${importString}("${v.importDir}"),`
+      v => `"${v.moduleName}": () => import("${v.importDir}"),`
     ),
-    `"__error": () => ${
-      isClient ? `Promise.resolve(layouts["error"])` : `layouts["error"]`
-    }`
+    `"__error": () => Promise.resolve(layouts["error"])`
   ].join("\n");
   const routes = pageResult
     .map(
@@ -62,11 +59,7 @@ export const config = require("@/abreact.config");
 
   // output
   await fs.ensureDir(path.resolve(commonParams.abreactRoot, "src/tmp"));
-  const filename = isClient ? "client" : "server";
-  const outputPath = path.join(
-    commonParams.abreactRoot,
-    `src/tmp/${filename}.js`
-  );
+  const outputPath = path.join(commonParams.abreactRoot, `src/tmp/index.js`);
   try {
     const content = await fs.readFile(outputPath, "utf8");
     if (content !== resultString) {
@@ -78,6 +71,6 @@ export const config = require("@/abreact.config");
 };
 
 export default async (commonParams: CommonParams) => {
-  await Promise.all([write(commonParams, true), write(commonParams, false)]);
+  await write(commonParams);
   console.log("Abreact prepared intermediate data.");
 };

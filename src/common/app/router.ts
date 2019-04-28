@@ -1,6 +1,6 @@
 import UniversalRouter from "universal-router";
 import { oc } from "ts-optchain";
-import * as TmpData from "../../tmp/client";
+import * as TmpData from "../../tmp";
 import { RouteAction, AbreactPage } from "../types";
 import { string } from "prop-types";
 

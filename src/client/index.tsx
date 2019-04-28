@@ -8,7 +8,7 @@ import App from "../common/app/App";
 import { Helmet } from "react-helmet";
 import StyleContext from "isomorphic-style-loader/StyleContext";
 import router, { ResolvedData } from "../common/app/router";
-import * as TmpData from "../tmp/client";
+import * as TmpData from "../tmp";
 import { oc } from "ts-optchain";
 
 const insertCss = (...styles) => {

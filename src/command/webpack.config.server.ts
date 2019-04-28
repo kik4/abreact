@@ -33,7 +33,14 @@ export const getWebpackConfig = (
               loader: "ts-loader",
               options: {
                 transpileOnly: true,
-                configFile: path.resolve(commonParams.userRoot, "tsconfig.json")
+                configFile: path.resolve(
+                  commonParams.userRoot,
+                  "tsconfig.json"
+                ),
+                compilerOptions: {
+                  module: "commonjs",
+                  moduleResolution: "node"
+                }
               }
             }
           ].filter(v => v)
