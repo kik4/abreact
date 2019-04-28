@@ -1,6 +1,6 @@
 {
   "name": "@kik4/abreact",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "The React Framework",
   "bin": {
     "abreact": "lib/src/command/index.js"
