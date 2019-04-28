@@ -63,5 +63,6 @@ Commands:
   (default)      start development server
   build          build production code
   start          start production server (after running build).
+  generate       generate static site.
 `);
 }
