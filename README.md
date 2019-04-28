@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/npm/v/@kik4/abreact.svg)](https://www.npmjs.com/package/@kik4/abreact)
 [![License](https://img.shields.io/npm/l/@kik4/abreact.svg)](https://www.npmjs.com/package/@kik4/abreact)
 
-The React Framework to create web applications quickly and easily.
+The React Framework to create web applications quickly and easily like Nuxt.js and Next.js.
 
 ## Installation
 
