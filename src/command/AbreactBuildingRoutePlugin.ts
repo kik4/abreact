@@ -1,5 +1,5 @@
 import path from "path";
-import fs from "fs";
+import fs from "fs-extra";
 import { oc } from "ts-optchain";
 import webpack from "webpack";
 import { CommonParams } from "./types";
@@ -63,11 +63,7 @@ export const config = require("@/abreact.config");
 `;
 
   // create dir
-  fs.mkdir(
-    path.resolve(commonParams.abreactRoot, "src/tmp"),
-    { recursive: true },
-    err => {}
-  );
+  fs.ensureDirSync(path.resolve(commonParams.abreactRoot, "src/tmp"));
 
   // output
   const filename = isClient ? "client" : "server";
