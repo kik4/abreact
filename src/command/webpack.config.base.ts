@@ -61,7 +61,13 @@ export const getWebpackConfig = (
         stdout.write((percentage * 100).toFixed(2) + "%");
         stdout.write(" " + message);
       }),
-      new ForkTsCheckerWebpackPlugin(),
+      new ForkTsCheckerWebpackPlugin({
+        logger: {
+          info: () => {},
+          warn: console.warn,
+          error: console.error
+        }
+      }),
       commonParams.isDevelopment && new webpack.NamedModulesPlugin(),
       commonParams.isDevelopment &&
         new ExtraWatchWebpackPlugin({
