@@ -14,13 +14,11 @@ export const getWebpackConfig = (
 
   return merge(base, {
     name: "client",
-    entry: {
-      client: [path.resolve(commonParams.abreactRoot, "src/client/index.tsx")]
-    },
+    entry: [path.resolve(commonParams.abreactRoot, "src/client/index.tsx")],
     output: {
       path: path.join(commonParams.userRoot, ".abreact", "_client"),
       publicPath: "/",
-      filename: "[name].bundle.js"
+      filename: "client.bundle.js"
     },
     plugins: [
       commonParams.isDevelopment && new webpack.HotModuleReplacementPlugin(),

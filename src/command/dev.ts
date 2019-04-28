@@ -12,9 +12,7 @@ export default (commonParams: CommonParams) => {
   const config = getWebpackConfig(commonParams);
   const configServer = getWebpackConfigServer(commonParams);
 
-  (config.entry as any).client.push(
-    "webpack-hot-middleware/client?noInfo=true"
-  );
+  (config.entry as string[]).push("webpack-hot-middleware/client?noInfo=true");
 
   const compiler = webpack([config, configServer]);
 
