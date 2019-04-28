@@ -1,8 +1,5 @@
 import path from "path";
-import fs from "fs";
-import util from "util";
-
-const readdirAsync = util.promisify(fs.readdir);
+import fs from "fs-extra";
 
 export type readData = {
   moduleName: string;
@@ -16,10 +13,10 @@ export const readPagesRecursive = async (
 ): Promise<readData[]> => {
   const result = [] as readData[];
   const baseDir = path.join(originPath, additionalPath);
-  const files = await readdirAsync(baseDir);
+  const files = await fs.readdir(baseDir);
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
-    const stat = fs.statSync(path.join(baseDir, file));
+    const stat = await fs.stat(path.join(baseDir, file));
     if (stat.isFile()) {
       const filename = path.basename(file, path.extname(file));
       const routePath = path
@@ -45,10 +42,10 @@ export const readLayoutsRecursive = async (
 ): Promise<readData[]> => {
   const result = [] as readData[];
   const baseDir = path.join(originPath, additionalPath);
-  const files = await readdirAsync(baseDir);
+  const files = await fs.readdir(baseDir);
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
-    const stat = fs.statSync(path.join(baseDir, file));
+    const stat = await fs.stat(path.join(baseDir, file));
     if (stat.isFile()) {
       const filename = path.basename(file, path.extname(file));
       const routePath = path.join(additionalPath, filename);

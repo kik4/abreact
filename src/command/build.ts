@@ -3,7 +3,7 @@ import { getWebpackConfig } from "./webpack.config.client";
 import { getWebpackConfig as getWebpackConfigServer } from "./webpack.config.server";
 import clear from "./clear";
 import { CommonParams } from "./types";
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 import prepare from "./prepare";
 
@@ -27,7 +27,7 @@ export default async (commonParams: CommonParams) => {
         hash: ((stats as any).stats as webpack.Stats[])[0].hash
       }
     };
-    fs.writeFileSync(
+    fs.writeFile(
       path.join(commonParams.userRoot, ".abreact/_server/stats.json"),
       JSON.stringify(statsData)
     );
