@@ -2,5 +2,4 @@
 .github/
 .vscode/
 example/
-src/
 tsconfig.json
