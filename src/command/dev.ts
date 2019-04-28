@@ -24,7 +24,8 @@ export default (commonParams: CommonParams) => {
   app.use(
     devMiddleware(compiler, {
       publicPath: config.output!.publicPath!,
-      serverSideRender: true
+      serverSideRender: true,
+      logLevel: "silent"
     })
   );
   app.use(

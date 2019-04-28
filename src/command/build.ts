@@ -19,13 +19,6 @@ export default (commonParams: CommonParams) => {
       return;
     }
 
-    console.log(
-      stats.toString({
-        chunks: false, // Makes the build much quieter
-        colors: true // Shows colors in the console
-      })
-    );
-
     const statsData = {
       clientStats: {
         hash: ((stats as any).stats as webpack.Stats[])[0].hash
