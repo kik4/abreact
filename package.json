@@ -56,5 +56,8 @@
     "prepare": "yarn build",
     "watch": "ttsc -p . -w",
     "build": "ttsc -p ."
-  }
+  },
+  "keywords": [
+    "react"
+  ]
 }
