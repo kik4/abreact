@@ -58,6 +58,7 @@
     "build": "ttsc -p ."
   },
   "keywords": [
-    "react"
+    "react",
+    "framework"
   ]
 }
