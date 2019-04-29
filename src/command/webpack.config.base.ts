@@ -26,19 +26,6 @@ export const getWebpackConfig = (
     module: {
       rules: [
         {
-          test: /\.(j|t)sx?$/,
-          use: [
-            commonParams.isDevelopment ? "react-hot-loader/webpack" : "",
-            {
-              loader: "ts-loader",
-              options: {
-                transpileOnly: true,
-                configFile: path.resolve(commonParams.userRoot, "tsconfig.json")
-              }
-            }
-          ].filter(v => v)
-        },
-        {
           test: /\.css$/,
           use: [
             "isomorphic-style-loader",
