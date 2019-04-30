@@ -1,7 +1,7 @@
 import UniversalRouter from "universal-router";
 import { oc } from "ts-optchain";
 import * as TmpData from "../../tmp";
-import { Page } from "../../types";
+import { Page } from "../../export";
 import { Options } from "universal-router";
 
 const universalRouter = new UniversalRouter(TmpData.routes, {

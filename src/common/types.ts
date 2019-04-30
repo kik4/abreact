@@ -1,4 +1,4 @@
-import { UserConfig } from "../types";
+import { UserConfig } from "../export";
 
 export type CommonParams = {
   abreactRoot: string;

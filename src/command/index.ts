@@ -7,7 +7,7 @@ import build from "./build";
 import dev from "./dev";
 import start from "./start";
 import generate from "./generate";
-import { UserConfig } from "../types";
+import { UserConfig } from "../export";
 import { CommonParams } from "../common/types";
 import packageJson from "../../package.json";
 

@@ -4,7 +4,7 @@ import withStyles from "isomorphic-style-loader/withStyles";
 import { HistoryContextParams, HistoryContextValue } from "./HistoryContext";
 import router, { ResolvedData } from "./router";
 import * as TmpData from "../../tmp";
-import { Page } from "../../types";
+import { Page } from "../../export";
 //@ts-ignore
 import Abreact from "@kik4/abreact";
 
