@@ -1,9 +1,9 @@
 import fs from "fs-extra";
 import path from "path";
-import * as tmpData from "../../src/tmp/server";
+import * as tmpData from "../../src/tmp";
 import renderToString from "../common/server/renderToString";
 import webpack from "webpack";
-import { CommonParams } from "../command/types";
+import { CommonParams } from "../common/types";
 
 export default async (commonParams: CommonParams, statsData: webpack.Stats) => {
   const pathnames = tmpData.routes

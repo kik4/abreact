@@ -2,7 +2,7 @@ import webpack from "webpack";
 import path from "path";
 import merge from "webpack-merge";
 import { getWebpackConfig as getServer } from "./webpack.config.server";
-import { CommonParams } from "./types";
+import { CommonParams } from "../common/types";
 
 export const getWebpackConfig = (
   commonParams: CommonParams

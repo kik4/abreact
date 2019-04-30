@@ -57,6 +57,7 @@
     "watch": "ttsc -p . -w",
     "build": "ttsc -p ."
   },
+  "types": "src/types/index.d.ts",
   "keywords": [
     "react",
     "framework"

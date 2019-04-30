@@ -1,6 +1,6 @@
 import express from "express";
 import path from "path";
-import { CommonParams } from "./types";
+import { CommonParams } from "../common/types";
 import { oc } from "ts-optchain";
 import compression from "compression";
 

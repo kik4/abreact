@@ -1,6 +1,6 @@
 import fs from "fs-extra";
 import path from "path";
-import { CommonParams } from "./types";
+import { CommonParams } from "../common/types";
 
 export default (commonParams: CommonParams) => {
   fs.remove(path.join(commonParams.userRoot, ".abreact"), err => {

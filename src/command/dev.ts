@@ -5,7 +5,7 @@ import devMiddleware from "webpack-dev-middleware";
 import hotMiddleware from "webpack-hot-middleware";
 import hotServerMiddleware from "webpack-hot-server-middleware";
 import express from "express";
-import { CommonParams } from "./types";
+import { CommonParams } from "../common/types";
 import { oc } from "ts-optchain";
 import prepare from "./prepare";
 

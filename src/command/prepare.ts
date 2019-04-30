@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs-extra";
 import { oc } from "ts-optchain";
-import { CommonParams } from "./types";
+import { CommonParams } from "../common/types";
 import {
   readPagesRecursive,
   readLayoutsRecursive

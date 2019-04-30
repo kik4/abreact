@@ -1,8 +1,8 @@
 import UniversalRouter from "universal-router";
 import { oc } from "ts-optchain";
 import * as TmpData from "../../tmp";
-import { RouteAction, AbreactPage } from "../types";
-import { string } from "prop-types";
+import { Page } from "../../types";
+import { Options } from "universal-router";
 
 const universalRouter = new UniversalRouter(TmpData.routes, {
   errorHandler(error, context): RouteAction {
@@ -18,11 +18,17 @@ const universalRouter = new UniversalRouter(TmpData.routes, {
 });
 
 export type ResolvedData = {
-  Page: AbreactPage;
-  Layout?: AbreactPage;
+  Page: Page;
+  Layout?: Page;
   pathname: string;
   error?: RouteAction["error"];
   params?: any;
+};
+
+export type RouteAction = {
+  page: string;
+  context: any;
+  error?: Parameters<NonNullable<Options["errorHandler"]>>[0];
 };
 
 const resolve = async (pathname: string): Promise<ResolvedData> => {

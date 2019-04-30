@@ -4,7 +4,7 @@ import withStyles from "isomorphic-style-loader/withStyles";
 import { HistoryContextParams, HistoryContextValue } from "./HistoryContext";
 import router, { ResolvedData } from "./router";
 import * as TmpData from "../../tmp";
-import { AbreactPage } from "../types";
+import { Page } from "../../types";
 //@ts-ignore
 import Abreact from "@kik4/abreact";
 
@@ -13,8 +13,8 @@ class App extends React.Component<
     initialState: ResolvedData;
   },
   {
-    Page: AbreactPage;
-    Layout?: AbreactPage;
+    Page: Page;
+    Layout?: Page;
     historyContextParams: HistoryContextParams;
   }
 > {
@@ -74,8 +74,8 @@ class App extends React.Component<
   }
 
   render() {
-    const Page = this.state.Page.default as any;
-    const Layout = this.state.Layout && (this.state.Layout.default as any);
+    const Page = this.state.Page.default;
+    const Layout = this.state.Layout && this.state.Layout.default;
     const tcValue: HistoryContextValue = {
       push: this.pushstate,
       ...this.state.historyContextParams

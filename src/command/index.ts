@@ -7,8 +7,8 @@ import build from "./build";
 import dev from "./dev";
 import start from "./start";
 import generate from "./generate";
-import { AbreactUserConfig } from "../common/types";
-import { CommonParams } from "./types";
+import { UserConfig } from "../types";
+import { CommonParams } from "../common/types";
 import packageJson from "../../package.json";
 
 const version = packageJson.version;
@@ -16,7 +16,7 @@ const version = packageJson.version;
 const abreactRoot = path.join(__dirname, "../../../");
 const userRoot = process.cwd();
 const userConfig = require(path.join(userRoot, "src/abreact.config")) as
-  | AbreactUserConfig
+  | UserConfig
   | undefined;
 const commonParams: CommonParams = {
   abreactRoot,

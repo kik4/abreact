@@ -2,7 +2,7 @@ import webpack from "webpack";
 import { getWebpackConfig } from "./webpack.config.client";
 import { getWebpackConfig as getWebpackConfigServer } from "./webpack.config.server";
 import clear from "./clear";
-import { CommonParams } from "./types";
+import { CommonParams } from "../common/types";
 import fs from "fs-extra";
 import path from "path";
 import prepare from "./prepare";

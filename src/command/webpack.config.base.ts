@@ -2,7 +2,7 @@ import webpack from "webpack";
 import path from "path";
 import ExtraWatchWebpackPlugin from "extra-watch-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
-import { CommonParams } from "./types";
+import { CommonParams } from "../common/types";
 
 export const getWebpackConfig = (
   commonParams: CommonParams

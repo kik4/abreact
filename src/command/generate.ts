@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs-extra";
 import { getWebpackConfig } from "./webpack.config.client";
 import { getWebpackConfig as getWebpackConfigGenerate } from "./webpack.config.generate";
-import { CommonParams } from "./types";
+import { CommonParams } from "../common/types";
 import clear from "./clear";
 import prepare from "./prepare";
 

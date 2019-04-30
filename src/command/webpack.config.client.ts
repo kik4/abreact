@@ -2,7 +2,7 @@ import webpack from "webpack";
 import path from "path";
 import merge from "webpack-merge";
 import { getWebpackConfig as getBase } from "./webpack.config.base";
-import { CommonParams } from "./types";
+import { CommonParams } from "../common/types";
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
