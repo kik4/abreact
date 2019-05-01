@@ -17,7 +17,7 @@ const HistoryContext = React.createContext<HistoryContextValue>({
   pathname: undefined as string | undefined,
   error: undefined as any | undefined,
   params: undefined as any | undefined,
-  push: (pathname: string) => {}
+  push: (pathname: string) => {},
 });
 
 export default HistoryContext;

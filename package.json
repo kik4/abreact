@@ -55,7 +55,8 @@
   "scripts": {
     "prepublishOnly": "yarn build",
     "watch": "ttsc -p . -w",
-    "build": "ttsc -p ."
+    "build": "ttsc -p .",
+    "format": "prettier --write \"src/**/*.{js,ts}\""
   },
   "types": "lib/src/export/index.d.ts",
   "keywords": [

@@ -28,7 +28,7 @@ export const set = () => {
         return to;
       },
       writable: true,
-      configurable: true
+      configurable: true,
     });
   }
 };

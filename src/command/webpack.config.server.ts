@@ -8,7 +8,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
 export const getWebpackConfig = (
-  commonParams: CommonParams
+  commonParams: CommonParams,
 ): webpack.Configuration => {
   const base = getBase(commonParams);
 
@@ -22,7 +22,7 @@ export const getWebpackConfig = (
       path: path.join(commonParams.userRoot, ".abreact", "_server"),
       publicPath: "/",
       filename: "server.bundle.js",
-      libraryTarget: "commonjs2"
+      libraryTarget: "commonjs2",
     },
     module: {
       rules: [
@@ -35,20 +35,20 @@ export const getWebpackConfig = (
                 transpileOnly: true,
                 configFile: path.resolve(
                   commonParams.userRoot,
-                  "tsconfig.json"
+                  "tsconfig.json",
                 ),
                 compilerOptions: {
                   module: "commonjs",
-                  moduleResolution: "node"
-                }
-              }
-            }
-          ].filter(v => v)
-        }
-      ]
+                  moduleResolution: "node",
+                },
+              },
+            },
+          ].filter(v => v),
+        },
+      ],
     },
     plugins: [
       // new BundleAnalyzerPlugin()
-    ].filter(v => v)
+    ].filter(v => v),
   });
 };

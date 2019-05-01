@@ -4,7 +4,7 @@ import { oc } from "ts-optchain";
 import { CommonParams } from "../common/types";
 import {
   readPagesRecursive,
-  readLayoutsRecursive
+  readLayoutsRecursive,
 } from "../common/utils/readPagesLayoutsRecursive";
 
 const write = async (commonParams: CommonParams) => {
@@ -33,16 +33,16 @@ const write = async (commonParams: CommonParams) => {
   // create test
   const modules = [
     ...pageResult.map(
-      v => `"${v.moduleName}": () => import("${v.importDir}"),`
+      v => `"${v.moduleName}": () => import("${v.importDir}"),`,
     ),
-    `"__error": () => Promise.resolve(layouts["error"])`
+    `"__error": () => Promise.resolve(layouts["error"])`,
   ].join("\n");
   const routes = pageResult
     .map(
       v => `{
 path: "${v.routePath}",
 action: (context) => ({page: "${v.moduleName}", context}),
-},`
+},`,
     )
     .join("\n");
   const layouts = layoutResult

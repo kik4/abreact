@@ -5,7 +5,7 @@ import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import { CommonParams } from "../common/types";
 
 export const getWebpackConfig = (
-  commonParams: CommonParams
+  commonParams: CommonParams,
 ): webpack.Configuration => {
   const mode = commonParams.isDevelopment ? "development" : "production";
   return {
@@ -15,13 +15,13 @@ export const getWebpackConfig = (
         path.resolve(commonParams.abreactRoot, "src/client"),
         path.resolve(commonParams.abreactRoot, "node_modules"),
         path.resolve(commonParams.userRoot, "src"),
-        path.resolve(commonParams.userRoot, "node_modules")
+        path.resolve(commonParams.userRoot, "node_modules"),
       ],
       extensions: [".js", ".ts", ".jsx", ".tsx"],
       alias: {
         "@": path.join(commonParams.userRoot, "src"),
-        "@kik4/abreact": path.resolve(commonParams.abreactRoot, "src/export")
-      }
+        "@kik4/abreact": path.resolve(commonParams.abreactRoot, "src/export"),
+      },
     },
     module: {
       rules: [
@@ -32,12 +32,12 @@ export const getWebpackConfig = (
             {
               loader: "css-loader",
               options: {
-                importLoaders: 1
-              }
-            }
-          ]
-        }
-      ]
+                importLoaders: 1,
+              },
+            },
+          ],
+        },
+      ],
     },
     plugins: [
       new webpack.DefinePlugin({ "process.env.NODE_ENV": `"${mode}"` }),
@@ -52,14 +52,14 @@ export const getWebpackConfig = (
         logger: {
           info: () => {},
           warn: console.warn,
-          error: console.error
-        }
+          error: console.error,
+        },
       }),
       commonParams.isDevelopment && new webpack.NamedModulesPlugin(),
       commonParams.isDevelopment &&
         new ExtraWatchWebpackPlugin({
-          dirs: [path.resolve(commonParams.userRoot, "src")]
-        })
-    ].filter(v => v)
+          dirs: [path.resolve(commonParams.userRoot, "src")],
+        }),
+    ].filter(v => v),
   };
 };

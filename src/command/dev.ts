@@ -26,18 +26,18 @@ export default async (commonParams: CommonParams) => {
     devMiddleware(compiler, {
       publicPath: config.output!.publicPath!,
       serverSideRender: true,
-      logLevel: "silent"
-    })
+      logLevel: "silent",
+    }),
   );
   app.use(
     hotMiddleware(
       compiler.compilers.find(
-        compiler => compiler.name === "client"
+        compiler => compiler.name === "client",
       ) as Compiler,
       {
-        log: false
-      }
-    )
+        log: false,
+      },
+    ),
   );
   app.use(hotServerMiddleware(compiler));
 

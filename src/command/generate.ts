@@ -23,19 +23,19 @@ export default async (commonParams: CommonParams) => {
     }
 
     const clientStats = {
-      hash: ((stats as any).stats as webpack.Stats[])[0].hash
+      hash: ((stats as any).stats as webpack.Stats[])[0].hash,
     };
 
     const SERVER_RENDERER_PATH = path.join(
       commonParams.userRoot,
-      ".abreact/_generate/generate.bundle.js"
+      ".abreact/_generate/generate.bundle.js",
     );
     const serverRenderer = require(SERVER_RENDERER_PATH).default;
     serverRenderer(commonParams, clientStats);
 
     fs.copySync(
       path.join(commonParams.userRoot, ".abreact/_client"),
-      path.join(commonParams.userRoot, "dist/_client")
+      path.join(commonParams.userRoot, "dist/_client"),
     );
   });
 };

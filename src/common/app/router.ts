@@ -12,9 +12,9 @@ const universalRouter = new UniversalRouter(TmpData.routes, {
     return {
       page: "__error",
       error,
-      context
+      context,
     };
-  }
+  },
 });
 
 export type ResolvedData = {
@@ -45,10 +45,10 @@ const resolve = async (pathname: string): Promise<ResolvedData> => {
     Layout,
     pathname,
     error: action.error,
-    params: action.context.params
+    params: action.context.params,
   };
 };
 
 export default {
-  resolve
+  resolve,
 };

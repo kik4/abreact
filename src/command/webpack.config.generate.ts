@@ -5,7 +5,7 @@ import { getWebpackConfig as getServer } from "./webpack.config.server";
 import { CommonParams } from "../common/types";
 
 export const getWebpackConfig = (
-  commonParams: CommonParams
+  commonParams: CommonParams,
 ): webpack.Configuration => {
   const base = getServer(commonParams);
 
@@ -15,7 +15,7 @@ export const getWebpackConfig = (
       path: path.join(commonParams.userRoot, ".abreact", "_generate"),
       publicPath: "/",
       filename: "generate.bundle.js",
-      libraryTarget: "commonjs2"
-    }
+      libraryTarget: "commonjs2",
+    },
   });
 };

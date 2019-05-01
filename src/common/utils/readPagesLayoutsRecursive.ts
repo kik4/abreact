@@ -9,7 +9,7 @@ export type readData = {
 
 export const readPagesRecursive = async (
   originPath: string,
-  additionalPath: string = "/"
+  additionalPath: string = "/",
 ): Promise<readData[]> => {
   const result = [] as readData[];
   const baseDir = path.join(originPath, additionalPath);
@@ -28,7 +28,7 @@ export const readPagesRecursive = async (
     } else if (stat.isDirectory()) {
       const children = await readPagesRecursive(
         originPath,
-        path.join(additionalPath, file)
+        path.join(additionalPath, file),
       );
       result.push(...children);
     }
@@ -38,7 +38,7 @@ export const readPagesRecursive = async (
 
 export const readLayoutsRecursive = async (
   originPath: string,
-  additionalPath: string = "/"
+  additionalPath: string = "/",
 ): Promise<readData[]> => {
   const result = [] as readData[];
   const baseDir = path.join(originPath, additionalPath);
@@ -55,7 +55,7 @@ export const readLayoutsRecursive = async (
     } else if (stat.isDirectory()) {
       const children = await readLayoutsRecursive(
         originPath,
-        path.join(additionalPath, file)
+        path.join(additionalPath, file),
       );
       result.push(...children);
     }

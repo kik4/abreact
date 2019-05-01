@@ -12,6 +12,7 @@
     "build": "abreact build",
     "start": "abreact start",
     "generate": "abreact generate",
-    "_abreact": "node ../lib/src/command/index.js"
+    "_abreact": "node ../lib/src/command/index.js",
+    "format": "prettier --write \"src/**/*.{js,ts}\""
   }
 }

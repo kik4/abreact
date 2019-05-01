@@ -24,12 +24,12 @@ export default async (commonParams: CommonParams) => {
 
     const statsData = {
       clientStats: {
-        hash: ((stats as any).stats as webpack.Stats[])[0].hash
-      }
+        hash: ((stats as any).stats as webpack.Stats[])[0].hash,
+      },
     };
     fs.writeFile(
       path.join(commonParams.userRoot, ".abreact/_server/stats.json"),
-      JSON.stringify(statsData)
+      JSON.stringify(statsData),
     );
   });
 };

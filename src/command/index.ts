@@ -22,11 +22,11 @@ const commonParams: CommonParams = {
   abreactRoot,
   userRoot,
   userConfig,
-  isDevelopment: true
+  isDevelopment: true,
 };
 
 console.log(
-  chalk.blue(figlet.textSync("abreact", { horizontalLayout: "full" }))
+  chalk.blue(figlet.textSync("abreact", { horizontalLayout: "full" })),
 );
 
 let cmdValue, isSpa;
