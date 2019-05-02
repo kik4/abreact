@@ -18,10 +18,12 @@ This project is not production ready. See `/example` directory for usage.
 ## Features
 
 - TypeScript
-- HMR
+- HMR in Development
 - Routing
 - Code Splitting
 - SSR
+- Building and minifying code
+- Managing head element
 
 ## Contributing
 
