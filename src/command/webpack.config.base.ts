@@ -20,7 +20,6 @@ export const getWebpackConfig = (
       extensions: [".js", ".ts", ".jsx", ".tsx"],
       alias: {
         "@": path.join(commonParams.userRoot, "src"),
-        "@kik4/abreact": path.resolve(commonParams.abreactRoot, "src/export"),
       },
     },
     module: {

@@ -1,7 +1,7 @@
 import React from "react";
 import hc from "../common/app/HistoryContext";
 
-export const HistoryContext = hc;
+export default { HistoryContext: hc };
 
 export type Page = {
   default: React.ComponentType;
