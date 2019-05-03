@@ -11,11 +11,15 @@ import { UserConfig } from "../export";
 import { CommonParams } from "../common/types";
 import packageJson from "../../package.json";
 
-const version = packageJson.version;
-
 const abreactRoot = path.join(__dirname, "../../../");
 const userRoot = process.cwd();
-const userConfig = require(path.join(userRoot, "src/abreact.config")) as
+
+require("ts-node").register({
+  transpileOnly: true,
+  project: path.join(userRoot, "tsconfig.json"),
+});
+
+const userConfig = require(path.join(userRoot, "src/abreact.config.ts")) as
   | UserConfig
   | undefined;
 const commonParams: CommonParams = {
@@ -29,6 +33,7 @@ console.log(
   chalk.blue(figlet.textSync("abreact", { horizontalLayout: "full" })),
 );
 
+const version = packageJson.version;
 let cmdValue, isSpa;
 program
   .version("Version: " + version, "-v, --version")

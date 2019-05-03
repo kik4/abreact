@@ -1,4 +1,6 @@
-module.exports = {
+import { UserConfig } from "@kik4/abreact";
+
+const config: UserConfig = {
   server: {
     port: 8081,
   },
@@ -9,3 +11,5 @@ module.exports = {
   css: ["@/assets/main.css", "@/assets/test.css"],
   plugins: ["@/plugins/global"],
 };
+
+module.exports = config;
