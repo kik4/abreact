@@ -40,13 +40,6 @@ export const getWebpackConfig = (
     },
     plugins: [
       new webpack.DefinePlugin({ "process.env.NODE_ENV": `"${mode}"` }),
-      new webpack.ProgressPlugin((percentage, message, ...args) => {
-        const stdout = process.stdout as any;
-        stdout.clearLine();
-        stdout.cursorTo(0);
-        stdout.write((percentage * 100).toFixed(2) + "%");
-        stdout.write(" " + message);
-      }),
       new ForkTsCheckerWebpackPlugin({
         logger: {
           info: () => {},
