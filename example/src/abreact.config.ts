@@ -12,4 +12,4 @@ const config: UserConfig = {
   plugins: ["@/plugins/global"],
 };
 
-module.exports = config;
+export default config;

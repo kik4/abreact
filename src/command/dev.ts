@@ -42,6 +42,17 @@ export default async (commonParams: CommonParams) => {
   app.use(hotServerMiddleware(compiler));
 
   const port = oc(commonParams.userConfig).server.port(3000);
+  let count = 0;
+
+  compiler.compilers.forEach(compiler => {
+    compiler.hooks.done.tap("myplugin", () => {
+      count++;
+      if (count === 2) {
+        console.log("");
+        console.log(`Starting server on http://localhost:${port}`);
+      }
+    });
+  });
+
   app.listen(port);
-  console.log(`Starting server on http://localhost:${port}`);
 };

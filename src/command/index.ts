@@ -17,6 +17,9 @@ const userRoot = process.cwd();
 require("ts-node").register({
   transpileOnly: true,
   project: path.join(userRoot, "tsconfig.json"),
+  compilerOptions: {
+    module: "commonjs",
+  },
 });
 
 const userConfig = require(path.join(userRoot, "src/abreact.config.ts")) as

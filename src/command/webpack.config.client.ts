@@ -40,6 +40,17 @@ export const getWebpackConfig = (
       ],
     },
     plugins: [
+      new webpack.ProgressPlugin((percentage, message, ...args) => {
+        const stdout = process.stdout as any;
+        stdout.clearLine();
+        stdout.cursorTo(0);
+        stdout.write((percentage * 100).toFixed(2) + "%");
+        stdout.write(" client " + message);
+        if (percentage === 1) {
+          stdout.clearLine();
+          stdout.cursorTo(0);
+        }
+      }),
       commonParams.isDevelopment && new webpack.HotModuleReplacementPlugin(),
       // new BundleAnalyzerPlugin()
     ].filter(v => v) as webpack.Plugin[],

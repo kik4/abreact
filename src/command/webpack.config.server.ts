@@ -48,6 +48,17 @@ export const getWebpackConfig = (
       ],
     },
     plugins: [
+      new webpack.ProgressPlugin((percentage, message, ...args) => {
+        const stdout = process.stdout as any;
+        stdout.clearLine();
+        stdout.cursorTo(0);
+        stdout.write((percentage * 100).toFixed(2) + "%");
+        stdout.write(" server " + message);
+        if (percentage === 1) {
+          stdout.clearLine();
+          stdout.cursorTo(0);
+        }
+      }),
       // new BundleAnalyzerPlugin()
     ].filter(v => v),
   });
