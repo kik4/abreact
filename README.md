@@ -19,7 +19,7 @@ This project is not production ready. See `/example` directory for usage.
 
 - TypeScript
 - Server-Side Rendering
-- Routing
+- Routes generation by file tree
 - Automatic Code Splitting by routes
 - Building and minifying code
 - Managing head element
