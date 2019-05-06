@@ -8,13 +8,12 @@ import clear from "./clear";
 import prepare from "./prepare";
 
 export default async (commonParams: CommonParams) => {
+  await clear(commonParams);
   await prepare(commonParams);
 
   const config = getWebpackConfig(commonParams);
   const configGenerate = getWebpackConfigGenerate(commonParams);
   const compiler = webpack([config, configGenerate]);
-
-  clear(commonParams);
 
   compiler.run(async (err, stats) => {
     if (err) {

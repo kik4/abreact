@@ -8,13 +8,12 @@ import path from "path";
 import prepare from "./prepare";
 
 export default async (commonParams: CommonParams) => {
+  await clear(commonParams);
   await prepare(commonParams);
 
   const config = getWebpackConfig(commonParams);
   const configServer = getWebpackConfigServer(commonParams);
   const compiler = webpack([config, configServer]);
-
-  clear(commonParams);
 
   compiler.run((err, stats) => {
     if (err) {
