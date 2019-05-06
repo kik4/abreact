@@ -8,8 +8,8 @@ import App from "../common/app/App";
 import { Helmet } from "react-helmet";
 import StyleContext from "isomorphic-style-loader/StyleContext";
 import router, { ResolvedData } from "../common/app/router";
-import * as TmpData from "../tmp";
 import { oc } from "ts-optchain";
+import * as TmpData from "@@/.abreact/_tmp";
 
 const insertCss = (...styles) => {
   const removeCss = styles.map(style => style._insertCss());
@@ -26,7 +26,7 @@ router.resolve(pathname).then((action: ResolvedData) => {
       />
       <App initialState={action} />
     </StyleContext.Provider>,
-    document.getElementById("root")
+    document.getElementById("root"),
   );
 });
 

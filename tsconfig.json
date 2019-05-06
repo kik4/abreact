@@ -12,7 +12,12 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "plugins": [{ "transform": "ts-optchain/transform" }]
+    "plugins": [{ "transform": "ts-optchain/transform" }],
+    "baseUrl": ".",
+    "paths": {
+      "_@/*": ["src/*"],
+      "@@/*": ["src/@@/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

@@ -1,5 +1,7 @@
-import { Page, RouteAction, UserConfig } from "../types";
+import { Page, UserConfig } from "_@/export";
+import { RouteAction } from "_@/common/app/router";
 import { Route } from "universal-router";
+
 type Routes = Route<any, RouteAction>[];
 
 export declare const modules: {

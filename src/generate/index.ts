@@ -1,12 +1,12 @@
 import fs from "fs-extra";
 import path from "path";
-import * as tmpData from "../../src/tmp";
-import renderToString from "../common/server/renderToString";
 import webpack from "webpack";
+import renderToString from "../common/server/renderToString";
 import { CommonParams } from "../common/types";
+import * as TmpData from "@@/.abreact/_tmp";
 
 export default async (commonParams: CommonParams, statsData: webpack.Stats) => {
-  const pathnames = tmpData.routes
+  const pathnames = TmpData.routes
     .map(route => route.path)
     .filter(pathname => (pathname as string).indexOf("/:") === -1) as string[];
 

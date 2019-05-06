@@ -3,8 +3,8 @@ import { hot } from "react-hot-loader/root";
 import withStyles from "isomorphic-style-loader/withStyles";
 import { HistoryContextParams, HistoryContextValue } from "./HistoryContext";
 import router, { ResolvedData } from "./router";
-import * as TmpData from "../../tmp";
 import { Page } from "../../export";
+import * as TmpData from "@@/.abreact/_tmp";
 //@ts-ignore
 import Abreact from "@kik4/abreact";
 
@@ -29,8 +29,8 @@ class App extends React.Component<
       historyContextParams: {
         error: this.props.initialState.error,
         params: this.props.initialState.params,
-        pathname: this.props.initialState.pathname
-      }
+        pathname: this.props.initialState.pathname,
+      },
     };
   }
 
@@ -52,8 +52,8 @@ class App extends React.Component<
         historyContextParams: {
           pathname,
           error: data.error,
-          params: data.params
-        }
+          params: data.params,
+        },
       });
     });
   }
@@ -66,8 +66,8 @@ class App extends React.Component<
         historyContextParams: {
           pathname,
           error: data.error,
-          params: data.params
-        }
+          params: data.params,
+        },
       });
       history.pushState(null, "", pathname);
     });
@@ -78,7 +78,7 @@ class App extends React.Component<
     const Layout = this.state.Layout && this.state.Layout.default;
     const tcValue: HistoryContextValue = {
       push: this.pushstate,
-      ...this.state.historyContextParams
+      ...this.state.historyContextParams,
     };
     return (
       <div className="App">

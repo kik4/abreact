@@ -58,8 +58,8 @@ export const config = require("@/abreact.config");
 `;
 
   // output
-  await fs.ensureDir(path.resolve(commonParams.abreactRoot, "src/tmp"));
-  const outputPath = path.join(commonParams.abreactRoot, `src/tmp/index.js`);
+  await fs.ensureDir(path.resolve(commonParams.userRoot, ".abreact/_tmp"));
+  const outputPath = path.join(commonParams.userRoot, `.abreact/_tmp/index.js`);
   try {
     const content = await fs.readFile(outputPath, "utf8");
     if (content !== resultString) {

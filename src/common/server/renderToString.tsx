@@ -5,8 +5,8 @@ import { oc } from "ts-optchain";
 import StyleContext from "isomorphic-style-loader/StyleContext";
 import { Helmet } from "react-helmet";
 import router, { ResolvedData } from "../app/router";
-import * as TmpData from "../../tmp";
 import App from "../app/App";
+import * as TmpData from "@@/.abreact/_tmp";
 
 export default async (pathname: string, clientStats: webpack.Stats) => {
   const css = new Set(); // CSS for all rendered React components
@@ -21,7 +21,7 @@ export default async (pathname: string, clientStats: webpack.Stats) => {
         defaultTitle={oc(TmpData).config.head.defaultTitle("")}
       />
       <App initialState={action} />
-    </StyleContext.Provider>
+    </StyleContext.Provider>,
   );
   const helmet = Helmet.renderStatic();
 

@@ -1,8 +1,7 @@
-import UniversalRouter from "universal-router";
+import UniversalRouter, { Options } from "universal-router";
 import { oc } from "ts-optchain";
-import * as TmpData from "../../tmp";
 import { Page } from "../../export";
-import { Options } from "universal-router";
+import * as TmpData from "@@/.abreact/_tmp";
 
 const universalRouter = new UniversalRouter(TmpData.routes, {
   errorHandler(error, context): RouteAction {
