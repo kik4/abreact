@@ -22,13 +22,16 @@ export default async (commonParams: CommonParams) => {
   const app = express();
 
   // dev-server
-  app.use(
-    devMiddleware(compiler, {
-      publicPath: config.output!.publicPath!,
-      serverSideRender: true,
-      logLevel: "silent",
-    }),
-  );
+  const devMiddlewareInstance = devMiddleware(compiler, {
+    publicPath: config.output!.publicPath!,
+    serverSideRender: true,
+    logLevel: "silent",
+  });
+  app.use(devMiddlewareInstance);
+  devMiddlewareInstance.waitUntilValid(() => {
+    console.log("");
+    console.log(`Starting server on http://localhost:${port}`);
+  });
   app.use(
     hotMiddleware(
       compiler.compilers.find(
@@ -42,17 +45,6 @@ export default async (commonParams: CommonParams) => {
   app.use(hotServerMiddleware(compiler));
 
   const port = oc(commonParams.userConfig).server.port(3000);
-  let count = 0;
-
-  compiler.compilers.forEach(compiler => {
-    compiler.hooks.done.tap("myplugin", () => {
-      count++;
-      if (count === 2) {
-        console.log("");
-        console.log(`Starting server on http://localhost:${port}`);
-      }
-    });
-  });
 
   app.listen(port);
 };
