@@ -19,7 +19,6 @@ export const getWebpackConfig = (
       ],
       extensions: [".js", ".ts", ".jsx", ".tsx"],
       alias: {
-        "_@": path.join(commonParams.abreactRoot, "src"),
         "@": path.join(commonParams.userRoot, "src"),
         "@@": path.join(commonParams.userRoot),
       },
