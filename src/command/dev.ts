@@ -1,4 +1,5 @@
 import webpack, { Compiler } from "webpack";
+import path from "path";
 import { getWebpackConfig } from "./webpack.config.client";
 import { getWebpackConfig as getWebpackConfigServer } from "./webpack.config.server";
 import devMiddleware from "webpack-dev-middleware";
@@ -20,6 +21,8 @@ export default async (commonParams: CommonParams) => {
   const compiler = webpack([config, configServer]);
 
   const app = express();
+
+  app.use(express.static(path.join(commonParams.userRoot, "src/static")));
 
   // dev-server
   const devMiddlewareInstance = devMiddleware(compiler, {

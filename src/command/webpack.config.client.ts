@@ -1,6 +1,7 @@
 import webpack from "webpack";
 import path from "path";
 import merge from "webpack-merge";
+import CopyPlugin from "copy-webpack-plugin";
 import { getWebpackConfig as getBase } from "./webpack.config.base";
 import { CommonParams } from "../common/types";
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
@@ -51,6 +52,12 @@ export const getWebpackConfig = (
           stdout.cursorTo(0);
         }
       }),
+      new CopyPlugin([
+        {
+          from: path.join(commonParams.userRoot, "src/static"),
+          to: path.join(commonParams.userRoot, ".abreact/_client"),
+        },
+      ]),
       commonParams.isDevelopment && new webpack.HotModuleReplacementPlugin(),
       // new BundleAnalyzerPlugin()
     ].filter(v => v) as webpack.Plugin[],
