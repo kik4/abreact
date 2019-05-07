@@ -37,7 +37,7 @@ const resolve = async (pathname: string): Promise<ResolvedData> => {
   if (!TmpData.layouts[layoutName]) {
     console.warn(`Abreact: layout '${layoutName}' is not found.`);
   }
-  const Layout = TmpData.layouts[layoutName];
+  const Layout = TmpData.layouts[layoutName] || TmpData.layouts["default"];
 
   return {
     Page,
