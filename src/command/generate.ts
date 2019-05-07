@@ -34,7 +34,7 @@ export default async (commonParams: CommonParams) => {
 
     fs.copySync(
       path.join(commonParams.userRoot, ".abreact/_client"),
-      path.join(commonParams.userRoot, "dist/_client"),
+      path.join(commonParams.userRoot, "dist"),
     );
   });
 };
