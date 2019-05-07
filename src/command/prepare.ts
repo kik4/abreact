@@ -49,12 +49,14 @@ action: (context) => ({page: "${v.moduleName}", context}),
     .map(v => `"${v.routePath.slice(1)}": require("${v.importDir}"),`)
     .join("");
 
-  const resultString = `export const modules = {${modules}}
+  const resultString = `
+import userConfig from "@/abreact.config"
+export const modules = {${modules}}
 export const routes = [${routes}];
 export const layouts = {${layouts}};
 export const plugins = {${pluginsResult.join("")}};
 export const csses = [${cssResult.join("")}];
-export const config = require("@/abreact.config");
+export const config = userConfig;
 `;
 
   // output
