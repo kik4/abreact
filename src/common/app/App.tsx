@@ -5,7 +5,6 @@ import { HistoryContextParams, HistoryContextValue } from "./HistoryContext";
 import router, { ResolvedData } from "./router";
 import { Page } from "../../export";
 import * as TmpData from "@@/.abreact/_tmp";
-//@ts-ignore
 import Abreact from "@kik4/abreact";
 
 class App extends React.Component<

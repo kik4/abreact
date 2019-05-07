@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "_@/*": ["src/*"],
-      "@@/*": ["src/@@/*"]
+      "@@/*": ["src/@@/*"],
+      "@kik4/abreact": ["src/export"]
     }
   },
   "include": ["src/**/*"],
