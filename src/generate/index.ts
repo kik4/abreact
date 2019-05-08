@@ -10,6 +10,8 @@ export default async (commonParams: CommonParams, statsData: webpack.Stats) => {
     .map(route => route.path)
     .filter(pathname => (pathname as string).indexOf("/:") === -1) as string[];
 
+  pathnames.push("__error");
+
   for (let i = 0; i < pathnames.length; i++) {
     const pathname = pathnames[i];
     const result = await renderToString(pathname, statsData as webpack.Stats);
