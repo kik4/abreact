@@ -70,7 +70,7 @@ Options:
 Commands:
   (default)      start development server
   build          build production code
-  start          start production server (after running build).
+  start          start production server (after running build or generate).
   generate       generate static site.
 `);
 }
