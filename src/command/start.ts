@@ -37,7 +37,7 @@ export default async (commonParams: CommonParams) => {
     app.use(express.static(CLIENT_ASSETS_DIR));
     app.use(serverRenderer(stats));
   } else {
-    const errorFile = path.join(distDir, "_error.html");
+    const errorFile = path.join(distDir, "404.html");
     app.use(express.static(distDir, { extensions: ["html"] }));
     app.use((req, res, next) => {
       res.sendFile(errorFile);
