@@ -24,6 +24,7 @@ This project is not production ready. See `/example` directory for usage.
 - Building and minifying code
 - Managing head element
 - HMR in Development
+- Generate Static Site
 
 ## Contributing
 
