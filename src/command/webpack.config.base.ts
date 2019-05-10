@@ -21,6 +21,7 @@ export const getWebpackConfig = (
       alias: {
         "@": path.join(commonParams.userRoot, "src"),
         "@@": path.join(commonParams.userRoot),
+        "@kik4/abreact": path.join(commonParams.abreactRoot, "src/export"), // enforce import typescript code
       },
     },
     module: {

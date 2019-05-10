@@ -1,4 +1,3 @@
-import React from "react";
 import hc from "../common/app/HistoryContext";
 
 export default { HistoryContext: hc };

@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@kik4/abreact": "file:..",
+    "@kik4/abreact": "../",
     "prettier": "^1.16.4"
   },
   "scripts": {
