@@ -3,9 +3,8 @@ import { hot } from "react-hot-loader/root";
 import withStyles from "isomorphic-style-loader/withStyles";
 import { HistoryContextParams, HistoryContextValue } from "./HistoryContext";
 import router, { ResolvedData } from "./router";
-import { Page } from "../../export";
+import Abreact, { Page } from "../../export";
 import * as TmpData from "@@/.abreact/_tmp";
-import Abreact from "@kik4/abreact";
 
 class App extends React.Component<
   {

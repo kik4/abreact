@@ -15,7 +15,7 @@ export const getWebpackConfig = (
   return merge(base, {
     name: "server",
     target: "node",
-    externals: [nodeExternals()],
+    externals: [nodeExternals({ whitelist: ["@kik4/abreact"] })],
     entry: path.resolve(commonParams.abreactRoot, "src/server/index.tsx"),
     output: {
       path: path.join(commonParams.userRoot, ".abreact", "_server"),
