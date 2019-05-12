@@ -2,3 +2,4 @@ node_modules/
 lib/
 src/tmp/*
 !src/tmp/*.d.ts
+yarn-error.log
