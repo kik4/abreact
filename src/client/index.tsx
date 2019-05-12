@@ -1,6 +1,5 @@
 import * as polyfill from "./polyfill";
 polyfill.set();
-require("es6-promise").polyfill();
 
 import React from "react";
 import { hydrate } from "react-dom";

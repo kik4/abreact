@@ -19,7 +19,6 @@
     "compression": "^1.7.4",
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^2.1.1",
-    "es6-promise": "^4.2.6",
     "express": "^4.16.4",
     "extra-watch-webpack-plugin": "^1.0.3",
     "figlet": "^1.2.1",
