@@ -13,7 +13,7 @@ yarn add @kik4/abreact
 
 ## Usage
 
-This project is not production ready. See `/example` directory for usage.
+This project is under development. See `/example` directory for usage.
 
 ## Features
 
