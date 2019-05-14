@@ -8,7 +8,7 @@ export type HistoryContextParams = {
 };
 
 export type HistoryContextAction = {
-  push: (string) => void;
+  push: (pathname: string) => void;
 };
 
 export type HistoryContextValue = HistoryContextParams & HistoryContextAction;

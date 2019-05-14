@@ -54,6 +54,6 @@ export const getWebpackConfig = (
         new ExtraWatchWebpackPlugin({
           dirs: [path.resolve(commonParams.userRoot, "src")],
         }),
-    ].filter(v => v),
+    ].filter(v => v) as webpack.Plugin[],
   };
 };

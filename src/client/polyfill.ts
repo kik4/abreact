@@ -1,8 +1,9 @@
+//@ts-nocheck
 export const set = () => {
   if (typeof Object.assign != "function") {
     // Must be writable: true, enumerable: false, configurable: true
     Object.defineProperty(Object, "assign", {
-      value: function assign(target, varArgs) {
+      value: function assign(target: any, varArgs: any) {
         // .length of function is 2
         "use strict";
         if (target == null) {

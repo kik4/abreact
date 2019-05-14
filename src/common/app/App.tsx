@@ -1,22 +1,23 @@
 import React from "react";
 import { hot } from "react-hot-loader/root";
-import withStyles from "isomorphic-style-loader/withStyles";
+const withStyles = require("isomorphic-style-loader/withStyles");
 import { HistoryContextParams, HistoryContextValue } from "./HistoryContext";
 import router, { ResolvedData } from "./router";
 import Abreact, { Page } from "../../export";
 import * as TmpData from "@@/.abreact/_tmp";
 
+type Props = {
+  initialState: ResolvedData;
+};
 class App extends React.Component<
-  {
-    initialState: ResolvedData;
-  },
+  Props,
   {
     Page: Page;
     Layout?: Page;
     historyContextParams: HistoryContextParams;
   }
 > {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.popstate = this.popstate.bind(this);
     this.pushstate = this.pushstate.bind(this);

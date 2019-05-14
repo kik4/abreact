@@ -5,12 +5,12 @@ import React from "react";
 import { hydrate } from "react-dom";
 import App from "../common/app/App";
 import { Helmet } from "react-helmet";
-import StyleContext from "isomorphic-style-loader/StyleContext";
+const StyleContext = require("isomorphic-style-loader/StyleContext");
 import router, { ResolvedData } from "../common/app/router";
 import { oc } from "ts-optchain";
 import * as TmpData from "@@/.abreact/_tmp";
 
-const insertCss = (...styles) => {
+const insertCss = (...styles: any[]) => {
   const removeCss = styles.map(style => style._insertCss());
   return () => removeCss.forEach(dispose => dispose());
 };
@@ -31,7 +31,7 @@ router.resolve(pathname).then((action: ResolvedData) => {
 
 // because this file depends on route depends on pages will hmr
 if ((module as any).hot) {
-  (module as any).hot.accept(function(err) {
+  (module as any).hot.accept(function(err: any) {
     if (err) {
       console.error(err);
     }

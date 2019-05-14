@@ -2,7 +2,7 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import webpack from "webpack";
 import { oc } from "ts-optchain";
-import StyleContext from "isomorphic-style-loader/StyleContext";
+const StyleContext = require("isomorphic-style-loader/StyleContext");
 import { Helmet } from "react-helmet";
 import router, { ResolvedData } from "../app/router";
 import App from "../app/App";
@@ -10,8 +10,8 @@ import * as TmpData from "@@/.abreact/_tmp";
 
 export default async (pathname: string, clientStats: webpack.Stats) => {
   const css = new Set(); // CSS for all rendered React components
-  const insertCss = (...styles) =>
-    styles.forEach(style => css.add(style._getCss()));
+  const insertCss = (...styles: any[]) =>
+    styles.forEach((style: any) => css.add(style._getCss()));
 
   const action = (await router.resolve(pathname)) as ResolvedData;
   const body = renderToString(
