@@ -29,13 +29,13 @@ const createCommonParams = ({
     },
   });
 
-  const userConfig = require(path.join(userRoot, "src/abreact.config.ts")) as
-    | UserConfig
+  const config = require(path.join(userRoot, "src/abreact.config.ts")) as
+    | { default: UserConfig }
     | undefined;
   const commonParams: CommonParams = {
     abreactRoot,
     userRoot,
-    userConfig,
+    userConfig: config ? config.default : undefined,
     isDevelopment: isDevelopment,
   };
   return commonParams;
