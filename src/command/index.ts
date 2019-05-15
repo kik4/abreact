@@ -11,25 +11,34 @@ import { UserConfig } from "../export";
 import { CommonParams } from "../common/types";
 import packageJson from "../../package.json";
 
-const abreactRoot = path.join(__dirname, "../../../");
-const userRoot = process.cwd();
+const createCommonParams = ({
+  isDevelopment,
+  isFast,
+}: {
+  isDevelopment: boolean;
+  isFast: boolean;
+}): CommonParams => {
+  const abreactRoot = path.join(__dirname, "../../../");
+  const userRoot = process.cwd();
 
-require("ts-node").register({
-  transpileOnly: true,
-  project: path.join(userRoot, "tsconfig.json"),
-  compilerOptions: {
-    module: "commonjs",
-  },
-});
+  require("ts-node").register({
+    transpileOnly: isFast,
+    project: path.join(userRoot, "tsconfig.json"),
+    compilerOptions: {
+      module: "commonjs",
+    },
+  });
 
-const userConfig = require(path.join(userRoot, "src/abreact.config.ts")) as
-  | UserConfig
-  | undefined;
-const commonParams: CommonParams = {
-  abreactRoot,
-  userRoot,
-  userConfig,
-  isDevelopment: true,
+  const userConfig = require(path.join(userRoot, "src/abreact.config.ts")) as
+    | UserConfig
+    | undefined;
+  const commonParams: CommonParams = {
+    abreactRoot,
+    userRoot,
+    userConfig,
+    isDevelopment: isDevelopment,
+  };
+  return commonParams;
 };
 
 console.log(
@@ -51,15 +60,28 @@ program
 program.parse(process.argv);
 
 if (typeof cmdValue !== "string") {
+  const commonParams = createCommonParams({
+    isDevelopment: true,
+    isFast: false,
+  });
   dev(commonParams);
 } else if (cmdValue === "build") {
-  commonParams.isDevelopment = false;
+  const commonParams = createCommonParams({
+    isDevelopment: false,
+    isFast: false,
+  });
   build(commonParams);
 } else if (cmdValue === "start") {
-  commonParams.isDevelopment = false;
+  const commonParams = createCommonParams({
+    isDevelopment: false,
+    isFast: true,
+  });
   start(commonParams);
 } else if (cmdValue === "generate") {
-  commonParams.isDevelopment = false;
+  const commonParams = createCommonParams({
+    isDevelopment: false,
+    isFast: false,
+  });
   generate(commonParams);
 } else {
   console.log(`
